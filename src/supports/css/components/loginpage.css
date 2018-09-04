@@ -1,0 +1,72 @@
+.login-background {
+    background-image:url("https://hdqwalls.com/download/blur-blue-uu-1366x768.jpg"); 
+    background-color: rgb(230, 230, 230);
+    height: 100%;
+    width: 100%;
+    background-repeat:no-repeat; 
+    background-position:center; 
+    background-size:cover; 
+    padding-top:150px;
+    padding-bottom:150px;
+}
+
+.form-heading { color:#fff; font-size:23px;}
+.panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
+.panel p { color:#777777; font-size:14px; margin-bottom:10px; line-height:24px;}
+.login-form .form-control {
+  background: #f7f7f7 none repeat scroll 0 0;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 50px;
+  line-height: 50px;
+}
+.main-div {
+  background: #ffffff none repeat scroll 0 0;
+  /* opacity: 0.5; */
+  border-radius: 2px;
+  margin: 10px auto 30px;
+  max-width: 38%;
+  padding: 10px 10px 10px 10px;
+}
+
+.login-form .form-group {
+  display: 100%;
+  margin-bottom:10px;
+}
+.login-form{ text-align:center;}
+.forgot a {
+  color: #777777;
+  font-size: 14px;
+  text-decoration: underline;
+}
+.login-form  .btn.btn-primary {
+  background: #0e55d8 none repeat scroll 0 0;
+  border-color: #aaf04e;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  transition: 300ms;
+  font-size: 20px;
+}
+
+.btn.btn-primary:hover{
+  background-color: #377dff
+}
+
+.forgot {
+  text-align: left; margin-bottom:30px;
+}
+.botto-text {
+  color: #ffffff;
+  font-size: 14px;
+  margin: auto;
+}
+.login-form .btn.btn-primary.reset {
+  background: #ff9900 none repeat scroll 0 0;
+}
+.back { text-align: left; margin-top:10px;}
+.back a {color: #444444; font-size: 13px;text-decoration: none;}
