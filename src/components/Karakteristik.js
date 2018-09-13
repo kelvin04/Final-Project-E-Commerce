@@ -10,10 +10,10 @@ class Karakteristik extends Component {
             <div>
                 <div className="characteristics">
                     <div className="container">
-                        <div className="row">
+                        <div className="row" >
 
                             <div className="col-lg-3 col-md-6 char_col">
-                                <div className="char_item d-flex flex-row align-items-center justify-content-start">
+                                <div className="char_item d-flex flex-row align-items-center justify-content-start" style={{backgroundColor: "white"}}>
                                     <div className="char_icon"><img src={image1} alt="" /></div>
                                     <div className="char_content">
                                         <div className="char_title">Free Delivery</div>
@@ -23,7 +23,7 @@ class Karakteristik extends Component {
                             </div>
 
                             <div className="col-lg-3 col-md-6 char_col">
-                                <div className="char_item d-flex flex-row align-items-center justify-content-start">
+                                <div className="char_item d-flex flex-row align-items-center justify-content-start" style={{backgroundColor: "white"}}>
                                     <div className="char_icon"><img src={image2} alt="" /></div>
                                     <div className="char_content">
                                         <div className="char_title">Official Warranty</div>
@@ -33,7 +33,7 @@ class Karakteristik extends Component {
                             </div>
 
                             <div className="col-lg-3 col-md-6 char_col">
-                                <div className="char_item d-flex flex-row align-items-center justify-content-start">
+                                <div className="char_item d-flex flex-row align-items-center justify-content-start" style={{backgroundColor: "white"}}>
                                     <div className="char_icon"><img src={image3} alt="" /></div>
                                     <div className="char_content">
                                         <div className="char_title">Cashback IDR 200.000</div>
@@ -43,7 +43,7 @@ class Karakteristik extends Component {
                             </div>
 
                             <div className="col-lg-3 col-md-6 char_col">
-                                <div className="char_item d-flex flex-row align-items-center justify-content-start">
+                                <div className="char_item d-flex flex-row align-items-center justify-content-start" style={{backgroundColor: "white"}}>
                                     <div className="char_icon"><img src={image4} alt="" /></div>
                                     <div className="char_content">
                                         <div className="char_title">Discount up to 50%</div>

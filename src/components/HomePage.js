@@ -3,8 +3,8 @@ import Header from './Header';
 import CarouselBro from './Carousel';
 import Karakteristik from './Karakteristik';
 import ProductList from './ProductList';
-import FooterNav from './FooterNav';
-import Brands from './Brands';
+import Footer from './Footer';
+import BrandCarousel from './BrandCarousel';
 
 class HomePage extends Component {
     render() {
@@ -13,13 +13,19 @@ class HomePage extends Component {
                 <Header />
                 <CarouselBro />
                 <br/>
-                <Karakteristik />
-                <br/>
+
+                <div id="karakteristik">
+                    {/* <hr/> */}
+                    <Karakteristik />
+                    {/* <hr/> */}
+                </div>
+                
+                <br/><br/>
                 <ProductList />
                 <br/>
-                <Brands />
+                <BrandCarousel />
                 <br/>
-                <FooterNav />
+                <Footer />
             </div>
         );
     }

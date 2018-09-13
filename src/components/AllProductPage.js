@@ -1,37 +1,27 @@
 import React, { Component } from 'react';
-import ProductList from './ProductList';
-import CategoryTab from './CategoryTab';
-import NavCategoryList from './NavCategoryList';
-import NewFooterNav from './NewFooterNav';
-import Sidebar from "./sidebar";
+import Footer from './Footer';
+import Page from "./Page";
+import SideTab from "./SideTab";
 
 class AllProductPage extends Component {
     render(){
         return(
-            <div>
+            <div id="product-page-container">
+                <span id="display-inline"><SideTab /></span>
                 <br/>
-                <br/>
-                <br/>
-                <br/>
-                {/* <div id="product-list-category">
-                    <div id="category-tab-column">
-                        <CategoryTab />
-                    </div>
-                    <div id="product-list-column">
-                        <ProductList />
-                    </div>
-                </div> */}
 
-                <NavCategoryList />
-                <br/>
-                <Sidebar />
-                <ProductList />
-                <br/>
-                <NewFooterNav />
+                <div class="text-center">
+                    <ul class="pagination">
+                        <li><a href="?p=0" data-original-title="" title="">1</a></li> 
+                        <li><a href="?p=1" data-original-title="" title="">2</a></li> 
+                    </ul>
+                </div>
 
-                <br />
-
-                
+                <div class="text-center">
+                    <Page />
+                </div>
+            
+                <Footer />
             </div>
         );
     }

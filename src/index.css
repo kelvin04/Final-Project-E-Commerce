@@ -7,3 +7,30 @@ body {
 .navbar-right {
   float: right;
 }
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  align-items: center;
+  font-weight: bold;
+  color: #fff;
+  background-color: #4c6bf5;
+  text-align: center;
+  padding: 10px 0;
+  /* height: 40px; */
+}
+
+/* .nav-pills {
+  background-color: rgb(186, 212, 229);
+  border-radius: 25px;
+} */
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: rgb(204, 204, 204); /* Modern Browsers */
+  max-width: 86%;
+}
+
+#karakteristik {
+  background: rgb(248, 247, 247);
+  padding-bottom: 10px;
+}

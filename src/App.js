@@ -10,7 +10,7 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import Header from './components/Header';
 import AllProductPage from './components/AllProductPage';
-
+import ProductDetails from './components/ProductDetails';
 
 
 class App extends Component {
@@ -20,6 +20,7 @@ class App extends Component {
       <div>
           <Header />
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/productdetails" component={ProductDetails} />
           <Route path ="/allproductpage" component={AllProductPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />

@@ -14,9 +14,9 @@ class ProductList extends Component {
                     <h3>Thumbnail label</h3>
                     <p>Description</p>
                     <p>
-                      <Button bsStyle="primary">Button</Button>
+                      <Button bsStyle="success">Buy</Button>
                       &nbsp;
-                      <Button bsStyle="default">Button</Button>
+                      <Button bsStyle="default">Details</Button>
                     </p>
                   </Thumbnail>
                 </Col>

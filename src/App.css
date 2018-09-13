@@ -205,3 +205,34 @@ width: 100%;
 #navbar-logo>img {
   padding: 7px 14px;
 }
+
+#icon-scale{
+  transform: scale(0.6,0.6);
+}
+
+#display-inline{
+  display: inline-block;
+}
+
+@media only screen and (min-width: 1300px) {
+  #side-tab {
+      width: 13.66666667%;
+      margin-left: 10px;
+      margin-right: 0;
+      padding-right: 0;
+
+      position: fixed;
+  }
+
+  #product-list {
+    margin-left: 190px;
+    padding-right: 0;
+  }
+}
+
+#product-page-container {
+  margin-top: 70px;
+}
+
+
+

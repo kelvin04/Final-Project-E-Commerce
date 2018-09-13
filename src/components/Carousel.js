@@ -9,8 +9,8 @@ class CarouselBro extends Component {
     render() {
         return(
             <div>
-                <Carousel className="container banner" >
-                    <Carousel.Item className="gambar-carousel">
+                <Carousel className="container banner" indicators={false} >
+                    <Carousel.Item className="gambar-carousel" >
                         <img height ="10000px" src={image1} />
                         {/* <Carousel.Caption>
                             <h3>iPhone X</h3>

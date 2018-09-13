@@ -41,8 +41,9 @@
   text-decoration: underline;
 }
 .login-form  .btn.btn-primary {
+  border-radius: 25px;
   background: #0e55d8 none repeat scroll 0 0;
-  border-color: #aaf04e;
+  border-color: #4e8cf0;
   color: #ffffff;
   font-size: 14px;
   width: 100%;
