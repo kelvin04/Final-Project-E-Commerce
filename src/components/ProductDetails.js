@@ -119,6 +119,14 @@ class ProductDetails extends Component {
 							<h1 style={{ marginTop:"0px"}}>iPhone X</h1>
 							<br/>
 							<p style={{ textAlign: "justify"}}>The iPhone X is Apple's new flagship 10th anniversary iPhone featuring a 5.8-inch OLED display, facial recognition and 3D camera functionality, a glass body, and an A11 Bionic processor.<br/><br/>Launched November 3, 2017.</p>
+							<br/>
+							<h4>Features :</h4>
+							<ul style={{ paddingLeft:"15px"}}>
+								<li>5.8" OLED display</li>
+								<li>Faster A11 Bionic processor</li>
+								<li>Edge-to-edge display</li>
+								<li>Facial Recognition</li>
+							</ul>
 						</span>
 					</Col>
 				</div>
