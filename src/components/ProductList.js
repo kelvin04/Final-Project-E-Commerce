@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import image1 from '../images/iphone-x.png';
 import image2 from '../images/chromebook.jpg';
 import image3 from '../images/rsz_2nintendo.jpg';
@@ -13,10 +14,10 @@ class ProductList extends Component {
                   <Thumbnail src={image1} alt="242x200">
                     <h3>Thumbnail label</h3>
                     <p>Description</p>
-                    <p>
-                      <Button bsStyle="success">Buy</Button>
-                      &nbsp;
-                      <Button bsStyle="default">Details</Button>
+                    <p style={{ textAlign:"center" }}>
+                      <Button bsStyle="success">Add To Cart</Button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <Link to="/productdetails"><Button bsStyle="default">Details</Button></Link>
                     </p>
                   </Thumbnail>
                 </Col>

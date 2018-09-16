@@ -6,6 +6,7 @@ import iconGaming from '../images/gaming_icon.png';
 class SideTab extends Component {
     render() { 
         return ( 
+            <div>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                 <Row className="clearfix">
                     <Col sm={2}  id="side-tab">
@@ -25,6 +26,8 @@ class SideTab extends Component {
                     </Col>
                 </Row>
             </Tab.Container>
+            
+            </div>
         );
     }
 }

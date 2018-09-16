@@ -58,7 +58,7 @@ class Header extends Component {
                             <FormGroup>
                                 <FormControl type="text" placeholder="Cari Produk" />
                             </FormGroup>{' '}
-                            <Button type="submit" className="btn btn-success">Cari</Button>
+                            <Button type="submit" className="btn btn-success" style={{ backgroundColor:"#ff5722", border:"red" }}>Cari</Button>
                         </Navbar.Form>
 
                         <Nav pullRight>
@@ -94,7 +94,7 @@ class Header extends Component {
                 <Navbar.Collapse>
                     <Nav>
                         <NavItem eventKey={1} href="#" id="font-navbar">
-                            <Link to="/productdetails" id="white-font">Link:&nbsp;<span class="glyphicon glyphicon-envelope"></span></Link>
+                            <Link to="/cartpage" id="white-font">Link:&nbsp;<span class="glyphicon glyphicon-envelope"></span></Link>
                         </NavItem>
 
                         <NavDropdown eventKey={3} title="Category" id="basic-nav-dropdown" id="font-navbar">
@@ -112,7 +112,7 @@ class Header extends Component {
                         <FormGroup>
                             <FormControl type="text" placeholder="Search Product" />
                         </FormGroup>{' '}
-                        <Button type="submit" className="btn btn-success"><span class="glyphicon glyphicon-search"></span> Search</Button>
+                        <Button type="submit" className="btn btn-success" style={{ backgroundColor:"#ff5722", border:"red" }}><span class="glyphicon glyphicon-search"></span> Search</Button>
                     </Navbar.Form>
 
                     <Nav pullRight>
