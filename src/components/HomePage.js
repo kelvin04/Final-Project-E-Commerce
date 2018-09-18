@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 import Header from './Header';
 import CarouselBro from './Carousel';
 import Karakteristik from './Karakteristik';
@@ -13,7 +14,7 @@ class HomePage extends Component {
                 <Header />
                 <CarouselBro />
                 <br/>
-
+                <ScrollUpButton ContainerClassName="ScrollUpButton__Container" ShowAtPosition={300} style={{ border: "5px solid red" }}/>
                 <div id="karakteristik">
                     {/* <hr/> */}
                     <Karakteristik />

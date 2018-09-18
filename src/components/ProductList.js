@@ -11,14 +11,14 @@ class ProductList extends Component {
             <Grid>
               <Row>
                 <Col xs={12} md={3}>
-                  <Thumbnail src={image1} alt="242x200">
-                    <h3>Thumbnail label</h3>
-                    <p>Description</p>
-                    <p style={{ textAlign:"center" }}>
+                  <Thumbnail src={image1} alt="242x200" style={{ textAlign:"center" }}>
+                    <h3>iPhone X 64GB</h3>
+                    <h5 style={{ color:"red", fontWeight:"bold" }}>Rp 14,500.000</h5>
+                    <h4 style={{ textAlign:"center" }}>
                       <Button bsStyle="success">Add To Cart</Button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                       <Link to="/productdetails"><Button bsStyle="default">Details</Button></Link>
-                    </p>
+                    </h4>
                   </Thumbnail>
                 </Col>
                 <Col xs={12} md={3}>

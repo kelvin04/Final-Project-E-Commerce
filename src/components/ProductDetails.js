@@ -1,35 +1,34 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap';
+import { Carousel } from 'react-responsive-carousel';
+import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 import image1 from '../images/iphone-x.png';
-import image2 from '../images/chromebook.jpg';
-import image3 from '../images/rsz_2nintendo.jpg';
+import image2 from '../images/iphone-x-front.jpg';
+import image3 from '../images/iphone-x-side.jpg';
 import '../supports/css/components/ProductDetails.css';
 import Footer from './Footer';
 
-class ProductDetails extends Component {
-	
+class ProductDetails extends Component {	
     render() { 
         return ( 
 		<div>
 			<Grid>
 				<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
-					<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px"}}>
-						<img src={image1} className="main-image"/>
-						<Grid>
-							<Row>
-								<Col xs={4} md={2}>
-									<Thumbnail href="#" alt="171x180" src={image1} className="sub-image"/>
-								</Col>
-								<Col xs={4} md={2}>
-									<Thumbnail href="#" alt="171x180" src={image2} className="sub-image"/>
-								</Col>
-								<Col xs={4} md={2}>
-									<Thumbnail href="#" alt="171x180" src={image3} className="sub-image"/>
-								</Col>
-							</Row>
-						</Grid>
+					<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"80px", textAlign:"center"}}>
+						<Carousel showArrows={false} showIndicators={false} showStatus={false} transitionTime={0} style={{styles}} >
+							<div>
+								<img src={image1}/>
+							</div>
+							<div>
+								<img src={image2}/>
+							</div>
+							<div>
+								<img src={image3}/>
+							</div>
+							
+						</Carousel>
 					</Col>
-
+					
 					<Col xs={12} md={5}>
 						<span id="product-detail-header">
 							<h4 style={{ marginBottom:"0px"}}>Smartphone</h4>

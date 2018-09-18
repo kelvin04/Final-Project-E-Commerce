@@ -31,6 +31,7 @@
 #product-detail-header{
 	display: inline-block;
 	margin-top: 80px;
+	margin-left: 20px;
 }
 
 li{
@@ -60,6 +61,7 @@ li{
 	#product-detail-header{
 		display: inline-block;
 		margin-top: 0px;
+		margin-left: 0px;
 	}
 	
 	#item-cart-increment{
@@ -68,4 +70,3 @@ li{
 		margin-bottom: 50px;
 	}
 }
-

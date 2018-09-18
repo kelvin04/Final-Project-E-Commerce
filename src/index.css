@@ -36,3 +36,21 @@ hr {
   padding-bottom: 10px;
 }
 
+.carousel .slide {
+  min-width: 100%;
+  margin: 0;
+  position: relative;
+  text-align: center;
+  background: white;
+}
+
+.carousel .thumb{
+  width: 20%;
+  border-radius: 10px;
+}
+
+.carousel .thumbs-wrapper {
+  margin: 20px;
+  overflow: hidden;
+  text-align: center;
+}

@@ -1,40 +1,48 @@
 import React, { Component } from 'react';
-import image1 from '../images/brands_1.jpg';
+import { Carousel } from 'react-responsive-carousel';
+import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
+import brands1 from '../images/brands_1.jpg';
+import brands2 from '../images/brands_2.jpg';
+import brands3 from '../images/brands_3.jpg';
+import brands4 from '../images/brands_4.jpg';
+import brands5 from '../images/brands_5.jpg';
+import brands6 from '../images/brands_6.jpg';
+import brands7 from '../images/brands_7.jpg';
+import brands8 from '../images/brands_8.jpg';
 import '../supports/css/components/brands.css';
 
 class BrandCarousel extends Component {
     render() {
         return(
-            <div>
-                <div className="brands">
-		<div className="container">
-			<div className="row">
-				<div className="col">
-					<div className="brands_slider_container">
-						
-
-						<div className="owl-carousel owl-theme brands_slider">
-							
-							<div className="owl-item"><div className="brands_item d-flex flex-column justify-content-center"><img src={image1} alt=""/></div></div>
-							<div className="owl-item"><div className="brands_item d-flex flex-column justify-content-center"><img src={image1} alt=""/></div></div>
-							<div className="owl-item"><div className="brands_item d-flex flex-column justify-content-center"><img src="images/brands_3.jpg" alt=""/></div></div>
-							<div className="owl-item"><div className="brands_item d-flex flex-column justify-content-center"><img src="images/brands_4.jpg" alt=""/></div></div>
-							<div className="owl-item"><div className="brands_item d-flex flex-column justify-content-center"><img src="images/brands_5.jpg" alt=""/></div></div>
-							<div className="owl-item"><div className="brands_item d-flex flex-column justify-content-center"><img src="images/brands_6.jpg" alt=""/></div></div>
-							<div className="owl-item"><div className="brands_item d-flex flex-column justify-content-center"><img src="images/brands_7.jpg" alt=""/></div></div>
-							<div className="owl-item"><div className="brands_item d-flex flex-column justify-content-center"><img src="images/brands_8.jpg" alt=""/></div></div>
-
-						</div>
-						
-						<div className="brands_nav brands_prev"><i className="fas fa-chevron-left"></i></div>
-						<div className="brands_nav brands_next"><i className="fas fa-chevron-right"></i></div>
-
+			<div id="carousel-responsive-brand">
+				<Carousel showThumbs={false}  centerMode centerSlidePercentage={20} emulateTouch style={{styles}}>
+					<div style={{ }}>
+						<img src={brands1} />
 					</div>
-				</div>
+				
+					<div>
+						<img src={brands2}/>
+					</div>
+					<div>
+						<img src={brands3}/>
+					</div>
+					<div>
+						<img src={brands4}/>
+					</div>
+					<div>
+						<img src={brands5}/>
+					</div>
+					<div>
+						<img src={brands6}/>
+					</div>
+					<div>
+						<img src={brands7}/>
+					</div>
+					<div>
+						<img src={brands8}/>
+					</div>	
+				</Carousel>
 			</div>
-		</div>
-	</div>
-            </div>
         );
     }
 }

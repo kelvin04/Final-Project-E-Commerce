@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, NavItem, Row, Col, Nav } from 'react-bootstrap';
+import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 import ProductList from './ProductList';
 import iconGaming from '../images/gaming_icon.png';
 
@@ -27,6 +28,7 @@ class SideTab extends Component {
                 </Row>
             </Tab.Container>
             
+            <ScrollUpButton ContainerClassName="ScrollUpButton__Container" ShowAtPosition={300} style={{ border: "5px solid red" }}/>
             </div>
         );
     }

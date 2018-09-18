@@ -20,7 +20,7 @@ class LoginPage extends Component {
                         <div className="login-form">
                             <div className="main-div">
                                 <div className="panel">
-                                    <h2>User Login</h2>
+                                    <h1 style={{ margin:"10px 0px 0px 0px" }}>User Login</h1>
                                     <br/>
                                 </div>
                                 <form id="Login">

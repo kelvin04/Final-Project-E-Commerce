@@ -126,6 +126,7 @@
 
 #white-font{
   color: white;
+  text-decoration: none;
 }
 
 #black-font {
@@ -220,7 +221,6 @@ width: 100%;
       margin-left: 10px;
       margin-right: 0;
       padding-right: 0;
-
       position: fixed;
   }
 
@@ -238,3 +238,12 @@ width: 100%;
   border: 1px solid black;
 }
 
+.kucing .merdeka img {
+  max-height: 650px;  /* change this to whatever you want */
+  width: auto;
+}
+
+#carousel-responsive-brand{
+  margin: 0px 100px;
+  width: 50%;
+}
