@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { onLogout } from '../actions';
+import { onLogout, keepLogin, cookieChecked } from '../actions';
+import Cookies from 'universal-cookie';
 import image1 from '../images/logo.png';
 import iconSmartphone from '../images/iphone_icon.png';
 import iconLaptop from '../images/laptop_icon.png';
@@ -12,8 +13,25 @@ import iconCart from '../images/cart_icon.png';
 import iconAccount from '../images/account_icon.png';
 import iconLogOut from '../images/LogOut_icon.png';
 
+const cookies = new Cookies();
 
 class Header extends Component {
+    componentWillMount() {
+        const cookieNya = cookies.get('LoginCookies');
+        if(cookieNya !== undefined) {
+            this.props.keepLogin(cookieNya);
+        }
+        else {
+            this.props.cookieChecked();
+        }
+    }
+
+    componentWillReceiveProps(newProps) {
+        if(newProps.auth.username === "") {
+            cookies.remove('LoginCookies')
+        }
+    }
+    
     onLogOutClick = () => {
         this.props.onLogout();
     }
@@ -145,4 +163,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { onLogout })(Header);
+export default connect(mapStateToProps, { onLogout, keepLogin, cookieChecked })(Header);

@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import { onLogin } from '../actions'
 import '../supports/css/components/loginpage.css';
 
+const cookies = new Cookies();
+
 class LoginPage extends Component {
+    componentWillReceiveProps(newProps) {
+        if(newProps.auth.username !== "") {
+            cookies.set('LoginCookies', newProps.auth.email, { path: '/' });
+        }
+    }
+
     onLoginClick = () => {
         var email = this.refs.email.value;
         var password = this.refs.password.value;

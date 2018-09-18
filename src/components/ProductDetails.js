@@ -25,10 +25,9 @@ class ProductDetails extends Component {
 							<div>
 								<img src={image3}/>
 							</div>
-							
 						</Carousel>
 					</Col>
-					
+
 					<Col xs={12} md={5}>
 						<span id="product-detail-header">
 							<h4 style={{ marginBottom:"0px"}}>Smartphone</h4>
