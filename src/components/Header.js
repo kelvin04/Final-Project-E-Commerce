@@ -111,9 +111,9 @@ class Header extends Component {
 
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem eventKey={1} href="#" id="font-navbar">
+                        {/* <NavItem eventKey={1} href="#" id="font-navbar">
                             <Link to="/cartpage" id="white-font">Link:&nbsp;<span class="glyphicon glyphicon-envelope"></span></Link>
-                        </NavItem>
+                        </NavItem> */}
 
                         <NavDropdown eventKey={3} title="Category" id="basic-nav-dropdown" id="font-navbar">
                             <MenuItem eventKey={3.1}><span ><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone</MenuItem>

@@ -17,7 +17,7 @@ class CartPage extends Component {
             this.setState({ cartList: response.data, selectedId:0 });
         })
         .catch((err) => {
-            alert("Error Occured!")
+            // alert("Error Occured!")
             console.log(err);
         })
     }

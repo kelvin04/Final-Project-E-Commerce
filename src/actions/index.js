@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { API_URL_1 } from '../supports/api-url/apiurl';
+// import { API_URL_1 } from '../supports/api-url/apiurl';
 
 export const onLogin = (user) => {
     return(dispatch) => {
-        axios.get(API_URL_1 + '/users', {
+        axios.get('http://localhost:1989/login', {
             params: {
                 email: user.email,
                 password: user.password
@@ -24,7 +24,7 @@ export const onLogin = (user) => {
 
 export const keepLogin = (email) => {
     return(dispatch) => {
-        axios.get(API_URL_1 + '/users', {
+        axios.get('http://localhost:1989/login', {
             params: {
                 email: email
             }
@@ -59,14 +59,15 @@ export const cookieChecked = () => {
     };
 }
 
+
 export const onRegister = (user) => {
     return (dispatch) => {
-        axios.post(API_URL_1 + '/users', user)
+        axios.post('http://localhost:1989/register', user)
         .then((res) => {
-            console.log(res);
+            alert('Register Success!');
             dispatch ({
                 type: "USER_LOGIN_SUCCESS",
-                payload: { username: res.data.username, email: res.data.email, error: "" }
+                payload: { username: res.data.username, email: res.data.email }
             });
         })
         .then((err) => {
