@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Thumbnail, Image } from 'react-bootstrap';
 import { Carousel } from 'react-responsive-carousel';
 import Magnifier from 'react-magnifier';
 import CarouselProduct from './CarouselProduct';
@@ -10,8 +10,24 @@ import image1 from '../images/iphone-x.png';
 import image2 from '../images/iphone-x-front.jpg';
 import image3 from '../images/iphone-x-side.jpg';
 
+
 class ProductDetails extends Component {	
-	state = { quantity: 1 }
+	state = { quantity: 1, images: image1 }
+
+	changeImage1 = () => {
+		var imageA = image1;
+		this.setState({ images: imageA })
+	}
+
+	changeImage2 = () => {
+		var imageB = image2;
+		this.setState({ images: imageB })
+	}
+
+	changeImage3 = () => {
+		var imageC = image3;
+		this.setState({ images: imageC })
+	}
 
 
 	increment = () => {
@@ -25,27 +41,32 @@ class ProductDetails extends Component {
 		}
 	}
 
-    render() { 
+    render() {
+		var imageA = image1;
+		var imageB = image2;
+		var imageC = image3;
         return ( 
 		<div>
 			<Grid>
 				<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
 					<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"80px", textAlign:"center"}}>
-						<Carousel showArrows={false} showIndicators={false} showStatus={false} transitionTime={0} style={{styles}} >
-							
-							<div>
-								<img src={image1} onClick={() =>this.state.selectedItem=1}/>
-							</div>
-							<div>
-								<img src={image2} onClick={() => this.state.selectedItem=0}/>
-							</div>
-							<div>
-								<img src={image3}/>
-							</div>
-						</Carousel>
-				
+						<div style={{ marginBottom:"30px", maxHeight:"350px" }}>
+							<Magnifier src={this.state.images} zoomFactor={1.2}/><br/>
+						</div>
+						
+						<Row>
+							<Col xs={4} md={4}>
+								<Image src={imageA} onClick={this.changeImage1} thumbnail/>
+							</Col>
+							<Col xs={4} md={4}>
+								<Thumbnail src={imageB} onClick={this.changeImage2} />
+							</Col>
+							<Col xs={4} md={4}>
+								<Thumbnail src={imageC} onClick={this.changeImage3} />
+							</Col>
+						</Row>
+						
 					</Col>
-
 
 					<Col xs={12} md={5}>
 						<span id="product-detail-header">
@@ -72,7 +93,7 @@ class ProductDetails extends Component {
 										<span className="input-group-btn data-dwn">
 											<button className="btn btn-default btn-info" data-dir="dwn" onClick={this.decrement}><span className="glyphicon glyphicon-minus"></span></button>
 										</span>
-										<input type="text" className="form-control text-center" value={this.state.quantity} min="1" max="99" style={{minWidth:"90px"}}/>
+										<input type="text" className="form-control text-center" value={this.state.quantity} min="1" max="99" style={{minWidth:"80px"}}/>
 										<span className="input-group-btn data-up">
 											<button className="btn btn-default btn-info" data-dir="up" onClick={this.increment}><span className="glyphicon glyphicon-plus"></span></button>
 										</span>
