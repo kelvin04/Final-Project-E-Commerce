@@ -1,14 +1,30 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap';
 import { Carousel } from 'react-responsive-carousel';
+import Magnifier from 'react-magnifier';
+import CarouselProduct from './CarouselProduct';
+import Footer from './Footer';
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
+import '../supports/css/components/ProductDetails.css';
 import image1 from '../images/iphone-x.png';
 import image2 from '../images/iphone-x-front.jpg';
 import image3 from '../images/iphone-x-side.jpg';
-import '../supports/css/components/ProductDetails.css';
-import Footer from './Footer';
 
 class ProductDetails extends Component {	
+	state = { quantity: 1 }
+
+
+	increment = () => {
+		this.setState({ quantity: this.state.quantity+1 })
+	}
+
+	decrement = () => {
+		this.setState({ quantity: this.state.quantity-1 })
+		if(this.state.quantity <= 1) {
+			this.setState({ quantity:1 })
+		}
+	}
+
     render() { 
         return ( 
 		<div>
@@ -16,17 +32,20 @@ class ProductDetails extends Component {
 				<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
 					<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"80px", textAlign:"center"}}>
 						<Carousel showArrows={false} showIndicators={false} showStatus={false} transitionTime={0} style={{styles}} >
+							
 							<div>
-								<img src={image1}/>
+								<img src={image1} onClick={() =>this.state.selectedItem=1}/>
 							</div>
 							<div>
-								<img src={image2}/>
+								<img src={image2} onClick={() => this.state.selectedItem=0}/>
 							</div>
 							<div>
 								<img src={image3}/>
 							</div>
 						</Carousel>
+				
 					</Col>
+
 
 					<Col xs={12} md={5}>
 						<span id="product-detail-header">
@@ -51,11 +70,11 @@ class ProductDetails extends Component {
 								<Col xs={12} sm={4} md={5} >
 									<div className="input-group number-spinner" id="item-cart-increment">
 										<span className="input-group-btn data-dwn">
-											<button className="btn btn-default btn-info" data-dir="dwn"><span className="glyphicon glyphicon-minus"></span></button>
+											<button className="btn btn-default btn-info" data-dir="dwn" onClick={this.decrement}><span className="glyphicon glyphicon-minus"></span></button>
 										</span>
-										<input type="text" className="form-control text-center" value="1" min="1" max="99"/>
+										<input type="text" className="form-control text-center" value={this.state.quantity} min="1" max="99" style={{minWidth:"90px"}}/>
 										<span className="input-group-btn data-up">
-											<button className="btn btn-default btn-info" data-dir="up"><span className="glyphicon glyphicon-plus"></span></button>
+											<button className="btn btn-default btn-info" data-dir="up" onClick={this.increment}><span className="glyphicon glyphicon-plus"></span></button>
 										</span>
 									</div>
 								</Col>
