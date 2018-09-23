@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, Thumbnail, Image } from 'react-bootstrap';
+import { Grid, Row, Col, Image } from 'react-bootstrap';
 import { Carousel } from 'react-responsive-carousel';
 import Magnifier from 'react-magnifier';
 import CarouselProduct from './CarouselProduct';
@@ -49,22 +49,24 @@ class ProductDetails extends Component {
 		<div>
 			<Grid>
 				<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
-					<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"80px", textAlign:"center"}}>
-						<div style={{ marginBottom:"30px", maxHeight:"350px" }}>
-							<Magnifier src={this.state.images} zoomFactor={1.2}/><br/>
+					<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"85px", textAlign:"center"}}>
+						<div style={{ marginBottom:"35px", maxHeight:"350px", maxWidth:"680px" }}>
+							<Magnifier src={this.state.images} zoomFactor={1} mgWidth={170} mgHeight={170} mgShape="circle"/><br/>
 						</div>
-						
+
+						<div style={{ marginBottom:"30px" }}>
 						<Row>
 							<Col xs={4} md={4}>
 								<Image src={imageA} onClick={this.changeImage1} thumbnail/>
 							</Col>
 							<Col xs={4} md={4}>
-								<Thumbnail src={imageB} onClick={this.changeImage2} />
+								<Image src={imageB} onClick={this.changeImage2} thumbnail />
 							</Col>
 							<Col xs={4} md={4}>
-								<Thumbnail src={imageC} onClick={this.changeImage3} />
+								<Image src={imageC} onClick={this.changeImage3} thumbnail />
 							</Col>
 						</Row>
+						</div>
 						
 					</Col>
 
@@ -72,20 +74,20 @@ class ProductDetails extends Component {
 						<span id="product-detail-header">
 							<h4 style={{ marginBottom:"0px"}}>Smartphone</h4>
 							<br/>
-							<h1 style={{ marginTop:"0px"}}>iPhone X 64GB</h1>
+							<h1 style={{ marginTop:"0px"}}>iPhone XS 64GB</h1>
 							<br/>
-							<p style={{ textAlign: "justify"}}>The iPhone X is Apple's new flagship 10th anniversary iPhone featuring a 5.8-inch OLED display, facial recognition and 3D camera functionality, a glass body, and an A11 Bionic processor.<br/><br/>Launched November 3, 2017.</p>
+							<p style={{ textAlign: "justify"}}>The iPhone XS is Apple's new flagship 10th anniversary iPhone featuring a 5.8-inch OLED display, facial recognition and 3D camera functionality, a glass body, and an A11 Bionic processor.<br/><br/>Launched September 21, 2018.</p>
 							<br/>
 
 							<h4 style={{ marginTop:"0px"}}>Features :</h4>
 							<ul style={{ paddingLeft:"15px", marginBottom:"30px"}}>
 								<li>5.8" OLED display</li>
-								<li>Faster A11 Bionic processor</li>
+								<li>Faster A12 Bionic processor</li>
 								<li>Edge-to-edge display</li>
 								<li>Facial Recognition</li>
 							</ul>
 							
-							<h2>Rp 14,500.000</h2>
+							<h2>Rp 16,900.000</h2>
 							<br/><br/>
 							<Row>
 								<Col xs={12} sm={4} md={5} >

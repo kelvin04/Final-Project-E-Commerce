@@ -54,3 +54,42 @@ hr {
   overflow: hidden;
   text-align: center;
 }
+
+
+
+.navbar-default .navbar-toggle {
+  border-color: #ddd;
+  background-color: #ddd;
+}
+
+#font-navbar {
+  color: white;
+  font-weight: bold;
+  -webkit-transition: background-color 800ms;
+  -o-transition: background-color 800ms;
+  transition: background-color 800ms;
+  text-align: center;
+}
+
+
+.img-thumbnail{
+  border-radius: 15px;
+  border: 1px solid rgb(216, 216, 216)
+}
+
+.img-thumbnail:hover {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-thumbnail:active {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-thumbnail:focus {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 15px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-thumbnail:target {
+  box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.2), 0 5px 16px 0 rgba(0, 0, 0, 0.19);
+}
+

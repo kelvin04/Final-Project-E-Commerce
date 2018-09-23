@@ -12,8 +12,8 @@ class ProductList extends Component {
               <Row>
                 <Col xs={12} md={3}>
                   <Thumbnail src={image1} alt="242x200" style={{ textAlign:"center" }}>
-                    <h3>iPhone X 64GB</h3>
-                    <h5 style={{ color:"red", fontWeight:"bold" }}>Rp 14,500.000</h5>
+                    <h3>iPhone XS 64GB</h3>
+                    <h5 style={{ color:"red", fontWeight:"bold" }}>Rp 16,900.000</h5>
                     <h4 style={{ textAlign:"center" }}>
                       <Button bsStyle="success">Add To Cart</Button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
