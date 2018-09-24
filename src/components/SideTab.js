@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tab, NavItem, Row, Col, Nav } from 'react-bootstrap';
 import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 import ProductList from './ProductList';
-import iconGaming from '../images/gaming_icon.png';
+import iconGaming from '../images/iphone_icon.png';
 
 class SideTab extends Component {
     render() { 
@@ -12,7 +12,7 @@ class SideTab extends Component {
                 <Row className="clearfix">
                     <Col sm={2}  id="side-tab">
                     <Nav bsStyle="pills" stacked>
-                        <NavItem eventKey="first"><span ><img id="icon-scale" src={iconGaming}></img></span>Game Console</NavItem>
+                        <NavItem eventKey="first"><span ><img id="icon-scale" src={iconGaming}></img></span>Smartphone</NavItem>
                         <NavItem eventKey="second">Tab 2</NavItem>
                     </Nav>
                     </Col>
