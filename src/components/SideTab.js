@@ -20,6 +20,7 @@ class SideTab extends Component {
                     <Col sm={10} id="product-list">
                     <Tab.Content animation>
                         <Tab.Pane eventKey="first" >
+                        
                             <ProductList />
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">Tab 2 content</Tab.Pane>

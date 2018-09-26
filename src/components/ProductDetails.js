@@ -51,7 +51,7 @@ class ProductDetails extends Component {
 				<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
 					<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"85px", textAlign:"center"}}>
 						<div style={{ marginBottom:"35px", maxHeight:"350px", maxWidth:"680px" }}>
-							<Magnifier src={this.state.images} zoomFactor={1} mgWidth={170} mgHeight={170} mgShape="circle"/><br/>
+							<Magnifier src={this.state.images} zoomFactor={1} mgWidth={170} mgHeight={170} mgShape="square"/><br/>
 						</div>
 
 						<div style={{ marginBottom:"30px" }}>
