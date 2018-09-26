@@ -29,7 +29,7 @@ class ProductList extends Component {
           <Col xs={12} md={4} lg={3}>
               <Thumbnail src={image1} alt="242x200" style={{ textAlign:"center" }}>
                 <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
-                <h6 style={{ color:"red", fontWeight:"bold"}}>NEW Product!</h6>
+                <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
                 <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
                 <h4 style={{ textAlign:"center" }}>
                   <Button bsStyle="success">Add To Cart</Button>
@@ -40,11 +40,28 @@ class ProductList extends Component {
               </Col>
         );
       }
+      else if(item.NormalPrice == 1) {
+        return (
+          <Col xs={12} md={4} lg={3}>
+              <Thumbnail src={image1} alt="242x200" style={{ textAlign:"center" }}>
+                <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
+                <h5 style={{ color:"red", fontWeight:"bold"}}>HOT ITEM !!!</h5>
+                <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
+                <h4 style={{ textAlign:"center" }}>
+                  <Button bsStyle="success">Add To Cart</Button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <Link to="/productdetails"><Button bsStyle="default">Details</Button></Link>
+                </h4>
+              </Thumbnail>
+              </Col>
+        );
+      }
+
       return(
         <Col xs={12} md={4} lg={3}>
               <Thumbnail src={image1} alt="242x200" style={{ textAlign:"center" }}>
                 <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
-                <h6 style={{ color:"#aaaaaa", fontWeight:"bold", textDecoration:"line-through" }}>Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h6>
+                <h5 style={{ color:"#aaaaaa", fontWeight:"bold", textDecoration:"line-through" }}>Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h5>
                 <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
                 <h4 style={{ textAlign:"center" }}>
                   <Button bsStyle="success">Add To Cart</Button>
