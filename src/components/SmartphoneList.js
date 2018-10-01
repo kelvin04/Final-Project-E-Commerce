@@ -11,15 +11,16 @@ import image3 from '../images/rsz_2nintendo.jpg';
 
 const cookies = new Cookies;
 
-class ProductList extends Component {
-  state = { products: [], selectedItem: 0, filterBy: "", sortBy: 0, ascDescSort: 0 }
+class SmartphoneList extends Component {
+  state = { products: [], selectedItem: 0 }
 
   componentWillMount() {
     this.getProductList();
   }
   
+
   getProductList = () => {
-    axios.get(API_URL_1 + '/allProducts')
+    axios.get(API_URL_1 + '/allSmartphone')
     .then((res) => {
       console.log(res);
       this.setState({ products: res.data, selectedItem: 0 })
@@ -32,74 +33,6 @@ class ProductList extends Component {
     console.log(id)
   }
   
-  // onFilterBrand = (value) => {
-  //   if(value == "All Products" ) {
-  //     return this.getProductList();
-  //   }
-  //   else {
-  //     axios.get(API_URL_1 + '/filterbrand', {
-  //       params : { namabrand : value }
-  //     })
-  //     .then((res) => {
-  //       this.setState({ products: res.data })
-  //     })
-  //   }
-  // }
-  
-  onFilterBrand = (value) => {
-    this.setState({ filterBy: value })
-    console.log(this.state.filterBy)
-  }
-
-  onSortBy = (value1) => {
-    this.setState({ sortBy: value1 })
-    console.log(this.state.sortBy)
-  }
-
-  onAscDescSort = (value2) => {
-    this.setState({ ascDescSort: value2 })
-    console.log(this.state.ascDescSort)
-  }
-
-  onBtnSortClick = () => {
-    if(this.state.sortBy == 1 && this.state.ascDescSort == 1) {
-      axios.get(API_URL_1 + '/sortnameasc', {
-        params : { namabrand : this.state.filterBy }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-        console.log(res)
-      })
-    }
-    else if(this.state.sortBy == 1 && this.state.ascDescSort == 2) {
-      axios.get(API_URL_1 + '/sortnamedesc', {
-        params : { namabrand : this.state.filterBy }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-        console.log(res)
-      })
-    }
-    else if(this.state.sortBy == 2 && this.state.ascDescSort == 1) {
-      axios.get(API_URL_1 + '/sortpriceasc', {
-        params : { namabrand : this.state.filterBy }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-        console.log(res)
-      })
-    }
-    else if(this.state.sortBy == 2 && this.state.ascDescSort == 2) {
-      axios.get(API_URL_1 + '/sortpricedesc', {
-        params : { namabrand : this.state.filterBy }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-        console.log(res)
-      })
-    }
-  }
-
   renderAllProduct = () => {
     const list = this.state.products.map((item) => {
       if(item.NormalPrice == 0) {
@@ -153,9 +86,20 @@ class ProductList extends Component {
     return list;
   }
 
+  onFilterBrand = (value) => {
+    if(value == 1) {
+      console.log('satu')
+    }
+    else if(value == 2) {
+      console.log('dua')
+    }
+    else {
+      console.log('pusing')
+    }
+  }
+  
   render() {
     const Brand = [
-      { label: "All Products", value: 0 },
       { label: "Apple", value: 1 },
       { label: "OPPO", value: 2 },
       { label: "Samsung", value: 3 },
@@ -181,28 +125,21 @@ class ProductList extends Component {
                       <div style={{fontWeight:"bold"}}>
                       Filter by Brand :
                       </div>
-                      <Select options={Brand} onChange={(opt) => this.onFilterBrand(opt.label)}/>
+                      <Select options={Brand} onChange={(opt) => this.onFilterBrand(opt.value)}/>
                   </Col>
 
-
-                  <Col xs={12} md={8} style={{ paddingLeft:"0px" }}>
-                    <Col xs={5} md={5}>
+                  <Col xs={6} md={4}>
                       <div style={{fontWeight:"bold"}}>
-                        Sort by :
+                      Sort by :
                       </div>
-                      <Select options={Sort} onChange={opt => this.onSortBy(opt.value)} isSearchable={false}/>
-                    </Col>
+                      <Select options={Sort} onChange={opt => console.log(opt.label, opt.value)}/>
+                  </Col>
 
-                    <Col xs={5} md={5}>
-                        <div style={{fontWeight:"bold"}}>
-                        Ascending / Descending
-                        </div>
-                        <Select options={SortBy} onChange={opt => this.onAscDescSort(opt.value)} isSearchable={false}/>
-                      </Col>
-
-                      <Col xs={2} md={2}>
-                        <Button bsStyle="primary" onClick={this.onBtnSortClick} style={{ marginTop: "20px" }}>Submit</Button>
-                    </Col>
+                  <Col xs={6} md={4}>
+                      <div style={{fontWeight:"bold"}}>
+                      Ascending / Descending
+                      </div>
+                      <Select options={SortBy} onChange={opt => console.log(opt.label, opt.value)}/>
                   </Col>
               </Row>
           </Grid>
@@ -217,4 +154,4 @@ class ProductList extends Component {
     }
   }
 
-export default ProductList;
+export default SmartphoneList;

@@ -69,6 +69,7 @@ hr {
   -o-transition: background-color 800ms;
   transition: background-color 800ms;
   text-align: center;
+  text-decoration: none;
 }
 
 
@@ -93,3 +94,6 @@ hr {
   box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.2), 0 5px 16px 0 rgba(0, 0, 0, 0.19);
 }
 
+.thumbnail {
+  border-radius: 10px
+}

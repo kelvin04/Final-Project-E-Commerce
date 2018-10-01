@@ -131,6 +131,7 @@
 
 #black-font {
   color: black;
+  text-decoration: none;
 }
 
 #padding-navbar{
@@ -246,4 +247,15 @@ width: 100%;
 #carousel-responsive-brand{
   margin: 0px 100px;
   width: 50%;
+}
+
+.normal-price{
+  color: #aaaaaa;
+  font-weight: bold;
+  text-decoration: line-through;
+}
+
+.sale-price{
+  color: #ff5722;
+  font-weight: bold;
 }

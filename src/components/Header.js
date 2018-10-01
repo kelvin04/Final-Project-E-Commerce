@@ -120,9 +120,12 @@ class Header extends Component {
                             <MenuItem eventKey={3.2}><span ><img id="icon-scale" src={iconLaptop}></img></span>Laptop</MenuItem>
                             <MenuItem eventKey={3.3}><span ><img id="icon-scale" src={iconGaming}></img></span>Game Console</MenuItem>
                             <MenuItem divider />
-                            <MenuItem eventKey={3.3}>
-                                <Link to="/allproductpage" id="black-font"><span ><img id="icon-scale" src={iconProduct}></img></span>All Products</Link>
-                            </MenuItem>
+                            {/* <Link to="/allproductpage" id="black-font"> */}
+                                <MenuItem eventKey={3.3} >
+                                    <Link to="/allproductpage" id="black-font"><span ><img id="icon-scale" src={iconProduct}></img></span>All Products</Link>
+                                    {/* <span ><img id="icon-scale" src={iconProduct}></img></span>All Products */}
+                                </MenuItem>
+                            {/* </Link> */}
                         </NavDropdown>
                     </Nav>
 
