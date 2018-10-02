@@ -160,6 +160,8 @@ class ProductList extends Component {
       { label: "OPPO", value: 2 },
       { label: "Samsung", value: 3 },
       { label: "Xiaomi", value: 4 },
+      { label: "Microsoft", value: 5 },
+      { label: "Sony", value: 6 },
     ];
 
     const Sort = [
@@ -183,7 +185,6 @@ class ProductList extends Component {
                       </div>
                       <Select options={Brand} onChange={(opt) => this.onFilterBrand(opt.label)}/>
                   </Col>
-
 
                   <Col xs={12} md={8} style={{ paddingLeft:"0px" }}>
                     <Col xs={5} md={5}>

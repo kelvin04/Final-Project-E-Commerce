@@ -9,7 +9,7 @@ class CarouselBro extends Component {
     render() {
         return(
             <div>
-                <Carousel className="container banner" indicators={false}>
+                <Carousel className="container banner" indicators={true}>
                     <Carousel.Item className="gambar-carousel" >
                         <img height ="10000px" src={image1} />
                         {/* <Carousel.Caption>

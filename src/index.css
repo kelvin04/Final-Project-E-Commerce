@@ -97,3 +97,44 @@ hr {
 .thumbnail {
   border-radius: 10px
 }
+
+.carousel-indicators .active {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  background-color: rgb(35, 130, 240);
+}
+
+.carousel-indicators li {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 1px;
+  text-indent: -999px;
+  cursor: pointer;
+  /* background-color: #000\9; */
+  background-color: rgba(0,0,0,0);
+  border: 1px solid rgb(35, 130, 240);
+  border-radius: 10px;
+}
+
+.carousel.carousel-slider .control-arrow {
+  top: 0;
+  color: #fff;
+  background: rgba(0,0,0,.2);
+  font-size: 26px;
+  bottom: 0;
+  margin-top: 0;
+  padding: 5px;
+  width:4%;
+}
+
+.glyphicon-chevron-left:before {
+  content: "\E079";
+  color: rgb(4, 115, 241);
+}
+
+.glyphicon-chevron-right:before {
+  content: "\E080";
+  color: rgb(4, 115, 241);
+}

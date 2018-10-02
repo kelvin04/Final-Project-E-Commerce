@@ -3,7 +3,6 @@ import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 import Header from './Header';
 import CarouselBro from './Carousel';
 import Karakteristik from './Karakteristik';
-import ProductList from './ProductList';
 import Footer from './Footer';
 import BrandCarousel from './BrandCarousel';
 
@@ -20,9 +19,7 @@ class HomePage extends Component {
                     <Karakteristik />
                     {/* <hr/> */}
                 </div>
-                
-                <br/><br/>
-                <ProductList />
+                <br/>
                 <br/>
                 <BrandCarousel />
                 <br/>

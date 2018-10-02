@@ -13,9 +13,6 @@ import iconGaming from '../images/gaming_icon.png';
 
 class SideTab extends Component {
     render() { 
-        
-
-
         return ( 
             <div>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">

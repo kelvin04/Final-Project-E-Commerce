@@ -4,10 +4,6 @@ import { Table } from 'react-bootstrap';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import '../supports/css/components/cartpage.css';
 
-const thStyle ={
-    textAlign: "center"
-}
-
 class CartPage extends Component {
     state = { cartList: [], selectedId: 0 }
 

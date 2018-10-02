@@ -10,15 +10,9 @@ class CarouselProduct extends Component {
     render() { 
         return ( 
             <Carousel showArrows={false} showIndicators={false} showStatus={false} transitionTime={0} style={{styles}} >
-                <div>
-                    <img src={image1}/>
-                </div>
-                <div>
-                    <img src={image2}/>
-                </div>
-                <div>
-                    <img src={image3}/>
-                </div>
+                <div><img src={image1}/></div>
+                <div><img src={image2}/></div>
+                <div><img src={image3}/></div>
             </Carousel>
         );
     }
