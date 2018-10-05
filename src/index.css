@@ -75,7 +75,10 @@ hr {
 
 .img-thumbnail{
   border-radius: 15px;
-  border: 1px solid rgb(216, 216, 216)
+  border: 1px solid rgb(216, 216, 216);
+  max-height: 160px;
+  width: auto;
+  padding: 4px 10px;
 }
 
 .img-thumbnail:hover {
@@ -137,4 +140,31 @@ hr {
 .glyphicon-chevron-right:before {
   content: "\E080";
   color: rgb(4, 115, 241);
+}
+
+.btn-success{
+  border-radius: 20px;
+  border: 0;
+}
+
+.btn-danger{
+  border-radius: 20px;
+  border: 0;
+  background-color: #D10024e6;
+}
+
+.btn-default{
+  border-radius: 20px;
+}
+
+.magnifier-image {
+  cursor: none;
+  max-height: 350px;
+  width: auto;
+}
+
+.thumbnail a>img, .thumbnail>img {
+  margin-right: auto;
+  margin-left: auto;
+  max-height: 170px;
 }

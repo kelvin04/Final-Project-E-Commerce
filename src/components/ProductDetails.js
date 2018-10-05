@@ -13,10 +13,10 @@ import image3 from '../images/iphone-x-side.jpg';
 const cookies = new Cookies();
 
 class ProductDetails extends Component {	
-	state = { product: null, quantity: 1, images: image1 }
-
-	componentWillMount() {
-		this.getSelectedProduct();
+	state = { 
+		product: null, 
+		quantity: 1, 
+		images: image1
 	}
 
 	getSelectedProduct = () => {
@@ -24,23 +24,26 @@ class ProductDetails extends Component {
 		axios.get(API_URL_1 + '/products/' + selected)
 		.then((res) => {
 			this.setState({ product: res.data })
-			console.log(this.state.product.ProductName);
+			this.setState({ images: require('../images/' + this.state.product[0].Image1) })
+			console.log(this.state.product[0]);
 		})
 	} 
 
+	componentWillMount() {
+		this.getSelectedProduct();
+		console.log(this.state.product)
+	}
+
 	changeImage1 = () => {
-		var imageA = image1;
-		this.setState({ images: imageA })
+		this.setState({ images: require('../images/' + this.state.product[0].Image1) })
 	}
 
 	changeImage2 = () => {
-		var imageB = image2;
-		this.setState({ images: imageB })
+		this.setState({ images: require('../images/' + this.state.product[0].Image2) })
 	}
 
 	changeImage3 = () => {
-		var imageC = image3;
-		this.setState({ images: imageC })
+		this.setState({ images: require('../images/' + this.state.product[0].Image3) })
 	}
 
 	increment = () => {
@@ -73,29 +76,25 @@ class ProductDetails extends Component {
 				</div>
 			);
 		}
-		
-		var imageA = image1;
-		var imageB = image2;
-		var imageC = image3;
         return ( 
 			<div>
 				<Grid>
 					<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
 						<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"85px", textAlign:"center"}}>
-							<div style={{ marginBottom:"35px", maxHeight:"350px", maxWidth:"680px" }}>
-								<Magnifier src={this.state.images} zoomFactor={1} mgWidth={200} mgHeight={200} mgShape="square"/><br/>
+							<div style={{ marginBottom:"35px", maxHeight:"350px", maxWidth:"680px" }} >
+								<Magnifier src={this.state.images} zoomFactor={1} mgWidth={210} mgHeight={210} mgShape="square"/><br/>
 							</div>
 
 							<div style={{ marginBottom:"30px" }}>
 							<Row>
 								<Col xs={4} md={4}>
-									<Image src={imageA} onClick={this.changeImage1} thumbnail/>
+									<Image src={require('../images/' + this.state.product[0].Image1)} onClick={this.changeImage1} thumbnail/>
 								</Col>
 								<Col xs={4} md={4}>
-									<Image src={imageB} onClick={this.changeImage2} thumbnail />
+									<Image src={require('../images/' + this.state.product[0].Image2)} onClick={this.changeImage2} thumbnail />
 								</Col>
 								<Col xs={4} md={4}>
-									<Image src={imageC} onClick={this.changeImage3} thumbnail />
+									<Image src={require('../images/' + this.state.product[0].Image3)} onClick={this.changeImage3} thumbnail />
 								</Col>
 							</Row>
 							</div>
@@ -104,7 +103,7 @@ class ProductDetails extends Component {
 
 						<Col xs={12} md={5}>
 							<span id="product-detail-header">
-								<h4 style={{ marginBottom:"0px"}}>Smartphone</h4>
+								<h4 style={{ marginBottom:"0px"}}>{this.state.product[0].Category}</h4>
 								<br/>
 								<h1 style={{ marginTop:"0px"}}>{this.state.product[0].ProductName}</h1>
 								<br/>

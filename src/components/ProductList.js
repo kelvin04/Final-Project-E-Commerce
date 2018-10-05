@@ -44,8 +44,9 @@ class ProductList extends Component {
   //       this.setState({ products: res.data })
   //     })
   //   }
+  //   // this.setState({ filterBy: value })
   // }
-  
+
   onFilterBrand = (value) => {
     this.setState({ filterBy: value })
     console.log(this.state.filterBy)
@@ -105,7 +106,7 @@ class ProductList extends Component {
       if(item.NormalPrice == 0) {
         return (
           <Col xs={12} md={4} lg={3}>
-            <Thumbnail src={image1} alt="242x200" style={{ textAlign:"center" }}>
+            <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
               <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
               <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
@@ -121,7 +122,7 @@ class ProductList extends Component {
       else if(item.NormalPrice == 1) {
         return (
           <Col xs={12} md={4} lg={3}>
-            <Thumbnail src={image1} alt="242x200" style={{ textAlign:"center" }}>
+            <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
               <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
               <h5 style={{ color:"red", fontWeight:"bold"}}>HOT ITEM !!!</h5>
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
@@ -137,7 +138,7 @@ class ProductList extends Component {
 
       return(
         <Col xs={12} md={4} lg={3}>
-          <Thumbnail src={image1} alt="242x200" style={{ textAlign:"center" }}>
+          <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
             <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
             <h5 className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h5>
             <h4 className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
@@ -160,8 +161,11 @@ class ProductList extends Component {
       { label: "OPPO", value: 2 },
       { label: "Samsung", value: 3 },
       { label: "Xiaomi", value: 4 },
-      { label: "Microsoft", value: 5 },
-      { label: "Sony", value: 6 },
+      { label: "Chromebook", value: 5 },
+      { label: "Nintendo", value: 6 },
+      { label: "Sony", value: 7 },
+      { label: "Microsoft", value: 8 },
+      
     ];
 
     const Sort = [

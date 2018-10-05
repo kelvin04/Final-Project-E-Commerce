@@ -5,6 +5,7 @@ import CarouselBro from './Carousel';
 import Karakteristik from './Karakteristik';
 import Footer from './Footer';
 import BrandCarousel from './BrandCarousel';
+import SectionCategories from './SectionCategories';
 
 class HomePage extends Component {
     render() {
@@ -23,6 +24,7 @@ class HomePage extends Component {
                 <br/>
                 <BrandCarousel />
                 <br/>
+                <SectionCategories />
                 <Footer />
             </div>
         );

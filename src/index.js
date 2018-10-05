@@ -7,9 +7,9 @@ import ReduxThunk from 'redux-thunk';
 import reducers from './reducers';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 import './supports/css/bootstrap.min.css';
 import './index.css';
-// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
  
