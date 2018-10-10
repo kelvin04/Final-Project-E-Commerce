@@ -9,6 +9,7 @@ import iconProduct from '../images/product_icon.png';
 import iconSmartphone from '../images/iphone_icon.png';
 import iconLaptop from '../images/laptop_icon.png';
 import iconGaming from '../images/gaming_icon.png';
+import GameConsoleList from './GameConsoleList';
 
 
 class SideTab extends Component {
@@ -19,11 +20,27 @@ class SideTab extends Component {
                 <Row className="clearfix">
                     <Col sm={2} id="side-tab">
                     <Nav bsStyle="pills" stacked>
-                        <NavItem eventKey="first"><span ><img id="icon-scale" src={iconProduct}></img></span>All Product</NavItem>
+                        <NavItem eventKey="first">
+                            <span><img id="icon-scale" src={iconProduct}></img></span>All Product
+                        </NavItem>
+
                         <hr style={{ margin:"17px auto" }}/>
-                        <NavItem eventKey="second"><span ><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone</NavItem>
+
+                        <NavItem eventKey="second">
+                            <span><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone
+                        </NavItem>
+
                         <hr style={{ margin:"8px auto" }}/>
-                        <NavItem eventKey="third"><span ><img id="icon-scale" src={iconLaptop}></img></span>Laptop</NavItem>
+
+                        <NavItem eventKey="third">
+                            <span><img id="icon-scale" src={iconLaptop}></img></span>Laptop
+                        </NavItem>
+
+                        <hr style={{ margin:"8px auto" }}/>
+
+                        <NavItem eventKey="fourth" style={{ marginBottom:"20px" }}>
+                            <span><img id="icon-scale" src={iconGaming}></img></span>Game Console
+                        </NavItem>
                     </Nav>
                     </Col>
 
@@ -39,6 +56,10 @@ class SideTab extends Component {
 
                             <Tab.Pane eventKey="third">
                                 <LaptopList />
+                            </Tab.Pane>
+
+                            <Tab.Pane eventKey="fourth">
+                                <GameConsoleList />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

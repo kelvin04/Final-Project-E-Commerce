@@ -10,16 +10,16 @@ class AllProductPage extends Component {
                 <span id="display-inline"><SideTab /></span>
                 <br/>
 
-                <div class="text-center">
+                {/* <div class="text-center">
                     <ul class="pagination">
                         <li><a href="?p=0" data-original-title="" title="">1</a></li> 
                         <li><a href="?p=1" data-original-title="" title="">2</a></li> 
                     </ul>
-                </div>
+                </div> */}
 
-                <div class="text-center">
+                {/* <div class="text-center">
                     <Page />
-                </div>
+                </div> */}
             
                 <Footer />
             </div>
