@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-
 import './App.css';
-// import 'mdbreact/dist/css/mdb.css';
-// import 'font-awesome/css/font-awesome.min.css';
-
 import { Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
@@ -12,7 +8,7 @@ import Header from './components/Header';
 import AllProductPage from './components/AllProductPage';
 import ProductDetails from './components/ProductDetails';
 import CartPage from './components/CartPage';
-
+import SearchPage from './components/SearchPage';
 
 class App extends Component {
   
@@ -26,6 +22,7 @@ class App extends Component {
           <Route path ="/allproductpage" component={AllProductPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
+          <Route path="/searchpage" component={SearchPage} />
       </div>
     );
   }

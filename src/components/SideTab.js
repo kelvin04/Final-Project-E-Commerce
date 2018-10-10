@@ -10,7 +10,6 @@ import iconLaptop from '../images/laptop_icon.png';
 import iconGaming from '../images/gaming_icon.png';
 
 
-
 class SideTab extends Component {
     render() { 
         return ( 
@@ -20,6 +19,7 @@ class SideTab extends Component {
                     <Col sm={2} id="side-tab">
                     <Nav bsStyle="pills" stacked>
                         <NavItem eventKey="first"><span ><img id="icon-scale" src={iconProduct}></img></span>All Product</NavItem>
+                        <hr style={{ margin:"15px 15px" }}/>
                         <NavItem eventKey="second"><span ><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone</NavItem>
                     </Nav>
                     </Col>
@@ -27,7 +27,6 @@ class SideTab extends Component {
                     <Col sm={10} id="product-list">
                         <Tab.Content animation>
                             <Tab.Pane eventKey="first" >
-                                {/* <SortFilterAll /> */}
                                 <ProductList />
                             </Tab.Pane>
 

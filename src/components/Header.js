@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { onLogout, keepLogin, cookieChecked } from '../actions';
+import { onLogout, keepLogin, cookieChecked, productSearch } from '../actions';
 import Cookies from 'universal-cookie';
 import image1 from '../images/logo.png';
 import iconSmartphone from '../images/iphone_icon.png';
@@ -16,6 +16,8 @@ import iconLogOut from '../images/LogOut_icon.png';
 const cookies = new Cookies();
 
 class Header extends Component {
+    // state = { query: '' }
+
     componentWillMount() {
         const cookieNya = cookies.get('LoginCookies');
         if(cookieNya !== undefined) {
@@ -111,9 +113,9 @@ class Header extends Component {
 
                 <Navbar.Collapse>
                     <Nav>
-                        {/* <NavItem eventKey={1} href="#" id="font-navbar">
+                        <NavItem eventKey={1} href="#" id="font-navbar">
                             <Link to="/cartpage" id="white-font">Link:&nbsp;<span class="glyphicon glyphicon-envelope"></span></Link>
-                        </NavItem> */}
+                        </NavItem>
 
                         <NavDropdown eventKey={3} title="Category" id="basic-nav-dropdown" id="font-navbar">
                             <MenuItem eventKey={3.1}><span ><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone</MenuItem>
@@ -131,9 +133,13 @@ class Header extends Component {
 
                     <Navbar.Form pullLeft>
                         <FormGroup>
-                            <FormControl type="text" placeholder="Search Product" />
-                        </FormGroup>{' '}
-                        <Button type="submit" className="btn btn-success" style={{ backgroundColor:"#ff5722", border:"red" }}><span class="glyphicon glyphicon-search"></span> Search</Button>
+                            <FormControl type="text" placeholder="Search Product" inputRef={input => this.search = input}/>
+                        </FormGroup>{' '}                 
+                        <Link to="/searchpage" id="black-font">
+                            <Button type="submit" className="btn btn-success" onClick={() => this.props.productSearch(this.search.value)} style={{ backgroundColor:"#ff5722", border:"red" }}>
+                                <span class="glyphicon glyphicon-search"></span> Search
+                            </Button>
+                        </Link>
                     </Navbar.Form>
 
                     <Nav pullRight>
@@ -161,9 +167,9 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     const auth = state.auth;
+    const searchResult = state.searchResult
 
-    return { auth };
+    return { auth, searchResult };
 }
 
-
-export default connect(mapStateToProps, { onLogout, keepLogin, cookieChecked })(Header);
+export default connect(mapStateToProps, { onLogout, keepLogin, cookieChecked, productSearch })(Header);

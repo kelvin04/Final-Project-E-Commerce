@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import facebookIcon from '../images/facebook.png';
 import '../supports/css/components/footer-distributeds.css';
 
 class Footer extends Component {
@@ -50,7 +49,7 @@ class Footer extends Component {
 					</p>
 
 					<div class="footer-icons">
-						<a href="#"><i class="fa fa-facebook"><img src={facebookIcon} id="social-media-icon"/></i></a>
+						<a href="#"><i class="fa fa-facebook"></i></a>
 						<a href="#"><i class="fa fa-twitter"></i></a>
 						<a href="#"><i class="fa fa-linkedin"></i></a>
 						<a href="#"><i class="fa fa-github"></i></a>

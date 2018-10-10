@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { API_URL_1 } from '../supports/api-url/apiurl';
+import { API_URL_1 } from '../supports/api-url/apiurl';
 
 export const onLogin = (user) => {
     return(dispatch) => {
@@ -28,8 +28,7 @@ export const keepLogin = (email) => {
             params: {
                 email: email
             }
-        })
-        .then(user => {
+        }).then(user => {
             dispatch({
                 type: "USER_LOGIN_SUCCESS",
                 payload: { username: user.data[0].username, email: user.data[0].email, error: "" }
@@ -37,8 +36,7 @@ export const keepLogin = (email) => {
             dispatch({
                 type: "COOKIES_CHECKED"
             });
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.log(err);
             dispatch({
                 type: "USER_LOGIN_FAIL"
@@ -69,8 +67,24 @@ export const onRegister = (user) => {
                 type: "USER_LOGIN_SUCCESS",
                 payload: { username: res.data.username, email: res.data.email }
             });
+        }).catch((err) => {
+            console.log(err);
         })
-        .then((err) => {
+    }
+}
+
+export const productSearch = (search) => {
+    return(dispatch) => {
+        axios.get(API_URL_1 + '/search', {
+            params: {
+                ProductName: search
+            }
+        }).then((res) => {
+            dispatch({
+                type: "SEARCH_SUCCESS",
+                payload: { searchResult: res.data }
+            });
+        }).catch((err) => {
             console.log(err);
         })
     }

@@ -55,7 +55,9 @@ hr {
   text-align: center;
 }
 
-
+.nav>li>a {
+ text-align: center;
+}
 
 .navbar-default .navbar-toggle {
   border-color: #ddd;
@@ -70,8 +72,18 @@ hr {
   transition: background-color 800ms;
   text-align: center;
   text-decoration: none;
+  background-color: #5f89fc;
 }
 
+#font-navbar:hover{
+  color: white;
+  font-weight: bold;
+  background-color: #a5bbfa;
+}
+
+/* #font-navbar .dropdown-menu:hover {
+  background-color: #a5bbfa;
+} */
 
 .img-thumbnail{
   border-radius: 15px;
@@ -98,6 +110,11 @@ hr {
 }
 
 .thumbnail {
+  border-radius: 10px
+}
+
+.thumbnail:hover {
+  border: 1px solid rgb(27, 153, 238);
   border-radius: 10px
 }
 
@@ -167,4 +184,17 @@ hr {
   margin-right: auto;
   margin-left: auto;
   max-height: 170px;
+}
+
+.thumbnail img {
+  transition: transform .2s;
+  padding: 8px 0;
+}
+
+.thumbnail:hover img{
+  transform: scale(1.08); 
+}
+
+.nav-pills>li>a {
+  background-color: rgb(224, 221, 221);
 }

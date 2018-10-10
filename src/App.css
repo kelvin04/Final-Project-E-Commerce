@@ -112,17 +112,17 @@
   border: 0px;
 }
 
-#font-navbar{
+/* #font-navbar{
   color: white;
   font-weight: bold;
   transition: background-color 800ms;
-}
+} */
 
-#font-navbar:hover{
+/* #font-navbar:hover{
   color: white;
   font-weight: bold;
   background-color: #a5bbfa;
-}
+} */
 
 #white-font{
   color: white;
@@ -259,3 +259,4 @@ width: 100%;
   color: #ff5722;
   font-weight: bold;
 }
+

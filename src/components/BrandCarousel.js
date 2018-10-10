@@ -5,14 +5,6 @@ import { Link } from 'react-router-dom';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import { Carousel } from 'react-responsive-carousel';
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
-import brands1 from '../images/iphone-x-front.jpg';
-import brands2 from '../images/iphone-x-front.jpg';
-import brands3 from '../images/iphone-x-front.jpg';
-import brands4 from '../images/iphone-x-front.jpg';
-import brands5 from '../images/iphone-x-front.jpg';
-import brands6 from '../images/iphone-x-front.jpg';
-import brands7 from '../images/iphone-x-front.jpg';
-import brands8 from '../images/iphone-x-front.jpg';
 import '../supports/css/components/brands.css';
 
 const cookies = new Cookies;
@@ -43,7 +35,7 @@ class BrandCarousel extends Component {
 			if(item.NormalPrice == 0) {
 				return (
 					<div>
-						<img src={brands1} />
+						<img src={require('../images/' + item.Image1)} style={{ maxHeight:"230px", width:"auto" }}/>
 						<p style={{ fontWeight:"bold" }}>{item.ProductName}</p>
 						<p style={{ color:"blue", fontWeight:"bold"}}>New Product</p>
 						<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>
@@ -56,7 +48,7 @@ class BrandCarousel extends Component {
 			else if(item.NormalPrice == 1) {
 				return (
 					<div>
-						<img src={brands1} />
+						<img src={require('../images/' + item.Image1)} style={{ maxHeight:"230px", width:"auto" }}/>
 						<p style={{ fontWeight:"bold" }}>{item.ProductName}</p>
 						<p style={{ color:"red", fontWeight:"bold"}}>Hot Item!</p>
 						<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>
@@ -68,7 +60,7 @@ class BrandCarousel extends Component {
 			}
 			return (
 				<div>
-					<img src={brands1} />
+					<img src={require('../images/' + item.Image1)} style={{ maxHeight:"230px", width:"auto" }}/>
 					<p style={{ fontWeight:"bold" }}>{item.ProductName}</p>
 					<p className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</p>
 					<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>

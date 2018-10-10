@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
-import image1 from '../images/iphone-x.png';
-import image2 from '../images/chromebook.jpg';
-import image3 from '../images/rsz_2nintendo.jpg';
 
 const cookies = new Cookies;
 
@@ -44,7 +41,7 @@ class ProductList extends Component {
   //       this.setState({ products: res.data })
   //     })
   //   }
-  //   // this.setState({ filterBy: value })
+  //   this.setState({ filterBy: value })
   // }
 
   onFilterBrand = (value) => {
@@ -200,7 +197,7 @@ class ProductList extends Component {
 
                     <Col xs={5} md={5}>
                         <div style={{fontWeight:"bold"}}>
-                        Ascending / Descending
+                        Asc / Desc
                         </div>
                         <Select options={SortBy} onChange={opt => this.onAscDescSort(opt.value)} isSearchable={false}/>
                       </Col>
