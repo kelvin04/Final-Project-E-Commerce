@@ -61,7 +61,7 @@ class ProductList extends Component {
 
   onBtnSortClick = () => {
     if(this.state.sortBy == 1 && this.state.ascDescSort == 1) {
-      axios.get(API_URL_1 + '/sortnameasc', {
+      axios.get(API_URL_1 + '/sortallnameasc', {
         params : { namabrand : this.state.filterBy }
       })
       .then((res) => {
@@ -70,7 +70,7 @@ class ProductList extends Component {
       })
     }
     else if(this.state.sortBy == 1 && this.state.ascDescSort == 2) {
-      axios.get(API_URL_1 + '/sortnamedesc', {
+      axios.get(API_URL_1 + '/sortallnamedesc', {
         params : { namabrand : this.state.filterBy }
       })
       .then((res) => {
@@ -79,7 +79,7 @@ class ProductList extends Component {
       })
     }
     else if(this.state.sortBy == 2 && this.state.ascDescSort == 1) {
-      axios.get(API_URL_1 + '/sortpriceasc', {
+      axios.get(API_URL_1 + '/sortallpriceasc', {
         params : { namabrand : this.state.filterBy }
       })
       .then((res) => {
@@ -88,7 +88,7 @@ class ProductList extends Component {
       })
     }
     else if(this.state.sortBy == 2 && this.state.ascDescSort == 2) {
-      axios.get(API_URL_1 + '/sortpricedesc', {
+      axios.get(API_URL_1 + '/sortallpricedesc', {
         params : { namabrand : this.state.filterBy }
       })
       .then((res) => {
@@ -154,15 +154,19 @@ class ProductList extends Component {
   render() {
     const Brand = [
       { label: "All Products", value: 0 },
-      { label: "Apple", value: 1 },
+      { label: "APPLE", value: 1 },
       { label: "OPPO", value: 2 },
-      { label: "Samsung", value: 3 },
-      { label: "Xiaomi", value: 4 },
-      { label: "Chromebook", value: 5 },
-      { label: "Nintendo", value: 6 },
-      { label: "Sony", value: 7 },
-      { label: "Microsoft", value: 8 },
-      
+      { label: "SAMSUNG", value: 3 },
+      { label: "XIAOMI", value: 4 },
+      { label: "ASUS", value: 5 },
+      { label: "DELL", value: 6 },
+      { label: "LENOVO", value: 7 },
+      { label: "RAZER", value: 8 },
+      { label: "ACER", value: 9 },
+      { label: "CHROMEBOOK", value: 10 },
+      { label: "NINTENDO", value: 11 },
+      { label: "SONY", value: 12 },
+      { label: "MICROSOFT", value: 13 },
     ];
 
     const Sort = [

@@ -9,7 +9,7 @@ import image1 from '../images/iphone-x.png';
 
 const cookies = new Cookies;
 
-class SmartphoneList extends Component {
+class LaptopList extends Component {
   state = { products: [], selectedItem: 0, filterBy: "", sortBy: 0, ascDescSort: 0 }
 
   componentWillMount() {
@@ -17,7 +17,7 @@ class SmartphoneList extends Component {
   }
   
   getProductList = () => {
-    axios.get(API_URL_1 + '/allSmartphone')
+    axios.get(API_URL_1 + '/allLaptop')
     .then((res) => {
       console.log(res);
       this.setState({ products: res.data, selectedItem: 0 })
@@ -47,7 +47,7 @@ class SmartphoneList extends Component {
 
   onBtnSortClick = () => {
     if(this.state.sortBy == 1 && this.state.ascDescSort == 1) {
-      axios.get(API_URL_1 + '/sortsmartphonenameasc', {
+      axios.get(API_URL_1 + '/sortlaptopnameasc', {
         params : { namabrand : this.state.filterBy }
       })
       .then((res) => {
@@ -56,7 +56,7 @@ class SmartphoneList extends Component {
       })
     }
     else if(this.state.sortBy == 1 && this.state.ascDescSort == 2) {
-      axios.get(API_URL_1 + '/sortsmartphonenamedesc', {
+      axios.get(API_URL_1 + '/sortlaptopnamedesc', {
         params : { namabrand : this.state.filterBy }
       })
       .then((res) => {
@@ -65,7 +65,7 @@ class SmartphoneList extends Component {
       })
     }
     else if(this.state.sortBy == 2 && this.state.ascDescSort == 1) {
-      axios.get(API_URL_1 + '/sortsmartphonepriceasc', {
+      axios.get(API_URL_1 + '/sortlaptoppriceasc', {
         params : { namabrand : this.state.filterBy }
       })
       .then((res) => {
@@ -74,7 +74,7 @@ class SmartphoneList extends Component {
       })
     }
     else if(this.state.sortBy == 2 && this.state.ascDescSort == 2) {
-      axios.get(API_URL_1 + '/sortsmartphonepricedesc', {
+      axios.get(API_URL_1 + '/sortlaptoppricedesc', {
         params : { namabrand : this.state.filterBy }
       })
       .then((res) => {
@@ -139,11 +139,13 @@ class SmartphoneList extends Component {
 
   render() {
     const Brand = [
-      { label: "All Smartphones", value: 0 },
-      { label: "APPLE", value: 1 },
-      { label: "OPPO", value: 2 },
-      { label: "SAMSUNG", value: 3 },
-      { label: "XIAOMI", value: 4 }
+      { label: "All Laptops", value: 0 },
+      { label: "ASUS", value: 1 },
+      { label: "DELL", value: 2 },
+      { label: "LENOVO", value: 3 },
+      { label: "RAZER", value: 4 },
+      { label: "ACER", value: 5 },
+      { label: "CHROMEBOOK", value: 6 }
     ];
 
     const Sort = [
@@ -200,4 +202,4 @@ class SmartphoneList extends Component {
     }
   }
 
-export default SmartphoneList;
+export default LaptopList;

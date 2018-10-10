@@ -4,6 +4,7 @@ import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 import SortFilterAll from './SortFilterAll';
 import ProductList from './ProductList';
 import SmartphoneList from './SmartphoneList';
+import LaptopList from './LaptopList';
 import iconProduct from '../images/product_icon.png';
 import iconSmartphone from '../images/iphone_icon.png';
 import iconLaptop from '../images/laptop_icon.png';
@@ -19,8 +20,10 @@ class SideTab extends Component {
                     <Col sm={2} id="side-tab">
                     <Nav bsStyle="pills" stacked>
                         <NavItem eventKey="first"><span ><img id="icon-scale" src={iconProduct}></img></span>All Product</NavItem>
-                        <hr style={{ margin:"15px 15px" }}/>
+                        <hr style={{ margin:"17px auto" }}/>
                         <NavItem eventKey="second"><span ><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone</NavItem>
+                        <hr style={{ margin:"8px auto" }}/>
+                        <NavItem eventKey="third"><span ><img id="icon-scale" src={iconLaptop}></img></span>Laptop</NavItem>
                     </Nav>
                     </Col>
 
@@ -32,6 +35,10 @@ class SideTab extends Component {
 
                             <Tab.Pane eventKey="second">
                                 <SmartphoneList />
+                            </Tab.Pane>
+
+                            <Tab.Pane eventKey="third">
+                                <LaptopList />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>
