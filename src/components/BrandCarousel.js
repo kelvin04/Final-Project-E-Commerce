@@ -35,12 +35,12 @@ class BrandCarousel extends Component {
 			if(item.NormalPrice == 0) {
 				return (
 					<div>
-						<img src={require('../images/' + item.Image1)} style={{ maxHeight:"230px", width:"auto" }}/>
-						<p style={{ fontWeight:"bold" }}>{item.ProductName}</p>
+						<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
+						<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
 						<p style={{ color:"blue", fontWeight:"bold"}}>New Product</p>
 						<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>
 						<Link to="/productdetails">
-							<input type="button" className="btn btn-danger" value="Details" onClick={() => this.selectedProduct(item.idProduct)} />
+							<input type="button" className="btn btn-success" value="Details" onClick={() => this.selectedProduct(item.idProduct)} />
 						</Link>
 					</div>
 				);
@@ -48,24 +48,24 @@ class BrandCarousel extends Component {
 			else if(item.NormalPrice == 1) {
 				return (
 					<div>
-						<img src={require('../images/' + item.Image1)} style={{ maxHeight:"230px", width:"auto" }}/>
-						<p style={{ fontWeight:"bold" }}>{item.ProductName}</p>
+						<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
+						<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
 						<p style={{ color:"red", fontWeight:"bold"}}>Hot Item!</p>
 						<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>
 						<Link to="/productdetails">
-							<input type="button" className="btn btn-danger" value="Details" onClick={() => this.selectedProduct(item.idProduct)} />
+							<input type="button" className="btn btn-success" value="Details" onClick={() => this.selectedProduct(item.idProduct)} />
 						</Link>
 					</div>
 				);
 			}
 			return (
 				<div>
-					<img src={require('../images/' + item.Image1)} style={{ maxHeight:"230px", width:"auto" }}/>
-					<p style={{ fontWeight:"bold" }}>{item.ProductName}</p>
+					<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
+					<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
 					<p className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</p>
 					<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>
 					<Link to="/productdetails">
-						<input type="button" className="btn btn-danger" value="Details" onClick={() => this.selectedProduct(item.idProduct)} />
+						<input type="button" className="btn btn-success" value="Details" onClick={() => this.selectedProduct(item.idProduct)} />
 					</Link>
 				</div>
 			);
@@ -74,6 +74,7 @@ class BrandCarousel extends Component {
 	}
 
     render() {
+
         return(
 			<div style={{ textAlign: "center" }}>
 				<h2 style={{ fontWeight:"bold" }}>Hot List</h2>

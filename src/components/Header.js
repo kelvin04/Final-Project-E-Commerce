@@ -76,9 +76,13 @@ class Header extends Component {
 
                         <Navbar.Form pullLeft>
                             <FormGroup>
-                                <FormControl type="text" placeholder="Cari Produk" />
-                            </FormGroup>{' '}
-                            <Button type="submit" className="btn btn-success" style={{ backgroundColor:"#ff5722", border:"red" }}>Cari</Button>
+                                <FormControl type="text" placeholder="Search Product" inputRef={input => this.search = input}/>
+                            </FormGroup>{' '}                 
+                            <Link to="/searchpage" id="black-font">
+                                <Button type="submit" className="btn btn-success" onClick={() => this.props.productSearch(this.search.value)} style={{ backgroundColor:"#ff5722", border:"red" }}>
+                                    <span class="glyphicon glyphicon-search"></span> Search
+                                </Button>
+                            </Link>
                         </Navbar.Form>
 
                         <Nav pullRight>
@@ -118,16 +122,19 @@ class Header extends Component {
                         </NavItem>
 
                         <NavDropdown eventKey={3} title="Category" id="basic-nav-dropdown" id="font-navbar">
-                            <MenuItem eventKey={3.1}><span ><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone</MenuItem>
+                            <MenuItem eventKey={3.1}>
+                                <Link to="/smartphonepage" id="black-font"><span><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone</Link>
+                            </MenuItem>
+
                             <MenuItem eventKey={3.2}><span ><img id="icon-scale" src={iconLaptop}></img></span>Laptop</MenuItem>
                             <MenuItem eventKey={3.3}><span ><img id="icon-scale" src={iconGaming}></img></span>Game Console</MenuItem>
                             <MenuItem divider />
-                            {/* <Link to="/allproductpage" id="black-font"> */}
+                            <Link to="/allproductpage" id="black-font">
                                 <MenuItem eventKey={3.3} >
-                                    <Link to="/allproductpage" id="black-font"><span ><img id="icon-scale" src={iconProduct}></img></span>All Products</Link>
-                                    {/* <span ><img id="icon-scale" src={iconProduct}></img></span>All Products */}
+                                    {/* <Link to="/allproductpage" id="black-font"><span ><img id="icon-scale" src={iconProduct}></img></span>All Products</Link> */}
+                                    <span ><img id="icon-scale" src={iconProduct} style={{ marginLeft:"10px" }}></img></span>All Products
                                 </MenuItem>
-                            {/* </Link> */}
+                            </Link>
                         </NavDropdown>
                     </Nav>
 

@@ -198,3 +198,21 @@ hr {
 .nav-pills>li>a {
   background-color: rgb(224, 221, 221);
 }
+
+.shop:before {
+  background: #267bfa;
+}
+
+.shop:after {
+  background: #267bfa;
+}
+
+
+/* a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+li:hover {
+  background-color: rgb(209, 208, 208);
+} */

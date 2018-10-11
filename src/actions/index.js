@@ -80,10 +80,20 @@ export const productSearch = (search) => {
                 ProductName: search
             }
         }).then((res) => {
-            dispatch({
-                type: "SEARCH_SUCCESS",
-                payload: { searchResult: res.data }
-            });
+            console.log(res)
+            if(res.data.length == 0) {
+                dispatch({
+                    type: "PRODUCT_NOT_FOUND",
+                    payload: { searchResult:[], err: "Product not found" }
+                });
+            }
+            else {
+                dispatch({
+                    type: "SEARCH_SUCCESS",
+                    payload: { searchResult: res.data }
+                });
+            }
+            
         }).catch((err) => {
             console.log(err);
         })

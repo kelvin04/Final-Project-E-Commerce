@@ -156,6 +156,14 @@ class SmartphoneList extends Component {
       { label: "Descending", value: 2 },
     ]; 
 
+    if(this.state.products.length == 0) {
+			return (
+				<div style={{ margin:"700px" }}>
+          
+				</div>
+			);
+		}
+
     return(
       <div>
         <div style={{ marginBottom:"35px" }}>

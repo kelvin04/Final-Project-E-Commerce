@@ -260,3 +260,15 @@ width: 100%;
   font-weight: bold;
 }
 
+#image-brand-carousel {
+  max-height: 230px;
+  width: auto;
+}
+
+@media only screen and (max-width: 766px) {
+  #image-brand-carousel {
+    max-height: 140px;
+    width: auto;
+  }
+}
+

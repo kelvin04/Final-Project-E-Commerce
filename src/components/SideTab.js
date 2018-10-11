@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Tab, NavItem, Row, Col, Nav } from 'react-bootstrap';
 import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
-import SortFilterAll from './SortFilterAll';
 import ProductList from './ProductList';
 import SmartphoneList from './SmartphoneList';
 import LaptopList from './LaptopList';

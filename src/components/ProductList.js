@@ -152,6 +152,10 @@ class ProductList extends Component {
   }
 
   render() {
+    console.log("AAAAAA")
+    console.log(this.state.products.length)
+
+
     const Brand = [
       { label: "All Products", value: 0 },
       { label: "APPLE", value: 1 },
@@ -178,6 +182,14 @@ class ProductList extends Component {
       { label: "Ascending", value: 1 },
       { label: "Descending", value: 2 },
     ]; 
+
+    if(this.state.products.length == 0) {
+			return (
+				<div style={{ margin:"700px" }}>
+          
+				</div>
+			);
+		}
 
     return(
       <div>

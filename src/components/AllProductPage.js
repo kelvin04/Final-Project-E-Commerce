@@ -7,7 +7,9 @@ class AllProductPage extends Component {
     render(){
         return(
             <div id="product-page-container">
-                <span id="display-inline"><SideTab /></span>
+                <span id="display-inline">
+                    <SideTab />
+                </span>
                 <br/>
 
                 {/* <div class="text-center">

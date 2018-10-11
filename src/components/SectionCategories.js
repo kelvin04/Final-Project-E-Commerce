@@ -17,7 +17,7 @@ class SectionCategories extends Component {
                                 </div>
                                 <div className="shop-body">
                                     <h3>Smartphone<br/>Collection</h3>
-                                    <a href="#" className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" ></i></a>
+                                    <a href="/smartphonepage" className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" ></i></a>
                                 </div>
                             </div>
                         </div>
