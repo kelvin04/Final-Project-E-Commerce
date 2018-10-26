@@ -8,17 +8,27 @@ import '../supports/css/components/loginpage.css';
 const cookies = new Cookies();
 
 class LoginPage extends Component {
-    componentWillReceiveProps(newProps) {
-        if(newProps.auth.username !== "") {
-            cookies.set('LoginCookies', newProps.auth.email, { path: '/' });
+    // componentWillReceiveProps(newProps) {
+    //     if(newProps.auth.username !== "") {
+    //         cookies.set('LoginCookies', newProps.auth.username, { path: '/' });        
+    //     }
+    // }
+
+    loginFunction = () => {
+        var username = this.refs.username.value;
+        var password = this.refs.password.value;
+        this.props.onLogin({ username, password });
+    }
+
+    onLoginPress = (event) => {
+        var code = event.keycode || event.which;
+        if(code === 13) {
+            this.loginFunction();
         }
     }
 
     onLoginClick = () => {
-        var email = this.refs.email.value;
-        var password = this.refs.password.value;
-
-        this.props.onLogin({ email, password });
+        this.loginFunction();
     }
 
     render() {
@@ -34,16 +44,16 @@ class LoginPage extends Component {
                                 </div>
                                 <form id="Login">
                                     <div className="form-group">
-                                        <input type="email" ref="email" className="form-control" id="inputEmail" placeholder="Email Address" />
+                                        <input type="username" ref="username" className="form-control" id="inputEmail" placeholder="Username" />
                                     </div>
                                     <div className="form-group">
-                                        <input type="password" ref="password" className="form-control" id="inputPassword" placeholder="Password" />
+                                        <input type="password" ref="password" className="form-control" id="inputPassword" placeholder="Password" onKeyPress={this.onLoginPress.bind(this)} />
                                     </div>
                                     <div className="forgot">
                                         <a href="reset.html">Forgot password?</a>
                                     </div>
-                                    <input type="button" className="btn btn-primary" value="Login" onClick={this.onLoginClick}/>
-                                    <h2 className="label-danger">{this.props.auth.error}</h2>
+                                    <h3 style={{ color: "red" }}>{this.props.auth.errorLogin}</h3>
+                                    <input type="button" className="btn btn-primary" value="Login" onClick={this.onLoginClick} style={{ outline: 'none' }}/>
                                 </form>
                             </div>
                         </div>
@@ -51,7 +61,6 @@ class LoginPage extends Component {
                 </div>
             );
         }
-
         return <Redirect to="/" />
     }
 }

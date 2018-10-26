@@ -3,15 +3,18 @@ import { API_URL_1 } from '../supports/api-url/apiurl';
 
 export const onLogin = (user) => {
     return(dispatch) => {
-        axios.get('http://localhost:1989/login', {
+        axios.get(API_URL_1 + '/login', {
             params: {
-                email: user.email,
+                username: user.username,
                 password: user.password
             }
         }).then(user => {
             dispatch ({
                 type: "USER_LOGIN_SUCCESS",
-                payload: { username: user.data[0].username, email: user.data[0].email, error: "" }
+                payload: { username: user.data[0].username, email: user.data[0].email, errorLogin: "" }
+            });
+            dispatch({
+                type: "COOKIES_CHECKED"
             });
         }).catch(err => {
             console.log(err);
@@ -22,16 +25,16 @@ export const onLogin = (user) => {
     };
 };
 
-export const keepLogin = (email) => {
+export const keepLogin = (username) => {
     return(dispatch) => {
-        axios.get('http://localhost:1989/login', {
+        axios.get(API_URL_1 + '/keeplogin', {
             params: {
-                email: email
+                username: username
             }
         }).then(user => {
             dispatch({
                 type: "USER_LOGIN_SUCCESS",
-                payload: { username: user.data[0].username, email: user.data[0].email, error: "" }
+                payload: { username: user.data[0].username, errorLogin: "" }
             });
             dispatch({
                 type: "COOKIES_CHECKED"
@@ -52,7 +55,7 @@ export const onLogout = () => {
 }
 
 export const cookieChecked = () => {
-    return{
+    return {
         type: "COOKIES_CHECKED"
     };
 }
@@ -60,13 +63,20 @@ export const cookieChecked = () => {
 
 export const onRegister = (user) => {
     return (dispatch) => {
-        axios.post('http://localhost:1989/register', user)
+        axios.post(API_URL_1 + '/register', user)
         .then((res) => {
-            alert('Register Success!');
-            dispatch ({
-                type: "USER_LOGIN_SUCCESS",
-                payload: { username: res.data.username, email: res.data.email }
-            });
+            if(res.data == "Username already exists") {
+                dispatch({
+                    type: "USERNAME_EXISTS"
+                })
+            }
+            else {
+                alert('Register Success!');
+                dispatch ({
+                    type: "USER_LOGIN_SUCCESS",
+                    payload: { username: res.data.username, email: res.data.email }
+                });
+            }
         }).catch((err) => {
             console.log(err);
         })

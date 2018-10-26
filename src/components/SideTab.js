@@ -24,7 +24,6 @@ class SideTab extends Component {
                         </NavItem>
 
                         <hr style={{ margin:"17px auto" }}/>
-
                         <NavItem eventKey="second">
                             <span><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone
                         </NavItem>

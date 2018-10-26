@@ -4,23 +4,44 @@ import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { onRegister } from '../actions';
 import Cookies from 'universal-cookie';
+import { withAlert } from 'react-alert'
 import '../supports/css/components/loginpage.css';
 
 const cookies = new Cookies();
 
 class RegisterPage extends Component {
-    componentWillReceiveProps(newProps) {
-        if(newProps.auth.username !== "") {
-            cookies.set('LoginCookies', newProps.auth.email, { path: '/' });
+    // componentWillReceiveProps(newProps) {
+    //     if(newProps.auth.username !== "") {
+    //         cookies.set('LoginCookies', newProps.auth.username, { path: '/' });
+    //     }
+    // }
+
+    registerFunction = () => {
+        if(this.refs.username.value == "" || this.refs.email.value == "" || this.refs.password.value == "") {
+            this.props.alert.error(
+                <div style={{ textTransform: 'capitalize'}}>
+                    Username, Email, or Password cannot be empty!
+                </div>
+            )
+        }
+        else if(this.refs.username.value != "" && this.refs.email.value != "" && this.refs.password.value != "") {
+            this.props.onRegister ({
+                username: this.refs.username.value,
+                email: this.refs.email.value,
+                password: this.refs.password.value
+            });
+        }
+    }
+
+    onRegisterPress = (event) => {
+        var code = event.keycode || event.which;
+        if(code === 13) {
+            this.registerFunction();
         }
     }
 
     onRegisterClick = () => {
-        this.props.onRegister ({
-            username: this.refs.name.value,
-            email: this.refs.email.value,
-            password: this.refs.password.value
-        });
+        this.registerFunction();
     }
 
     render() {
@@ -36,7 +57,7 @@ class RegisterPage extends Component {
                                 </div>
                                 <form id="Login">
                                 <div className="form-group">
-                                    <input type="text" ref="name" className="form-control" id="inputUsername" placeholder="Username" />
+                                    <input type="text" ref="username" className="form-control" id="inputUsername" placeholder="Username" />
                                 </div>
 
                                 <div className="form-group">
@@ -44,12 +65,10 @@ class RegisterPage extends Component {
                                 </div>
 
                                 <div className="form-group">
-                                    <input type="password" ref="password" className="form-control" id="inputPassword" placeholder="Password" />
+                                    <input type="password" ref="password" className="form-control" id="inputPassword" placeholder="Password"  onKeyPress={this.onRegisterPress.bind(this)} />
                                 </div>
-
-                                <br/>
-
-                                <input type="button"className="btn btn-primary" value="Register" onClick={this.onRegisterClick}/>
+                                <h2 style={{ color: "red" }}>{this.props.auth.errorRegister}</h2>
+                                <input type="button"className="btn btn-primary" value="Register" onClick={this.onRegisterClick} style={{ outline: 'none' }}/>
                                 </form>
                             </div>
                         </div>
@@ -67,5 +86,5 @@ const mapStateToProps = (state) => {
 }
 
 // dikasih null dulu soalnya belum pake mapStateToProps
-export default connect(mapStateToProps, { onRegister })(RegisterPage);
+export default connect(mapStateToProps, { onRegister })(withAlert(RegisterPage));
 
