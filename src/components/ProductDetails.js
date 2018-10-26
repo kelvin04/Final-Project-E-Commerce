@@ -179,8 +179,6 @@ class ProductDetails extends Component {
 						</Col>
 					</div>
 				</Grid>
-				
-				<Footer />
 			</div>
         );
     }

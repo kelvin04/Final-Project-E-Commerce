@@ -15,6 +15,8 @@ import SearchPage from './components/SearchPage';
 import SmartphonePage from './components/SmartphonePage';
 import AdminPage from './components/AdminPage';
 import AdminProductPage from './components/AdminProductPage';
+import AdminTransactionPage from './components/AdminTransactionPage';
+import Footer from './components/Footer';
 
 const cookies = new Cookies();
 
@@ -49,8 +51,6 @@ class App extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("PUSINGGGGG")
-    console.log(newProps)
     if(newProps.auth.username === "" && (this.props.auth.username !== newProps.auth.username)) {
         cookies.remove('LoginCookies');
     }
@@ -71,8 +71,10 @@ class App extends Component {
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/searchpage" component={SearchPage} />
-          <Route path="/adminpage" component={AdminPage} />
+          {/* <Route path="/adminpage" component={AdminPage} /> */}
+          <Route path="/admintransactionpage" component={AdminTransactionPage} />
           <Route path="/adminproductpage" component={AdminProductPage} />
+          <Footer />
       </div>
     );
   }

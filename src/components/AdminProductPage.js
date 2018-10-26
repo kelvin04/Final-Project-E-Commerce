@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import pagenotfound from '../images/pagenotfound.png';
@@ -273,7 +273,7 @@ class AdminProductPage extends Component {
     renderAdminProduct = () => {
         if(this.props.auth.username != "admin") {
             return (
-                <div style={{ marginTop: '150px', textAlign: 'center' }}>
+                <div style={{ marginTop: '160px', textAlign: 'center' }}>
                     <img src={pagenotfound} style={{ width:"100%", maxWidth:"430px", height:"auto" }} /><br/><br/>
                     <h2>Page Not Found!</h2>
                 </div>
@@ -281,13 +281,23 @@ class AdminProductPage extends Component {
         }
         else {
             return (
-                <div style={{ margin: "70px 5px 0px 5px" }}>
-                    <h2 style={{ color: "#ff5722", fontWeight: "bold", textAlign: "center" }}>Admin Product List</h2><br/>
-                    {/* <input type="text" ref="ProductNameSearch" placeholder="Search Username" style={{ marginRight: '10px' }}/> */}
-                    <input type="text" ref="ProductnameSearch" placeholder="Search Product Name" style={{ marginRight: '10px'}} />
-                    <Button bsStyle="success" style={{ marginRight: "10px" }} onClick={this.onBtnSearchClick}>Search</Button>
-                    <Button bsStyle="danger" onClick={this.onBtnResetClick}>Reset</Button>
-                    <br/><br/>
+                <div style={{ margin: "60px 5px 0px 5px" }}>
+                    <Grid>
+                        <Row className="show-grid">
+                            <Col xs={12} md={4}>
+                                <h2 style={{ color: "#ff5722", fontWeight: "bold" }}>Admin Product List</h2>
+                            </Col>
+                            <Col xs={12} md={8}>
+                                <div style={{ marginTop: "20px", textAlign: "center" }}>
+                                    {/* <input type="text" ref="ProductNameSearch" placeholder="Search Username" style={{ marginRight: '10px' }}/> */}
+                                    <input type="text" ref="ProductnameSearch" placeholder="Search Product Name" style={{ marginRight: '10px'}} />
+                                    <Button bsStyle="success" style={{ marginRight: "10px" }} onClick={this.onBtnSearchClick}>Search</Button>
+                                    <Button bsStyle="danger" onClick={this.onBtnResetClick}>Reset</Button>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Grid>
+                    <br/>
                     <Table striped bordered condensed>
                         <thead>
                             <tr>

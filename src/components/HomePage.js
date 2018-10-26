@@ -25,7 +25,6 @@ class HomePage extends Component {
                 <BrandCarousel />
                 <br/>
                 <SectionCategories />
-                <Footer />
             </div>
         );
     }

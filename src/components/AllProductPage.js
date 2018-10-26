@@ -22,8 +22,6 @@ class AllProductPage extends Component {
                 {/* <div class="text-center">
                     <Page />
                 </div> */}
-            
-                <Footer />
             </div>
         );
     }

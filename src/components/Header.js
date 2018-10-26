@@ -37,13 +37,6 @@ class Header extends Component {
 
                     <Navbar.Collapse>
                         <Nav>
-                            {/* <NavItem eventKey={1} href="#" id="font-navbar">
-                                Link
-                            </NavItem>
-                            <NavItem eventKey={2} href="#" id="font-navbar">
-                                Link
-                            </NavItem> */}
-
                             <NavDropdown eventKey={3} title="Category" id="basic-nav-dropdown" id="font-navbar">
                                 <MenuItem eventKey={3.1}><span ><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone</MenuItem>
                                 <MenuItem eventKey={3.2}><span ><img id="icon-scale" src={iconLaptop}></img></span>Laptop</MenuItem>
@@ -68,7 +61,7 @@ class Header extends Component {
 
                         <Nav pullRight>
                         <NavItem eventKey={2} id="font-navbar">
-                                <Link to="/adminpage" id="white-font">
+                                <Link to="/admintransactionpage" id="white-font">
                                     Transaction
                                 </Link> 
                             </NavItem>

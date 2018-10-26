@@ -69,7 +69,6 @@ class SmartphonePage extends Component {
                     <ScrollUpButton ContainerClassName="ScrollUpButton__Container" ShowAtPosition={300} style={{ border: "5px solid red" }}/>
                 </span>
                 <br/>
-                <Footer />
             </div>
         );
     }
