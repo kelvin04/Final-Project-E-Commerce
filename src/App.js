@@ -13,32 +13,14 @@ import ProductDetails from './components/ProductDetails';
 import CartPage from './components/CartPage';
 import SearchPage from './components/SearchPage';
 import SmartphonePage from './components/SmartphonePage';
-import AdminPage from './components/AdminPage';
 import AdminProductPage from './components/AdminProductPage';
 import AdminTransactionPage from './components/AdminTransactionPage';
 import Footer from './components/Footer';
+import TransHistoryUser from './components/TransHistoryUser';
 
 const cookies = new Cookies();
 
 class App extends Component {
-  // componentWillMount() {
-  //   const cookieNya = cookies.get('CinemaBertasbih');
-  //   if(cookieNya !== undefined) {
-  //       this.props.keepLogin(cookieNya);
-  //   }
-  //   else {
-  //       this.props.cookieChecked();
-  //   }
-  // }
-
-  // componentWillReceiveProps(newProps) {
-  //   if(newProps.auth.username !== "") {
-  //       cookies.set("LoggedInUser", newProps.auth.username, { path: '/' });
-  //   }
-  //   else if(newProps.auth.username == "" && this.props.auth.username !== newProps.auth.username) {
-  //     this.props.keepLogin(cookies.get("LoggedInUser"))
-  //   }
-  // }
 
   componentWillMount() {
     const cookieNya = cookies.get('LoginCookies');
@@ -72,6 +54,7 @@ class App extends Component {
           <Route path="/register" component={RegisterPage} />
           <Route path="/searchpage" component={SearchPage} />
           {/* <Route path="/adminpage" component={AdminPage} /> */}
+          <Route path="/transactionhistorypage" component={TransHistoryUser} />
           <Route path="/admintransactionpage" component={AdminTransactionPage} />
           <Route path="/adminproductpage" component={AdminProductPage} />
           <Footer />

@@ -29,25 +29,34 @@ class ProductList extends Component {
     console.log(id)
   }
   
-  // onFilterBrand = (value) => {
-  //   if(value == "All Products" ) {
-  //     return this.getProductList();
-  //   }
-  //   else {
-  //     axios.get(API_URL_1 + '/filterbrand', {
-  //       params : { namabrand : value }
-  //     })
-  //     .then((res) => {
-  //       this.setState({ products: res.data })
-  //     })
-  //   }
-  //   this.setState({ filterBy: value })
-  // }
-
   onFilterBrand = (value) => {
+    console.log(value);
+    if(value == "All Products" ) {
+      return this.getProductList();
+    }
+    else if(value == "New Products" ) {
+      axios.get(API_URL_1 + '/filternewproducts', {
+        params : { namabrand : value }
+      })
+      .then((res) => {
+        this.setState({ products: res.data })
+      })
+    }
+    else {
+      axios.get(API_URL_1 + '/filterbrand', {
+        params : { namabrand : value }
+      })
+      .then((res) => {
+        this.setState({ products: res.data })
+      })
+    }
     this.setState({ filterBy: value })
-    console.log(this.state.filterBy)
   }
+
+  // onFilterBrand = (value) => {
+  //   this.setState({ filterBy: value })
+  //   console.log(this.state.filterBy)
+  // }
 
   onSortBy = (value1) => {
     this.setState({ sortBy: value1 })
@@ -152,12 +161,9 @@ class ProductList extends Component {
   }
 
   render() {
-    console.log("AAAAAA")
-    console.log(this.state.products.length)
-
-
     const Brand = [
       { label: "All Products", value: 0 },
+      { label: "New Products", value: 14 },
       { label: "APPLE", value: 1 },
       { label: "OPPO", value: 2 },
       { label: "SAMSUNG", value: 3 },
@@ -193,7 +199,7 @@ class ProductList extends Component {
 
     return(
       <div>
-        <div style={{ marginBottom:"35px" }}>
+        <div style={{ marginBottom:"33px" }}>
           <Grid>
               <Row>
                   <Col xs={12} md={4}>

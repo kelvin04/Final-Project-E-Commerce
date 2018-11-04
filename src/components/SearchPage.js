@@ -52,7 +52,6 @@ class SearchPage extends Component {
                         {this.renderSearchResult()}
                     </Row>
                 </Grid>
-                <Footer />
             </div>
         );
     }

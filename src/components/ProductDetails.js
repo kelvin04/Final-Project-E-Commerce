@@ -113,7 +113,7 @@ class ProductDetails extends Component {
 			);
 		}
         return ( 
-			<div>
+			<div style={{ marginBottom: "70px" }}>
 				<Grid>
 					<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
 						<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"85px", textAlign:"center"}}>

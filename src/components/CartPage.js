@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
-import { Table, Grid, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Table, Grid, Row, Col, Button } from 'react-bootstrap';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import '../supports/css/components/cartpage.css';
 import emptyCart from '../images/cart-empty.png';
@@ -158,15 +159,21 @@ class CartPage extends Component {
     renderUserCartList = () => {
         if(this.state.cartList == "checkout"){
             return(
-                <div style={{ marginTop: '120px', textAlign: 'center' }}>
+                <div style={{ marginTop: '100px', textAlign: 'center' }}>
                     <img src={thankYou} style={{ width:"100%", maxWidth:"700px", height:"auto" }} />
                 </div>
             );
         }
         else if(this.state.cartList.length == 0) {
             return(
-                <div style={{ marginTop: '150px', textAlign: 'center' }}>
+                <div style={{ marginTop: '120px', textAlign: 'center' }}>
                     <img src={emptyCart} style={{ width:"100%", maxWidth:"430px", height:"auto" }} />
+                    <br/>
+                    <div style={{ marginTop: "50px", outline: "none" }}>
+                        <Link to="/allproductpage">
+                            <Button bsStyle="success" bsSize="large" >Click here to shop!</Button>
+                        </Link>
+                    </div>
                 </div>
             );
         }
@@ -226,7 +233,7 @@ class CartPage extends Component {
         console.log(this.props.auth.username)
         return (
             <div>
-                {this.renderUserCartList()};
+                {this.renderUserCartList()}
             </div>
         );
     }
