@@ -96,11 +96,6 @@ class Header extends Component {
                 </Navbar>
             );
         }
-        // else if (this.props.auth.username == "a") {
-        //     return (
-        //         <HeaderDetails titleText={'AAAAAAA'} />
-        //     );
-        // }
         else if(this.props.auth.username != "") {
             return (
                 <Navbar fixedTop={true} collapseOnSelect id="navbar-color">
@@ -109,9 +104,6 @@ class Header extends Component {
                         {this.renderMiddleNavbar()}
                         <Nav pullRight>
                             <NavItem eventKey={2} id="font-navbar">
-                                    <Link to={`/cartpage?username=${this.props.auth.username}`} id="white-font">
-                                        MyCart 
-                                    </Link> 
                                 </NavItem>
                                 <NavItem eventKey={1} id="font-navbar">
                                 <NavDropdown eventKey={3} title={ "Hello, " + this.props.auth.username} id="basic-nav-dropdown" id="font-navbar">
@@ -119,7 +111,7 @@ class Header extends Component {
                                         <Link to={`/cartpage?username=${this.props.auth.username}`}><span ><img id="icon-scale" src={iconCart}></img></span>Cart</Link>
                                     </MenuItem>
                                     <MenuItem eventKey={3.2}>
-                                        <Link to='/transactionhistorypage'><span ><img id="icon-scale" src={iconHistory}></img></span>Transaction History</Link>
+                                        <Link to={`/transactionhistorypage?username=${this.props.auth.username}`}><span ><img id="icon-scale" src={iconHistory}></img></span>Transaction History</Link>
                                     </MenuItem>
                                     <MenuItem divider />
                                     <MenuItem eventKey={3.3} onSelect={this.onLogOutClick}>
@@ -155,7 +147,6 @@ class Header extends Component {
     }
     render () {
         return(
-         
             this.renderNavbar()
         );
     }

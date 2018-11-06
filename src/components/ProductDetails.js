@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
+import queryString from 'query-string'
 import { withAlert } from 'react-alert'
 import { Grid, Row, Col, Image } from 'react-bootstrap';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import Magnifier from 'react-magnifier';
-import Footer from './Footer';
 import '../supports/css/components/ProductDetails.css';
+import MainImage from '../images/Loading_icon.gif';
 
-
-const cookies = new Cookies();
 
 class ProductDetails extends Component {	
-	state = { product: null, quantity: 1, images: null }
-
-	getSelectedProduct = () => {
-		var selected = cookies.get('SelectedProduct')
-		axios.get(API_URL_1 + '/products/' + selected)
-		.then((res) => {
-			this.setState({ product: res.data })
-			this.setState({ images: require('../images/' + this.state.product[0].Image1) })
-			console.log(this.state.product[0]);
-		})
-	} 
+	state = { product: [], quantity: 1, images: MainImage }
 
 	componentWillMount() {
 		this.getSelectedProduct();
-		console.log(this.state.product)
+	}
+	
+	getSelectedProduct = async() => {
+		console.log(queryString.parse(this.props.location.search).idProduct)
+		axios.get(API_URL_1 + '/products/' + queryString.parse(this.props.location.search).idProduct)
+		.then((res) => {
+			this.setState({ product: res.data })
+			this.setState({ images: require('../images/' + this.state.product[0].Image1) })
+		})
 	}
 
 	changeImage1 = () => {
@@ -91,29 +87,9 @@ class ProductDetails extends Component {
 		}
 	}
 
-	renderNormalPrice = () => {
-		if(this.state.product[0].NormalPrice == 0) {
-			return <br/>
-		}
-		else if(this.state.product[0].NormalPrice == 1) {
-			return <br/>
-		}
-		else{
-			return <h4 className="normal-price">Rp. {(parseInt(this.state.product[0].NormalPrice)).toLocaleString('id')},-</h4>
-		}
-	}
-
-    render() {
-		console.log('ssasasa')
-		console.log(this.props.auth.username)
-		if(this.state.product === null || this.state.images == null) {
+	renderProductDetail = () => {
+		const list = this.state.product.map((item) => {
 			return (
-				<div>
-				</div>
-			);
-		}
-        return ( 
-			<div style={{ marginBottom: "70px" }}>
 				<Grid>
 					<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
 						<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"85px", textAlign:"center"}}>
@@ -124,13 +100,13 @@ class ProductDetails extends Component {
 							<div style={{ marginBottom:"30px" }}>
 							<Row>
 								<Col xs={4} md={4}>
-									<Image src={require('../images/' + this.state.product[0].Image1)} onClick={this.changeImage1} thumbnail/>
+									<Image src={require('../images/' + item.Image1)} onClick={this.changeImage1} thumbnail/>
 								</Col>
 								<Col xs={4} md={4}>
-									<Image src={require('../images/' + this.state.product[0].Image2)} onClick={this.changeImage2} thumbnail />
+									<Image src={require('../images/' + item.Image2)} onClick={this.changeImage2} thumbnail />
 								</Col>
 								<Col xs={4} md={4}>
-									<Image src={require('../images/' + this.state.product[0].Image3)} onClick={this.changeImage3} thumbnail />
+									<Image src={require('../images/' + item.Image3)} onClick={this.changeImage3} thumbnail />
 								</Col>
 							</Row>
 							</div>
@@ -139,22 +115,22 @@ class ProductDetails extends Component {
 
 						<Col xs={12} md={5}>
 							<span id="product-detail-header">
-								<h4 style={{ marginBottom:"0px"}}>{this.state.product[0].Category}</h4>
+								<h4 style={{ marginBottom:"0px"}}>{item.Category}</h4>
 								<br/>
-								<h1 style={{ marginTop:"0px"}}>{this.state.product[0].ProductName}</h1>
+								<h1 style={{ marginTop:"0px"}}>{item.ProductName}</h1>
 								<br/>
-								<p style={{ textAlign: "justify"}}>{this.state.product[0].Description}</p>
+								<p style={{ textAlign: "justify"}}>{item.Description}</p>
 								<br/>
 								<h4 style={{ marginTop:"0px"}}>Features :</h4>
 								<ul style={{ paddingLeft:"15px", marginBottom:"30px", fontWeight:"bold"}}>
-									<li>{this.state.product[0].Features1}</li>
-									<li>{this.state.product[0].Features2}</li>
-									<li>{this.state.product[0].Features3}</li>
-									<li>{this.state.product[0].Features4}</li>
+									<li>{item.Features1}</li>
+									<li>{item.Features2}</li>
+									<li>{item.Features3}</li>
+									<li>{item.Features4}</li>
 								</ul>
-								{this.renderNormalPrice()}
+								{/* {this.renderNormalPrice()} */}
 								<br/>
-								<h2 className="sale-price" style={{marginTop:"0px"}}>Rp. {(parseInt(this.state.product[0].SalePrice)).toLocaleString('id')},-</h2>
+								<h2 className="sale-price" style={{marginTop:"0px"}}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h2>
 								<br/><br/>
 								<Row>
 									<Col xs={12} sm={4} md={5} >
@@ -179,6 +155,16 @@ class ProductDetails extends Component {
 						</Col>
 					</div>
 				</Grid>
+			);
+		})
+		return list;
+	}
+
+    render() {
+		console.log(this.state.product)
+        return ( 
+			<div style={{ marginBottom: "70px" }}>
+				{this.renderProductDetail()}
 			</div>
         );
     }

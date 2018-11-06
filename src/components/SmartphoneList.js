@@ -94,9 +94,9 @@ class SmartphoneList extends Component {
               <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
               <h4 style={{ textAlign:"center" }}>
-                <Button bsStyle="success">Add To Cart</Button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button href="/productdetails" bsStyle="default" onClick={() => this.selectedProduct(item.idProduct)} >Details</Button>
+              <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+                  <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }} >Details</Button>
+              </Link>
               </h4>
             </Thumbnail>
           </Col>
@@ -110,9 +110,9 @@ class SmartphoneList extends Component {
               <h5 style={{ color:"red", fontWeight:"bold"}}>HOT ITEM !!!</h5>
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
               <h4 style={{ textAlign:"center" }}>
-                <Button bsStyle="success">Add To Cart</Button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <Button href="/productdetails" bsStyle="default" onClick={() => this.selectedProduct(item.idProduct)} >Details</Button>
+              <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+                  <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }} >Details</Button>
+              </Link>
               </h4>
             </Thumbnail>
           </Col>
@@ -126,9 +126,9 @@ class SmartphoneList extends Component {
             <h5 className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h5>
             <h4 className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
             <h4 style={{ textAlign:"center" }}>
-              <Button bsStyle="success">Add To Cart</Button>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <Button href="/productdetails" bsStyle="default" onClick={() => this.selectedProduct(item.idProduct)} >Details</Button>
+            <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+              <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }} >Details</Button>
+            </Link>
             </h4>
           </Thumbnail>
         </Col>

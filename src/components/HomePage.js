@@ -10,7 +10,7 @@ import SectionCategories from './SectionCategories';
 class HomePage extends Component {
     render() {
         return(
-            <div>
+            <div style={{ marginBottom: "50px" }}>
                 <Header />
                 <CarouselBro />
                 <br/>

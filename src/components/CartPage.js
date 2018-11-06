@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Table, Grid, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
+import queryString from 'query-string';
+import { Table, Grid, Row, Col, Button, FormControl } from 'react-bootstrap';
+import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import '../supports/css/components/cartpage.css';
 import emptyCart from '../images/cart-empty.png';
 import thankYou from '../images/thankyou-minions.png';
 
-const cookies = new Cookies;
+// const cookies = new Cookies;
+
+const Kurir = [
+    { label: "JNA", value: 1 },
+    { label: "T&T", value: 2 },
+    { label: "Samurai Express", value: 3 }
+];
 
 class CartPage extends Component {
     state = { cartList: [], selectedItem: 0, selectedEditId: 0, quantityCart: 0 }
@@ -19,19 +27,19 @@ class CartPage extends Component {
     };
 
     getCartList = () => {
-        const cookieNya = cookies.get('LoginCookies');
-        axios.get(API_URL_1 + `/cart/${cookieNya}`)
-        // axios.get(API_URL_1 + `/cart/${this.props.auth.username}`)
+        // const cookieNya = cookies.get('LoginCookies');
+        // axios.get(API_URL_1 + `/cart/${cookieNya}`)
+        axios.get(API_URL_1 + `/cart/` + queryString.parse(this.props.location.search).username)
         .then((res) => {
             console.log(res);
             this.setState({ cartList: res.data, selectedItem: 0, selectedEditId: 0 });
         })
     };
 
-    selectedProduct = (id) => {
-        cookies.set('SelectedProduct', id, { path: '/' })
-        console.log(id)
-    };
+    // selectedProduct = (id) => {
+    //     cookies.set('SelectedProduct', id, { path: '/' })
+    //     console.log(id)
+    // };
 
     onQtyChange = (event) => {
         console.log(event.target.value);
@@ -105,15 +113,13 @@ class CartPage extends Component {
                 return(
                     <tr>
                         <td style={{ textAlign:"center" }}>
-                            <a href="/productdetails">
-                                <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} />
-                            </a>
+                            <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+                                {/* <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} /> */}
+                                <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
+                            </Link>
                         </td>
                         <td style={{ verticalAlign:"middle" }}>{item.ProductName}</td>
                         <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
-                        {/* <td style={{ textAlign:"center", verticalAlign:"middle" }}>
-                            <input type="number" style={{ maxWidth:"30%", minWidth:"35px" ,textAlign:"right" }} min="1" max="99" onChange={(value) => this.onQtyChange(value)} />
-                        </td> */}
                         <td style={{ textAlign:"center", verticalAlign:"middle" }}>{item.quantity}</td>
                         <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.quantity*item.SalePrice)).toLocaleString('id')},-</td>
                         <td style={{ textAlign:"center", verticalAlign:"middle" }}>
@@ -126,25 +132,13 @@ class CartPage extends Component {
             return(
                 <tr>
                     <td style={{ textAlign:"center" }}>
-                        <a href="/productdetails">
-                            <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} />
-                        </a>
+                        <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} />
                     </td>
                     <td style={{ verticalAlign:"middle" }}>{item.ProductName}</td>
                     <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
-                    {/* <div className="input-group number-spinner" id="item-cart-increment">
-                        <span className="input-group-btn data-dwn">
-                            <button className="btn btn-default btn-info" style={{ outline: 'none' }} data-dir="dwn" onClick={this.decrement}><span className="glyphicon glyphicon-minus"></span></button>
-                        </span>
-                        <input type="text" className="form-control text-center" value={this.state.quantity} min="1" max="99" style={{minWidth:"80px"}} ref="editQuantity"/>
-                        <span className="input-group-btn data-up">
-                            <button className="btn btn-default btn-info" style={{ outline: 'none' }} data-dir="up" onClick={this.increment}><span className="glyphicon glyphicon-plus"></span></button>
-                        </span>
-                    </div> */}
                     <td style={{ textAlign:"center", verticalAlign:"middle" }}>
                         <input ref="editQuantity" type="number" style={{ maxWidth:"30%", minWidth:"35px" ,textAlign:"right" }} min="1" max="99" onChange={(value) => this.onQtyChange(value)} />
                     </td>
-                    {/* <td><input ref="editQuantity" type="text" className="form-control" defaultValue={item.quantity} /></td> */}
                     <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.quantity*item.SalePrice)).toLocaleString('id')},-</td>
                     <td colSpan="2" style={{ textAlign:"center", verticalAlign:"middle" }}>
                         <input type="button" className="btn btn-success" value="Update" onClick={(refs) => this.onBtnUpdateClick(item.idCart, refs)} style={{ outline: "none" }} /><br/><br/>
@@ -159,26 +153,26 @@ class CartPage extends Component {
     renderUserCartList = () => {
         if(this.state.cartList == "checkout"){
             return(
-                <div style={{ marginTop: '100px', textAlign: 'center' }}>
+                <div style={{ marginTop: '100px', marginBottom:"100px", textAlign: 'center' }}>
                     <img src={thankYou} style={{ width:"100%", maxWidth:"700px", height:"auto" }} />
                 </div>
             );
         }
         else if(this.state.cartList.length == 0) {
             return(
-                <div style={{ marginTop: '120px', textAlign: 'center' }}>
+                <div style={{ marginTop: '120px', marginBottom: "100px", textAlign: 'center' }}>
                     <img src={emptyCart} style={{ width:"100%", maxWidth:"430px", height:"auto" }} />
                     <br/>
                     <div style={{ marginTop: "50px", outline: "none" }}>
                         <Link to="/allproductpage">
-                            <Button bsStyle="success" bsSize="large" >Click here to shop!</Button>
+                            <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} >Click here to shop!</Button>
                         </Link>
                     </div>
                 </div>
             );
         }
         return(
-        <div style={{ margin: "80px 60px 0px 60px" }}>
+        <div style={{ margin: "80px 60px 80px 60px" }}>
                 <h2 style={{ color: "#ff5722", fontWeight: "bold" }}>My Shopping Cart</h2><br/>
                 <Table condensed hover>
                     <thead>
@@ -205,7 +199,14 @@ class CartPage extends Component {
                 <div style={{ marginTop: "20px" }}>
                     <Grid>
                         <Row>
-                            <Col xs={0} md={8}>
+                            <Col xs={0} md={4}>
+                            </Col>
+                            <Col xs={0} md={4}>
+                                <p style={{ fontWeight: "bold" }}>Shipping Options</p>
+                                <p>Destination Address :</p>
+                                <FormControl componentClass="textarea" placeholder="textarea" />
+                                <p>Choose Courier :</p>
+                                <Select options={Kurir} onChange={(opt) => this.onFilterBrand(opt.label)}/>
                             </Col>
                             <Col xs={6} md={2}>
                                 <p style={{ textAlign: 'left' }}>Shipping</p>
@@ -230,7 +231,6 @@ class CartPage extends Component {
     }
 
     render() {
-        console.log(this.props.auth.username)
         return (
             <div>
                 {this.renderUserCartList()}

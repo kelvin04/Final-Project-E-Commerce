@@ -5,7 +5,7 @@ import '../supports/css/components/footer-distributeds.css';
 class Footer extends Component {
     render() { 
         return ( 
-            <footer class="footer-distributed" style={{ marginTop: "100px", paddingBottom:"0px"}}>
+            <footer class="footer-distributed" style={{ marginTop: "0" }}>
 				<div class="footer-left">
 					<h3>ONE <span>Tech</span></h3>
 					<p class="footer-links">

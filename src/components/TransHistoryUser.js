@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import queryString from 'query-string';
 import { Table, Button, Grid, Row, Col, Modal } from 'react-bootstrap';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 
-const cookies = new Cookies;
 
 class TransHistoryUser extends Component {
     state = { historyList: [], transDetail: [], show: false }
@@ -15,8 +15,7 @@ class TransHistoryUser extends Component {
     }
 
     getUserHistoryList = () => {
-        const cookieNya = cookies.get('LoginCookies');
-        axios.get(API_URL_1 + `/userhistory/${cookieNya}`)
+        axios.get(API_URL_1 + `/userhistory/` + queryString.parse(this.props.location.search).username)
         .then((res) => {
             this.setState({ historyList: res.data })
         })
@@ -60,56 +59,80 @@ class TransHistoryUser extends Component {
         return modalList;
     }
 
-    render() { 
+    renderHistoryList = () => {
         return (
-            <div style={{ margin: "90px 60px 0px 60px" }}>
-                    <Grid>
-                        <Row className="show-grid">
-                            <Col xs={12} md={4}>
-                                <h2 style={{ color: "#ff5722", fontWeight: "bold", marginTop: "0", marginBottom: "30px" }}>{this.props.auth.username}'s Transaction History</h2><br/>
-                            </Col>
-                            <Col xs={12} md={8}>
+            <div>
+                <Grid>
+                    <Row className="show-grid">
+                        <Col xs={12} md={4}>
+                            <h3 style={{ color: "#ff5722", fontWeight: "bold", marginTop: "0", marginBottom: "30px" }}>{this.props.auth.username}'s Transaction History</h3>
+                        </Col>
+                        <Col xs={12} md={8}>
 
-                                <Modal show={this.state.show} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title">
-                                    <Modal.Header>
-                                        <Modal.Title id="contained-modal-title">
-                                            <p style={{ textAlign: "center" }}>Transaction History</p>
-                                        </Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <Table condensed hover>
-                                            <thead>
-                                                <tr>
-                                                    <th style={{ textAlign:"center" }} colSpan="2">Product</th>
-                                                    <th style={{ textAlign:"center" }}>Price/Unit</th>
-                                                    <th style={{ textAlign:"center" }}>Quantity</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {this.renderModalTransDetail()}
-                                            </tbody>
-                                        </Table>  
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button bsStyle="danger" onClick={() => this.setState({ show: false })} style={{ outline: "none" }}>Close</Button>
-                                    </Modal.Footer>
-                                </Modal>
-                            </Col>
-                        </Row>
-                    </Grid>
-                    
-                    <Table striped condensed hover>
-                        <thead>
-                            <tr>
-                                <th style={{ textAlign:"center" }}>Transaction ID</th>
-                                <th style={{ textAlign:"center" }}>Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.renderUserHistory()}
-                        </tbody>
-                    </Table>
+                            <Modal show={this.state.show} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title">
+                                <Modal.Header>
+                                    <Modal.Title id="contained-modal-title">
+                                        <p style={{ textAlign: "center" }}>Transaction History</p>
+                                    </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Table condensed hover>
+                                        <thead>
+                                            <tr>
+                                                <th style={{ textAlign:"center" }} colSpan="2">Product</th>
+                                                <th style={{ textAlign:"center" }}>Price/Unit</th>
+                                                <th style={{ textAlign:"center" }}>Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.renderModalTransDetail()}
+                                        </tbody>
+                                    </Table>  
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button bsStyle="danger" onClick={() => this.setState({ show: false })} style={{ outline: "none" }}>Close</Button>
+                                </Modal.Footer>
+                            </Modal>
+                        </Col>
+                    </Row>
+                </Grid>
+                
+                <Table striped condensed hover>
+                    <thead>
+                        <tr>
+                            <th style={{ textAlign:"center" }}>Transaction ID</th>
+                            <th style={{ textAlign:"center" }}>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderUserHistory()}
+                    </tbody>
+                </Table>
+            </div>
+        );
+    }
+
+    renderHistoryPage = () => {
+        if(this.state.historyList.length == 0 || this.state.historyList.length == 1 || this.state.historyList.length == 2) {
+            return (
+                <div style={{ margin: "90px 60px 300px 60px" }}>
+                    {this.renderHistoryList()}
                 </div>
+            );
+        }
+        else {
+            return (
+                <div style={{ margin: "90px 60px 70px 60px" }}>
+                    {this.renderHistoryList()}
+                </div>
+            );
+        }
+    }
+
+    render() {
+        console.log(this.state.historyList.length)
+        return (
+           this.renderHistoryPage()
         );
     }
 }

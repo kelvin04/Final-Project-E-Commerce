@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Footer from './Footer';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap';
 import { productSearch } from '../actions';
@@ -32,9 +33,9 @@ class SearchPage extends Component {
                     <h5 className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h5>
                     <h4 className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
                     <h4 style={{ textAlign:"center" }}>
-                      <Button bsStyle="success">Add To Cart</Button>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <Button href="/productdetails" bsStyle="default" onClick={() => this.selectedProduct(item.idProduct)} >Details</Button>
+                    <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+                        <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }}>Details</Button>
+                    </Link>
                     </h4>
                   </Thumbnail>
                 </Col>

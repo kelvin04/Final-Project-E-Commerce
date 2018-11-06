@@ -202,7 +202,7 @@ class AdminProductPage extends Component {
                 return(
                     <tr>
                         <td id="vertical-text-center">{item.idProduct}</td>
-                        <Link to="/productdetails">
+                        <Link to={`/productdetails?idProduct=${item.idProduct}`}>
                             <td >
                                 <div className="row" id="vertical-text-center">
                                     <img src={require('../images/' + item.Image1)} className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
@@ -291,8 +291,8 @@ class AdminProductPage extends Component {
                                 <div style={{ marginTop: "20px", textAlign: "center" }}>
                                     {/* <input type="text" ref="ProductNameSearch" placeholder="Search Username" style={{ marginRight: '10px' }}/> */}
                                     <input type="text" ref="ProductnameSearch" placeholder="Search Product Name" style={{ marginRight: '10px'}} />
-                                    <Button bsStyle="success" style={{ marginRight: "10px" }} onClick={this.onBtnSearchClick}>Search</Button>
-                                    <Button bsStyle="danger" onClick={this.onBtnResetClick}>Reset</Button>
+                                    <Button bsStyle="success" style={{ marginRight: "10px" }} onClick={this.onBtnSearchClick} style={{ outline: "none", marginRight: "10px" }}>Search</Button>
+                                    <Button bsStyle="danger" onClick={this.onBtnResetClick} style={{ outline: "none" }}>Reset</Button>
                                 </div>
                             </Col>
                         </Row>
@@ -301,23 +301,23 @@ class AdminProductPage extends Component {
                     <Table striped bordered condensed>
                         <thead>
                             <tr>
-                                <th style={{ textAlign:"center", width:"3%"}}>
+                                <th style={{ width:"3%" }} id="vertical-text-center">
                                     <Button bsStyle="primary" onClick={this.sortIdProduct}>ID</Button>
                                 </th>
-                                <th style={{ textAlign:"center", width:"18%"}}>Product Image</th>
-                                <th style={{ textAlign:"center", width:"3%"}}>Brand</th>
+                                <th style={{ width:"18%"}} id="vertical-text-center">Product Image</th>
+                                <th style={{ width:"3%"}} id="vertical-text-center">Brand</th>
                                 <th style={{ textAlign:"center", width:"9%"}}>
                                     <Button bsStyle="primary" onClick={this.sortProductName}>Product Name</Button>
                                 </th>
-                                <th style={{ textAlign:"center", width:"13%"}}>Description</th>
-                                <th style={{ textAlign:"center", width:"12%"}}>Features</th>
+                                <th style={{ width:"13%"}} id="vertical-text-center">Description</th>
+                                <th style={{ width:"12%"}} id="vertical-text-center">Features</th>
                                 <th style={{ textAlign:"center", width:"8%"}}>
                                     <Button bsStyle="primary" onClick={this.sortNormalPrice}>Normal Price</Button>
                                 </th>
                                 <th style={{ textAlign:"center", width:"8%"}}>
                                     <Button bsStyle="primary" onClick={this.sortPromoPrice}>Promo Price</Button>
                                 </th>
-                                <th style={{ textAlign:"center", width:"5%"}}>Edit</th>
+                                <th style={{ width:"5%"}} id="vertical-text-center">Edit</th>
                             </tr>
                         </thead>
                         <tbody>
