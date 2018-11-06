@@ -19,7 +19,7 @@ class ProductDetails extends Component {
 	
 	getSelectedProduct = async() => {
 		console.log(queryString.parse(this.props.location.search).idProduct)
-		axios.get(API_URL_1 + '/products/' + queryString.parse(this.props.location.search).idProduct)
+		axios.get(API_URL_1 + '/productsdetail/' + queryString.parse(this.props.location.search).idProduct)
 		.then((res) => {
 			this.setState({ product: res.data })
 			this.setState({ images: require('../images/' + this.state.product[0].Image1) })
@@ -88,9 +88,9 @@ class ProductDetails extends Component {
 	}
 
 	renderProductDetail = () => {
-		const list = this.state.product.map((item) => {
+		const list = this.state.product.map((item, index) => {
 			return (
-				<Grid>
+				<Grid key={index}>
 					<div className="container" style={{ paddingLeft:"0px", paddingRight:"0px"}}>
 						<Col xs={12} md={7} style={{ paddingLeft:"0px", paddingRight:"0px", marginTop:"85px", textAlign:"center"}}>
 							<div style={{ marginBottom:"35px", maxHeight:"350px", maxWidth:"680px" }} >

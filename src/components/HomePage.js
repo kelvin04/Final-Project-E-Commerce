@@ -3,7 +3,6 @@ import {CircleArrow as ScrollUpButton} from "react-scroll-up-button";
 import Header from './Header';
 import CarouselBro from './Carousel';
 import Karakteristik from './Karakteristik';
-import Footer from './Footer';
 import BrandCarousel from './BrandCarousel';
 import SectionCategories from './SectionCategories';
 

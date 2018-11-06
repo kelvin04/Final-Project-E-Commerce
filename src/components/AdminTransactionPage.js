@@ -21,9 +21,9 @@ class AdminTransactionPage extends Component {
     }
 
     renderTransactionList = () => {
-        const list = this.state.amdinList.map((item) => {
+        const list = this.state.amdinList.map((item, index) => {
             return (    
-                <tr>
+                <tr key={index}>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>
                         <Button bsStyle="primary" onClick={() => this.onTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.idTransaction}</Button>
                     </td>

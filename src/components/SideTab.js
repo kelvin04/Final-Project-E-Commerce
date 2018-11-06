@@ -10,9 +10,9 @@ import iconLaptop from '../images/laptop_icon.png';
 import iconGaming from '../images/gaming_icon.png';
 import GameConsoleList from './GameConsoleList';
 
-
 class SideTab extends Component {
     render() { 
+        const { params } = this.props;
         return ( 
             <div>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">
@@ -45,7 +45,7 @@ class SideTab extends Component {
                     <Col sm={10} id="product-list">
                         <Tab.Content animation>
                             <Tab.Pane eventKey="first" >
-                                <ProductList />
+                                <ProductList params={params}/>
                             </Tab.Pane>
 
                             <Tab.Pane eventKey="second">

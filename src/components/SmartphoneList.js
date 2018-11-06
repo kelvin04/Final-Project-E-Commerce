@@ -85,10 +85,10 @@ class SmartphoneList extends Component {
   }
 
   renderAllProduct = () => {
-    const list = this.state.products.map((item) => {
+    const list = this.state.products.map((item,index) => {
       if(item.NormalPrice == 0) {
         return (
-          <Col xs={12} md={4} lg={3}>
+          <Col xs={12} md={4} lg={3} key={index}>
             <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
               <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
               <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
@@ -104,7 +104,7 @@ class SmartphoneList extends Component {
       }
       else if(item.NormalPrice == 1) {
         return (
-          <Col xs={12} md={4} lg={3}>
+          <Col xs={12} md={4} lg={3} key={index}>
             <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
               <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
               <h5 style={{ color:"red", fontWeight:"bold"}}>HOT ITEM !!!</h5>
@@ -120,7 +120,7 @@ class SmartphoneList extends Component {
       }
 
       return(
-        <Col xs={12} md={4} lg={3}>
+        <Col xs={12} md={4} lg={3} key={index}>
           <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
             <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
             <h5 className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h5>

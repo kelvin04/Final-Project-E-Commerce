@@ -1,27 +1,16 @@
 import React, { Component } from 'react';
-import Footer from './Footer';
-import Page from "./Page";
+import queryString from 'query-string'
 import SideTab from "./SideTab";
 
 class AllProductPage extends Component {
     render(){
+        const params = queryString.parse(this.props.location.search).searchResults;
         return(
             <div id="product-page-container">
                 <span id="display-inline">
-                    <SideTab />
+                    <SideTab params={params}/>
                 </span>
                 <br/>
-
-                {/* <div class="text-center">
-                    <ul class="pagination">
-                        <li><a href="?p=0" data-original-title="" title="">1</a></li> 
-                        <li><a href="?p=1" data-original-title="" title="">2</a></li> 
-                    </ul>
-                </div> */}
-
-                {/* <div class="text-center">
-                    <Page />
-                </div> */}
             </div>
         );
     }

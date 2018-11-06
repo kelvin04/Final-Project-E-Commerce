@@ -197,10 +197,10 @@ class AdminProductPage extends Component {
     }
 
     renderProductList = () => {
-        const list = this.state.productList.map((item) => {
+        const list = this.state.productList.map((item, index) => {
             if(this.state.selectedEditId !== item.idProduct) {
                 return(
-                    <tr>
+                    <tr key={index}>
                         <td id="vertical-text-center">{item.idProduct}</td>
                         <Link to={`/productdetails?idProduct=${item.idProduct}`}>
                             <td >
@@ -232,7 +232,7 @@ class AdminProductPage extends Component {
                 );
             }
             return(
-                <tr>
+                <tr key={index}>
                     <td></td>
                     <td>
                         MainImage:<input type="text" ref="EditImage1" defaultValue={item.Image1} style={{ margin: "5px 0" }} />

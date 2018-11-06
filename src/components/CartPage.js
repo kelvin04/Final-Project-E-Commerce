@@ -108,10 +108,10 @@ class CartPage extends Component {
     }
 
     renderCartList = () => {
-        const list = this.state.cartList.map((item) => {
+        const list = this.state.cartList.map((item, index) => {
             if(this.state.selectedEditId !== item.idCart) {
                 return(
-                    <tr>
+                    <tr key={index}>
                         <td style={{ textAlign:"center" }}>
                             <Link to={`/productdetails?idProduct=${item.idProduct}`}>
                                 {/* <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} /> */}
@@ -130,7 +130,7 @@ class CartPage extends Component {
                 );
             }
             return(
-                <tr>
+                <tr key={index}>
                     <td style={{ textAlign:"center" }}>
                         <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} />
                     </td>
@@ -173,7 +173,7 @@ class CartPage extends Component {
         }
         return(
         <div style={{ margin: "80px 60px 80px 60px" }}>
-                <h2 style={{ color: "#ff5722", fontWeight: "bold" }}>My Shopping Cart</h2><br/>
+            <h2 style={{ color: "#ff5722", fontWeight: "bold" }}>My Shopping Cart</h2><br/>
                 <Table condensed hover>
                     <thead>
                         <tr>

@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 
-const cookies = new Cookies;
-
 class ProductList extends Component {
-  state = { products: [], selectedItem: 0, filterBy: "", sortBy: 0, ascDescSort: 0 }
+  state = { products: [], filterBy: "", sortBy: 0, ascDescSort: 0 }
 
   componentWillMount() {
     this.getProductList();
@@ -22,11 +19,6 @@ class ProductList extends Component {
       this.setState({ products: res.data, selectedItem: 0 })
       console.log(this.state.products);
     })
-  }
-
-  selectedProduct = (id) => {
-    cookies.set('SelectedProduct', id, { path: '/' })
-    console.log(id)
   }
   
   onFilterBrand = (value) => {
@@ -108,10 +100,10 @@ class ProductList extends Component {
   }
 
   renderAllProduct = () => {
-    const list = this.state.products.map((item) => {
+    const list = this.state.products.map((item, index) => {
       if(item.NormalPrice == 0) {
         return (
-          <Col xs={12} md={4} lg={3}>
+          <Col xs={12} md={4} lg={3} key={index}>
             <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
               <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
               <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
@@ -119,7 +111,7 @@ class ProductList extends Component {
               <h4 style={{ textAlign:"center" }}>
                 {/* <Button href="/productdetails" bsStyle="default" onClick={() => this.selectedProduct(item.idProduct)} >Details</Button> */}
                 <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                  <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }}>Details</Button>
+                  <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
                 </Link>
               </h4>
             </Thumbnail>
@@ -128,14 +120,14 @@ class ProductList extends Component {
       }
       else if(item.NormalPrice == 1) {
         return (
-          <Col xs={12} md={4} lg={3}>
+          <Col xs={12} md={4} lg={3} key={index}>
             <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
               <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
               <h5 style={{ color:"red", fontWeight:"bold"}}>HOT ITEM !!!</h5>
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
               <h4 style={{ textAlign:"center" }}>
                 <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                  <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }}>Details</Button>
+                  <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
                 </Link>
               </h4>
             </Thumbnail>
@@ -144,14 +136,14 @@ class ProductList extends Component {
       }
 
       return(
-        <Col xs={12} md={4} lg={3}>
+        <Col xs={12} md={4} lg={3} key={index}>
           <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
             <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
             <h5 className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h5>
             <h4 className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
             <h4 style={{ textAlign:"center" }}>
               <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                  <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }} >Details</Button>
+                  <Button bsStyle="success" style={{ outline: 'none' }} >Details</Button>
               </Link>
             </h4>
           </Thumbnail>
@@ -162,6 +154,9 @@ class ProductList extends Component {
   }
 
   render() {
+    const { params } = this.props;
+    console.log(params);
+
     const Brand = [
       { label: "All Products", value: 0 },
       { label: "New Products", value: 14 },

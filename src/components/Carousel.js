@@ -6,14 +6,7 @@ import image2 from '../images/chromebook.jpg';
 import image3 from '../images/nintendo.jpg';
 import logo2 from '../images/chromebook-logo.png';
 
-// const cookies = new Cookies;
-
 class CarouselBro extends Component {
-    // selectedProduct = (id) => {
-    //     cookies.set('SelectedProduct', id, { path: '/' })
-    //     console.log(id)
-    // }
-
     render() {
         return(
             <div>

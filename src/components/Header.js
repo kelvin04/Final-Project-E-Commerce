@@ -14,13 +14,16 @@ import iconAccount from '../images/account_icon.png';
 import iconLogOut from '../images/LogOut_icon.png';
 import iconHistory from '../images/history.png';
 import iconAdmin from '../images/admin_add.png';
-import HeaderDetails from './HeaderDetails';
-
-const cookies = new Cookies();
 
 class Header extends Component {  
     onLogOutClick = () => {
         this.props.onLogout();
+    }
+
+    searchProduct = (value) => {
+        // window.location.href =`/searchpage?searchResults=${value}`
+        window.location.href =`/allproductpage?searchResults=${value}`
+        console.log(value)
     }
 
     renderLeftNavbar = () => {
@@ -59,11 +62,13 @@ class Header extends Component {
                     <FormGroup>
                         <FormControl type="text" placeholder="Search Product" inputRef={input => this.search = input}/>
                     </FormGroup>{' '}                 
-                    <Link to="/searchpage" id="black-font">
-                        <Button type="submit" className="btn btn-success" onClick={() => this.props.productSearch(this.search.value)} style={{ backgroundColor:"#ff5722", border:"red" }}>
-                            <span class="glyphicon glyphicon-search"></span> Search
+                    {/* <Link to={`/searchpage?searchResults=${this.search.value}`} id="black-font"> */}
+                        {/* <Button type="submit" className="btn btn-success" onClick={() => this.props.productSearch(this.search.value)} style={{ backgroundColor:"#ff5722", border:"red" }}> */}
+                        <Button type="submit" className="btn btn-success" onClick={() => this.searchProduct(this.search.value)} style={{ backgroundColor:"#ff5722", border:"red" }}>
+                            <span className="glyphicon glyphicon-search"></span> Search
                         </Button>
-                    </Link>
+                        <input type="button" value="Search" onClick={() => this.searchProduct(this.search.value)} />
+                    {/* </Link> */}
                 </Navbar.Form>
             </div>
         );

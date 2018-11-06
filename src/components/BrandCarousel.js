@@ -31,10 +31,10 @@ class BrandCarousel extends Component {
 	}
 
   	renderOwlCarousel = () => {
-		const list = this.state.products.map((item) => {
+		const list = this.state.products.map((item, index) => {
 			if(item.NormalPrice == 0) {
 				return (
-					<div>
+					<div key={index}>
 						<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
 						<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
 						<p style={{ color:"blue", fontWeight:"bold"}}>New Product</p>
@@ -47,7 +47,7 @@ class BrandCarousel extends Component {
 			}
 			else if(item.NormalPrice == 1) {
 				return (
-					<div>
+					<div key={index}>
 						<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
 						<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
 						<p style={{ color:"red", fontWeight:"bold"}}>Hot Item!</p>
@@ -59,7 +59,7 @@ class BrandCarousel extends Component {
 				);
 			}
 			return (
-				<div>
+				<div key={index}>
 					<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
 					<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
 					<p className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</p>
