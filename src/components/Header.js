@@ -22,7 +22,7 @@ class Header extends Component {
 
     searchProduct = (value) => {
         // window.location.href =`/searchpage?searchResults=${value}`
-        window.location.href =`/allproductpage?searchResults=${value}`
+        window.location.href =`/allproductpage?search=${value}`
         console.log(value)
     }
 
@@ -53,7 +53,9 @@ class Header extends Component {
                         <MenuItem eventKey={3.3}><span ><img id="icon-scale" src={iconGaming}></img></span>Game Console</MenuItem>
                         <MenuItem divider />
                         <MenuItem eventKey={3.3}>
-                            <Link to="/allproductpage" id="black-font"><span ><img id="icon-scale" src={iconProduct}></img></span>All Products</Link>
+                            <Link to={`/allproductpage?search=`} id="black-font">
+                                <span ><img id="icon-scale" src={iconProduct}></img></span>All Products
+                            </Link>
                         </MenuItem>
                     </NavDropdown>
                 </Nav>
@@ -62,13 +64,9 @@ class Header extends Component {
                     <FormGroup>
                         <FormControl type="text" placeholder="Search Product" inputRef={input => this.search = input}/>
                     </FormGroup>{' '}                 
-                    {/* <Link to={`/searchpage?searchResults=${this.search.value}`} id="black-font"> */}
-                        {/* <Button type="submit" className="btn btn-success" onClick={() => this.props.productSearch(this.search.value)} style={{ backgroundColor:"#ff5722", border:"red" }}> */}
                         <Button type="submit" className="btn btn-success" onClick={() => this.searchProduct(this.search.value)} style={{ backgroundColor:"#ff5722", border:"red" }}>
                             <span className="glyphicon glyphicon-search"></span> Search
                         </Button>
-                        <input type="button" value="Search" onClick={() => this.searchProduct(this.search.value)} />
-                    {/* </Link> */}
                 </Navbar.Form>
             </div>
         );

@@ -44,7 +44,7 @@ class Footer extends Component {
 				<div class="footer-right">
 					<p class="footer-company-about">
 						<span>About the company</span>
-						ONE Tech is the leading e-commerce for elecetronic products which is providing customers with an easy, secure and fast online shopping experience through strong payment and logistical support. 
+						ONE Tech is the leading e-commerce for elecetronic products which is providing customers with an easy, secure and fast online shopping experience. 
 
 					</p>
 

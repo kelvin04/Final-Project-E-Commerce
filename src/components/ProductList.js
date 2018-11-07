@@ -4,6 +4,7 @@ import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
+import notFound from '../images/product_not_found.png';
 
 class ProductList extends Component {
   state = { products: [], filterBy: "", sortBy: 0, ascDescSort: 0 }
@@ -13,12 +14,22 @@ class ProductList extends Component {
   }
   
   getProductList = () => {
-    axios.get(API_URL_1 + '/allProducts')
-    .then((res) => {
-      console.log(res);
-      this.setState({ products: res.data, selectedItem: 0 })
-      console.log(this.state.products);
-    })
+    const { params } = this.props;
+    if(params != "") {
+      axios.get(API_URL_1 + '/searchresults/' + params)
+        .then((res) => {
+            this.setState({ products: res.data })
+            console.log(res.data)
+        })
+    }
+    else {
+      axios.get(API_URL_1 + '/allProducts')
+      .then((res) => {
+        console.log(res);
+        this.setState({ products: res.data, selectedItem: 0 })
+        console.log(this.state.products);
+      })
+    }
   }
   
   onFilterBrand = (value) => {
@@ -154,9 +165,7 @@ class ProductList extends Component {
   }
 
   render() {
-    const { params } = this.props;
-    console.log(params);
-
+    console.log(this.state.products)
     const Brand = [
       { label: "All Products", value: 0 },
       { label: "New Products", value: 14 },
@@ -187,12 +196,12 @@ class ProductList extends Component {
 
     if(this.state.products.length == 0) {
 			return (
-				<div style={{ margin:"700px" }}>
-          
-				</div>
+				<div style={{ marginTop:"10px", textAlign:"center" }}>
+            <img src={notFound} style={{ width:"100%", maxWidth:"600px", height:"auto" }}/>
+            <h1 style={{ fontSize:"3.5vw" }}>Sorry, Product Not Found</h1>
+        </div>
 			);
 		}
-
     return(
       <div>
         <div style={{ marginBottom:"33px" }}>

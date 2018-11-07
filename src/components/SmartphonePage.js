@@ -9,7 +9,6 @@ import iconProduct from '../images/product_icon.png';
 import iconSmartphone from '../images/iphone_icon.png';
 import iconLaptop from '../images/laptop_icon.png';
 import iconGaming from '../images/gaming_icon.png';
-import Footer from './Footer';
 
 class SmartphonePage extends Component {
     render(){
