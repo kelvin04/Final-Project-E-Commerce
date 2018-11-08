@@ -12,9 +12,29 @@ import iconGaming from '../images/gaming_icon.png';
 import GameConsoleList from './GameConsoleList';
 
 class AllProductPage extends Component {
-    onAllProductClick = () => {
-        const params = queryString.parse(this.props.location.search).search;
-        console.log(params)
+    state = { activeKey: "first", link: queryString.parse(this.props.location.search).search }
+
+    componentWillMount() {
+        this.changeActiveKey();
+
+        // untuk langsung scroll ke atas saat section categories di click
+        window.scrollTo(0, 0)
+    }
+
+    changeActiveKey = () => {
+        if(this.state.link === "") {
+            this.setState({ activeKey: "first" })
+        }
+        else if(this.state.link === "smartphones") {
+            this.setState({ activeKey: "second" })
+        }
+        else if(this.state.link === "laptops") {
+            this.setState({ activeKey: "third" })
+        }
+        else if(this.state.link === "game consoles") {
+            this.setState({ activeKey: "fourth" })
+        }
+        console.log(this.state.activeKey)
     }
 
     render(){
@@ -22,31 +42,31 @@ class AllProductPage extends Component {
         return(
             <div id="product-page-container">
                 <span id="display-inline">
-                    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                    <Tab.Container id="left-tabs-example" defaultActiveKey={this.state.activeKey}>
                         <Row className="clearfix">
                             <Col sm={2} id="side-tab">
-                            <Nav bsStyle="pills" stacked>
-                                <NavItem eventKey="first" onClick={this.onAllProductClick}>
-                                    <img id="icon-scale" src={iconProduct} />All Product
-                                </NavItem>
+                                <Nav bsStyle="pills" stacked>
+                                    <NavItem eventKey="first" >
+                                        <img id="icon-scale" src={iconProduct} />All Product
+                                    </NavItem>
 
-                                <hr style={{ margin:"17px auto" }}/>
-                                <NavItem eventKey="second">
-                                    <span><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone
-                                </NavItem>
+                                    <hr style={{ margin:"17px auto" }}/>
+                                    <NavItem eventKey="second">
+                                        <img id="icon-scale" src={iconSmartphone} />Smartphone
+                                    </NavItem>
 
-                                <hr style={{ margin:"8px auto" }}/>
+                                    <hr style={{ margin:"8px auto" }}/>
 
-                                <NavItem eventKey="third">
-                                    <span><img id="icon-scale" src={iconLaptop}></img></span>Laptop
-                                </NavItem>
+                                    <NavItem eventKey="third">
+                                        <img id="icon-scale" src={iconLaptop} />Laptop
+                                    </NavItem>
 
-                                <hr style={{ margin:"8px auto" }}/>
+                                    <hr style={{ margin:"8px auto" }}/>
 
-                                <NavItem eventKey="fourth" style={{ marginBottom:"20px" }}>
-                                    <span><img id="icon-scale" src={iconGaming}></img></span>Game Console
-                                </NavItem>
-                            </Nav>
+                                    <NavItem eventKey="fourth" style={{ marginBottom:"20px" }}>
+                                        <img id="icon-scale" src={iconGaming} />Game Console
+                                    </NavItem>
+                                </Nav>
                             </Col>
 
                             <Col sm={10} id="product-list">

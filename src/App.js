@@ -12,7 +12,6 @@ import AllProductPage from './components/AllProductPage';
 import ProductDetails from './components/ProductDetails';
 import CartPage from './components/CartPage';
 import SearchPage from './components/SearchPage';
-import SmartphonePage from './components/SmartphonePage';
 import AdminProductPage from './components/AdminProductPage';
 import AdminTransactionPage from './components/AdminTransactionPage';
 import Footer from './components/Footer';
@@ -50,12 +49,10 @@ class App extends Component {
           <Route exact path="/cartpage" component={CartPage} />
           <Route exact path="/productdetails" component={ProductDetails} />
           <Route path ="/allproductpage" component={AllProductPage} />
-          <Route path ="/smartphonepage" component={SmartphonePage} />
           <Route path ="/laptoppage" component={LaptopList} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/searchpage" component={SearchPage} />
-          {/* <Route path="/adminpage" component={AdminPage} /> */}
           <Route path="/transactionhistorypage" component={TransHistoryUser} />
           <Route path="/admintransactionpage" component={AdminTransactionPage} />
           <Route path="/adminproductpage" component={AdminProductPage} />

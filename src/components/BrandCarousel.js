@@ -48,7 +48,6 @@ class BrandCarousel extends Component {
 	}
 
     render() {
-
         return(
 			<div style={{ textAlign: "center" }}>
 				<h2 style={{ fontWeight:"bold" }}>Hot List</h2>

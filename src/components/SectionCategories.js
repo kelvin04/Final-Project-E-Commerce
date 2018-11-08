@@ -18,7 +18,7 @@ class SectionCategories extends Component {
                                 </div>
                                 <div className="shop-body">
                                     <h3>Smartphone<br/>Collection</h3>
-                                    <Link to="/smartphonepage" >
+                                    <Link to={`/allproductpage?search=smartphones`}>
                                         <p className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" /></p>
                                     </Link>
                                 </div>
@@ -27,24 +27,28 @@ class SectionCategories extends Component {
                         
                         <div className="col-md-4 col-xs-6">
                             <div className="shop">
-                            <div className="shop-img" style={{ textAlign:"center" }}>
+                                <div className="shop-img" style={{ textAlign:"center" }}>
                                     <img src={image2} style={{ width:"250px" }}/>
                                 </div>
                                 <div className="shop-body">
                                     <h3>Laptop<br/>Collection</h3>
-                                    <a href="#" className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" ></i></a>
+                                    <Link to={`/allproductpage?search=laptops`}>
+                                        <p className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" ></i></p>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     
                         <div className="col-md-4 col-xs-6">
                             <div className="shop">
-                            <div className="shop-img" style={{ textAlign:"center" }}>
+                                <div className="shop-img" style={{ textAlign:"center" }}>
                                     <img src={image3} style={{ width:"250px" }}/>
                                 </div>
                                 <div className="shop-body">
-                                    <h3>Game Console<br/>Collection</h3>
-                                    <a href="#" className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" ></i></a>
+                                        <h3>Game Console<br/>Collection</h3>
+                                    <Link to={`/allproductpage?search=game%20consoles`}>
+                                        <p className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" ></i></p>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

@@ -165,7 +165,6 @@ class ProductList extends Component {
   }
 
   render() {
-    console.log(this.state.products)
     const Brand = [
       { label: "All Products", value: 0 },
       { label: "New Products", value: 14 },
