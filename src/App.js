@@ -17,6 +17,7 @@ import AdminProductPage from './components/AdminProductPage';
 import AdminTransactionPage from './components/AdminTransactionPage';
 import Footer from './components/Footer';
 import TransHistoryUser from './components/TransHistoryUser';
+import LaptopList from './components/LaptopList';
 
 const cookies = new Cookies();
 
@@ -50,6 +51,7 @@ class App extends Component {
           <Route exact path="/productdetails" component={ProductDetails} />
           <Route path ="/allproductpage" component={AllProductPage} />
           <Route path ="/smartphonepage" component={SmartphonePage} />
+          <Route path ="/laptoppage" component={LaptopList} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/searchpage" component={SearchPage} />

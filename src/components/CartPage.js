@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
+import { withAlert } from 'react-alert'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string';
 import { Table, Grid, Row, Col, Button, FormControl } from 'react-bootstrap';
@@ -20,7 +21,7 @@ const Kurir = [
 ];
 
 class CartPage extends Component {
-    state = { cartList: [], selectedItem: 0, selectedEditId: 0, quantityCart: 0 }
+    state = { cartList: [], selectedItem: 0, selectedEditId: 0, quantityCart: 0, selectedOption: null }
 
     componentWillMount() {
         this.getCartList();
@@ -56,7 +57,9 @@ class CartPage extends Component {
     onBtnDeleteClick = (itemId) => {
         var check = window.confirm("Are you sure to delete this product?");
         if(check == true) {
-            axios.delete(API_URL_1 + '/cart/' + itemId)
+            axios.delete(API_URL_1 + '/cart/' + itemId, {
+                username: this.props.auth.username
+            })
             .then(res => {
                 this.getCartList();
             }).catch((err) => {
@@ -77,9 +80,10 @@ class CartPage extends Component {
         else {
             axios.put(API_URL_1 + '/cart/' + itemId, {
                 quantity: this.refs.editQuantity.value,
+                username: this.props.auth.username
             })
             .then(res => {
-                this.getCartList();
+                this.setState({ cartList: res.data, selectedItem: 0, selectedEditId: 0 });
             })
             .catch((err) => {
                 alert("Edit Error!");
@@ -88,15 +92,8 @@ class CartPage extends Component {
         }
     }
 
-    onCheckoutButton = () => {
-        axios.post(API_URL_1 + `/checkout`,{
-            username: this.props.auth.username,
-            TotalPrice: this.renderProductTotal()
-        })
-        .then((res) => {
-            console.log(res.data);
-            this.setState({ cartList: "checkout" });
-        })
+    selectAddress = (value) => {
+        this.setState({ selectedOption: value })
     }
 
     renderProductTotal = () => {
@@ -105,6 +102,27 @@ class CartPage extends Component {
             totalPrice += item.SalePrice * item.quantity
         })
         return totalPrice;
+    }
+
+    onCheckoutButton = () => {
+        if(this.address.value === "" || this.state.selectedOption === null) {
+            this.props.alert.error(
+                <div style={{ textTransform: 'capitalize'}}>
+                    Please fill the address and select one of the courier.
+                </div>
+            )
+        }
+        else if (this.address.value !== "" || this.state.selectedOption !== null) {
+            axios.post(API_URL_1 + `/checkout`,{
+                username: this.props.auth.username,
+                Address: this.address.value,
+                Courier: this.state.selectedOption,
+                TotalPrice: this.renderProductTotal()
+            })
+            .then((res) => {
+                this.setState({ cartList: "checkoutSuccess" });
+            })
+        }
     }
 
     renderCartList = () => {
@@ -151,7 +169,7 @@ class CartPage extends Component {
     }
 
     renderUserCartList = () => {
-        if(this.state.cartList == "checkout"){
+        if(this.state.cartList === "checkoutSuccess"){
             return(
                 <div style={{ marginTop: '100px', marginBottom:"100px", textAlign: 'center' }}>
                     <img src={thankYou} style={{ width:"100%", maxWidth:"700px", height:"auto" }} />
@@ -164,7 +182,7 @@ class CartPage extends Component {
                     <img src={emptyCart} style={{ width:"100%", maxWidth:"430px", height:"auto" }} />
                     <br/>
                     <div style={{ marginTop: "50px", outline: "none" }}>
-                        <Link to="/allproductpage">
+                        <Link to={`/allproductpage?search=`}>
                             <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} >Click here to shop!</Button>
                         </Link>
                     </div>
@@ -196,7 +214,7 @@ class CartPage extends Component {
                         </tr>
                     </tbody>
                 </Table>
-                <div style={{ marginTop: "20px" }}>
+                <div style={{ marginTop: "30px" }}>
                     <Grid>
                         <Row>
                             <Col xs={0} md={4}>
@@ -204,9 +222,11 @@ class CartPage extends Component {
                             <Col xs={0} md={4}>
                                 <p style={{ fontWeight: "bold" }}>Shipping Options</p>
                                 <p>Destination Address :</p>
-                                <FormControl componentClass="textarea" placeholder="textarea" />
-                                <p>Choose Courier :</p>
-                                <Select options={Kurir} onChange={(opt) => this.onFilterBrand(opt.label)}/>
+                                <FormControl componentClass="textarea" placeholder="textarea" inputRef={input => this.address = input}/>
+                                <div style={{ marginTop: "10px", marginBottom: "20px"}}>
+                                    <p>Choose Courier :</p>
+                                    <Select options={Kurir} onChange={opt => this.selectAddress(opt.label)} isSearchable={false}/>
+                                </div>
                             </Col>
                             <Col xs={6} md={2}>
                                 <p style={{ textAlign: 'left' }}>Shipping</p>
@@ -221,9 +241,9 @@ class CartPage extends Component {
                                 <p style={{ textAlign: 'left', fontWeight: 'bold' }} >Rp. {(parseInt(this.renderProductTotal())).toLocaleString('id')},-</p>
                             </Col>
                         </Row>
-                            <p style={{ textAlign: "center", marginTop: "30px" }}>
-                                <input type="button" className="btn btn-success" id="addcart-button" style={{ outline: 'none' }} value="Checkout" onClick={this.onCheckoutButton} />
-                            </p>
+                            <div style={{ textAlign: "center", marginTop: "30px" }}>
+                                <Button bsStyle="success" id="addcart-button" style={{ outline: 'none' }} onClick={this.onCheckoutButton}>Checkout</Button>
+                            </div>
                     </Grid>
                 </div>
             </div>
@@ -245,4 +265,4 @@ const mapStateToProps = (state) => {
     return { auth };
 }
  
-export default connect(mapStateToProps)(CartPage);
+export default connect(mapStateToProps)(withAlert(CartPage));

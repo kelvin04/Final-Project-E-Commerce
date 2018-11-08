@@ -28,6 +28,8 @@ class AdminTransactionPage extends Component {
                         <Button bsStyle="primary" onClick={() => this.onTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.idTransaction}</Button>
                     </td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.username}</td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Address}</td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Courier}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
                 </tr>
             );
@@ -90,7 +92,7 @@ class AdminTransactionPage extends Component {
         }
         else {
             return (
-                <div style={{ margin: "85px 60px 0px 60px" }}>
+                <div style={{ margin: "85px 10px 0px 10px" }}>
                     <Grid>
                         <Row className="show-grid">
                             <Col xs={12} md={4}>
@@ -102,6 +104,8 @@ class AdminTransactionPage extends Component {
                                     <Button bsStyle="success" style={{ marginRight: "10px" }} onClick={this.onBtnSearchClick} style={{ outline: "none", marginRight: "10px" }}>Search</Button>
                                     <Button bsStyle="danger" onClick={this.onBtnResetClick} style={{ outline: "none" }}>Reset</Button>
                                 </div>
+
+                                {/* ======================================== Modal PopUp =================================================*/}
                                 <Modal show={this.state.show} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title">
                                     <Modal.Header>
                                         <Modal.Title id="contained-modal-title">
@@ -126,6 +130,8 @@ class AdminTransactionPage extends Component {
                                         <Button bsStyle="danger" onClick={() => this.setState({ show: false })} style={{ outline: "none" }}>Close</Button>
                                     </Modal.Footer>
                                 </Modal>
+                                {/* ====================================================================================================== */}
+
                             </Col>
                         </Row>
                     </Grid>
@@ -134,8 +140,10 @@ class AdminTransactionPage extends Component {
                         <Table striped condensed hover>
                             <thead>
                                 <tr>
-                                    <th style={{ textAlign:"center" }}>Transaction ID</th>
+                                    <th style={{ textAlign:"center", width: "10%" }}>Transaction ID</th>
                                     <th style={{ textAlign:"center" }}>Username</th>
+                                    <th style={{ textAlign:"center", maxWidth: "10%" }}>Address</th>
+                                    <th style={{ textAlign:"center", width: "10%" }}>Courier</th>
                                     <th style={{ textAlign:"center" }}>Total Price</th>
                                 </tr>
                             </thead>

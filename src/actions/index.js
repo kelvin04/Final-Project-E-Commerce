@@ -109,3 +109,10 @@ export const productSearch = (search) => {
         })
     }
 }
+
+
+// export const getNotification = () => {
+//     return(dispatch) => {
+//         axios.get(API_URL_1 + notification')
+//     }
+// }

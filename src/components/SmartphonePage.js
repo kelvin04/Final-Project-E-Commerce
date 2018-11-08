@@ -18,29 +18,27 @@ class SmartphonePage extends Component {
                     <Tab.Container id="left-tabs-example" defaultActiveKey="second">
                         <Row className="clearfix">
                             <Col sm={2} id="side-tab">
-                            <Nav bsStyle="pills" stacked>
-                                <NavItem eventKey="first">
-                                    <span><img id="icon-scale" src={iconProduct}></img></span>All Product
-                                </NavItem>
+                                <Nav bsStyle="pills" stacked>
+                                    <NavItem eventKey="first">
+                                        <span><img id="icon-scale" src={iconProduct}></img></span>All Product
+                                    </NavItem>
+                                    <hr style={{ margin:"17px auto" }}/>
+                                    <NavItem eventKey="second">
+                                        <span><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone
+                                    </NavItem>
 
-                                <hr style={{ margin:"17px auto" }}/>
+                                    <hr style={{ margin:"8px auto" }}/>
 
-                                <NavItem eventKey="second">
-                                    <span><img id="icon-scale" src={iconSmartphone}></img></span>Smartphone
-                                </NavItem>
+                                    <NavItem eventKey="third">
+                                        <span><img id="icon-scale" src={iconLaptop}></img></span>Laptop
+                                    </NavItem>
 
-                                <hr style={{ margin:"8px auto" }}/>
+                                    <hr style={{ margin:"8px auto" }}/>
 
-                                <NavItem eventKey="third">
-                                    <span><img id="icon-scale" src={iconLaptop}></img></span>Laptop
-                                </NavItem>
-
-                                <hr style={{ margin:"8px auto" }}/>
-
-                                <NavItem eventKey="fourth" style={{ marginBottom:"20px" }}>
-                                    <span><img id="icon-scale" src={iconGaming}></img></span>Game Console
-                                </NavItem>
-                            </Nav>
+                                    <NavItem eventKey="fourth" style={{ marginBottom:"20px" }}>
+                                        <span><img id="icon-scale" src={iconGaming}></img></span>Game Console
+                                    </NavItem>
+                                </Nav>
                             </Col>
 
                             <Col sm={10} id="product-list">

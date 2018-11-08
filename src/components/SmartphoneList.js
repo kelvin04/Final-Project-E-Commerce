@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
-import image1 from '../images/iphone-x.png';
 
 const cookies = new Cookies;
 

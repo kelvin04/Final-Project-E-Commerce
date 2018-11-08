@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Button, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { onLogout, keepLogin, cookieChecked, productSearch } from '../actions';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 import image1 from '../images/logo.png';
 import iconSmartphone from '../images/iphone_icon.png';
 import iconLaptop from '../images/laptop_icon.png';
 import iconGaming from '../images/gaming_icon.png';
 import iconProduct from '../images/product_icon.png';
 import iconCart from '../images/cart_icon.png';
-import iconAccount from '../images/account_icon.png';
 import iconLogOut from '../images/LogOut_icon.png';
 import iconHistory from '../images/history.png';
 import iconAdmin from '../images/admin_add.png';
+
 
 class Header extends Component {  
     onLogOutClick = () => {
@@ -106,9 +107,10 @@ class Header extends Component {
                     <Navbar.Collapse>
                         {this.renderMiddleNavbar()}
                         <Nav pullRight>
-                            <NavItem eventKey={2} id="font-navbar">
-                                </NavItem>
-                                <NavItem eventKey={1} id="font-navbar">
+                            {/* <NavItem eventKey={2} id="font-navbar">
+                                Cart<Badge>1</Badge>
+                            </NavItem> */}
+                            <NavItem eventKey={1} id="font-navbar">
                                 <NavDropdown eventKey={3} title={ "Hello, " + this.props.auth.username} id="basic-nav-dropdown" id="font-navbar">
                                     <MenuItem eventKey={3.1}>
                                         <Link to={`/cartpage?username=${this.props.auth.username}`}><span ><img id="icon-scale" src={iconCart}></img></span>Cart</Link>

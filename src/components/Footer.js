@@ -9,15 +9,13 @@ class Footer extends Component {
 				<div class="footer-left">
 					<h3>ONE <span>Tech</span></h3>
 					<p class="footer-links">
-					<Link to="/">Home</Link>
-						·
-						<a href="#">Blog</a>
+						<Link to="/">Home</Link>
+						 · 
+						<Link to={`/allproductpage?search=`}>Product List</Link>
 						·
 						<a href="#">Pricing</a>
 						·
 						<a href="#">About</a>
-						·
-						<a href="#">Faq</a>
 						·
 						<a href="#">Contact</a>
 					</p>

@@ -36,6 +36,8 @@ class TransHistoryUser extends Component {
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>
                         <Button bsStyle="primary" onClick={() => this.onUserTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.TransactionID}</Button>
                     </td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Address}</td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Courier}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
                 </tr>
             );
@@ -48,7 +50,7 @@ class TransHistoryUser extends Component {
             return (
                 <tr>
                     <td id="vertical-text-center">
-                        <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} />
+                        <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
                     </td>
                     <td id="vertical-text-center">{item.ProductName}</td>
                     <td id="vertical-text-center">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
@@ -69,6 +71,7 @@ class TransHistoryUser extends Component {
                         </Col>
                         <Col xs={12} md={8}>
 
+                            {/* ======================================= Modal PopUp ================================================ */}
                             <Modal show={this.state.show} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title">
                                 <Modal.Header>
                                     <Modal.Title id="contained-modal-title">
@@ -93,6 +96,8 @@ class TransHistoryUser extends Component {
                                     <Button bsStyle="danger" onClick={() => this.setState({ show: false })} style={{ outline: "none" }}>Close</Button>
                                 </Modal.Footer>
                             </Modal>
+                            {/* ================================================================================================== */}
+
                         </Col>
                     </Row>
                 </Grid>
@@ -101,6 +106,8 @@ class TransHistoryUser extends Component {
                     <thead>
                         <tr>
                             <th style={{ textAlign:"center" }}>Transaction ID</th>
+                            <th style={{ textAlign:"center" }}>Address</th>
+                            <th style={{ textAlign:"center" }}>Courier</th>
                             <th style={{ textAlign:"center" }}>Total Price</th>
                         </tr>
                     </thead>

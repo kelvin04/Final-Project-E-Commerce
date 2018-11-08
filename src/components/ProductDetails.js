@@ -49,6 +49,19 @@ class ProductDetails extends Component {
 		}
 	}
 
+	renderNormalPrice = (value) => {
+		if(value != 0 && value != 1) {
+			return (
+				<h3 className="normal-price" style={{ marginTop: "30px" }}>
+					Rp. {(parseInt(value)).toLocaleString('id')},-
+				</h3>
+			);
+		}
+		else {
+			<h3 className="normal-price" style={{ marginTop: "50px" }}></h3>
+		}
+	}
+
 	addToCart = () => {
 		// const { idProduct, ProductName, SalePrice } = this.state.product[0];
 		if(this.props.auth.username == "") {
@@ -115,7 +128,7 @@ class ProductDetails extends Component {
 
 						<Col xs={12} md={5}>
 							<span id="product-detail-header">
-								<h4 style={{ marginBottom:"0px"}}>{item.Category}</h4>
+								<h3 style={{ marginBottom:"0px" }}>{item.Category}</h3>
 								<br/>
 								<h1 style={{ marginTop:"0px"}}>{item.ProductName}</h1>
 								<br/>
@@ -128,7 +141,7 @@ class ProductDetails extends Component {
 									<li>{item.Features3}</li>
 									<li>{item.Features4}</li>
 								</ul>
-								{/* {this.renderNormalPrice()} */}
+								{this.renderNormalPrice(item.NormalPrice)}
 								<br/>
 								<h2 className="sale-price" style={{marginTop:"0px"}}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h2>
 								<br/><br/>

@@ -12,6 +12,11 @@ import iconGaming from '../images/gaming_icon.png';
 import GameConsoleList from './GameConsoleList';
 
 class AllProductPage extends Component {
+    onAllProductClick = () => {
+        const params = queryString.parse(this.props.location.search).search;
+        console.log(params)
+    }
+
     render(){
         const params = queryString.parse(this.props.location.search).search;
         return(
@@ -21,8 +26,8 @@ class AllProductPage extends Component {
                         <Row className="clearfix">
                             <Col sm={2} id="side-tab">
                             <Nav bsStyle="pills" stacked>
-                                <NavItem eventKey="first">
-                                    <span><img id="icon-scale" src={iconProduct}></img></span>All Product
+                                <NavItem eventKey="first" onClick={this.onAllProductClick}>
+                                    <img id="icon-scale" src={iconProduct} />All Product
                                 </NavItem>
 
                                 <hr style={{ margin:"17px auto" }}/>

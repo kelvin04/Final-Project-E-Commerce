@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../supports/css/components/section-categories.css';
 import image1 from '../images/product01.png';
 import image2 from '../images/product08.png';
@@ -17,7 +18,9 @@ class SectionCategories extends Component {
                                 </div>
                                 <div className="shop-body">
                                     <h3>Smartphone<br/>Collection</h3>
-                                    <a href="/smartphonepage" className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" ></i></a>
+                                    <Link to="/smartphonepage" >
+                                        <p className="cta-btn" style={{ textDecoration:"none" }}>Shop now <i className="fa fa-arrow-circle-right" /></p>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

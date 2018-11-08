@@ -17,7 +17,7 @@ class BrandCarousel extends Component {
 	}
 	
 	getProductList = () => {
-		axios.get(API_URL_1 + '/allProducts')
+		axios.get(API_URL_1 + '/hotlist')
 		.then((res) => {
 		console.log(res);
 		this.setState({ products: res.data, selectedItem: 0 })
@@ -32,37 +32,11 @@ class BrandCarousel extends Component {
 
   	renderOwlCarousel = () => {
 		const list = this.state.products.map((item, index) => {
-			if(item.NormalPrice == 0) {
-				return (
-					<div key={index}>
-						<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
-						<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
-						<p style={{ color:"blue", fontWeight:"bold"}}>New Product</p>
-						<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>
-						<Link to={`/productdetails?idProduct=${item.idProduct}`}>
-							<input type="button" className="btn btn-success" value="Details" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: "none" }} />
-						</Link>
-					</div>
-				);
-			}
-			else if(item.NormalPrice == 1) {
-				return (
-					<div key={index}>
-						<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
-						<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
-						<p style={{ color:"red", fontWeight:"bold"}}>Hot Item!</p>
-						<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>
-						<Link to={`/productdetails?idProduct=${item.idProduct}`}>
-							<input type="button" className="btn btn-success" value="Details" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: "none" }} />
-						</Link>
-					</div>
-				);
-			}
 			return (
 				<div key={index}>
 					<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
 					<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
-					<p className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</p>
+					<p style={{ color:"blue", fontWeight:"bold"}}>New Product</p>
 					<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>
 					<Link to={`/productdetails?idProduct=${item.idProduct}`}>
 						<input type="button" className="btn btn-success" value="Details" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: "none" }} />
