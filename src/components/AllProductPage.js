@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import queryString from 'query-string'
 import { Tab, NavItem, Row, Col, Nav } from 'react-bootstrap';
 import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
-import ProductList from './ProductList';
+import SearchProductList from './SearchProductList';
+import AllProductList from './AllProductList';
 import SmartphoneList from './SmartphoneList';
 import LaptopList from './LaptopList';
 import iconProduct from '../images/product_icon.png';
@@ -33,8 +34,23 @@ class AllProductPage extends Component {
         }
         else if(this.state.link === "game consoles") {
             this.setState({ activeKey: "fourth" })
+
         }
-        console.log(this.state.activeKey)
+    }
+
+    changeRenderProduct = () => {
+        const params = queryString.parse(this.props.location.search).search;
+        const { link } = this.state;
+        if (link === "" || link === "smartphones" || link === "laptops" || link === "game consoles") {
+            return(
+                <AllProductList />
+            )
+        }
+        else {
+            return(
+                <SearchProductList params={params}/> 
+            );
+        }
     }
 
     render(){
@@ -72,12 +88,13 @@ class AllProductPage extends Component {
                             <Col sm={10} id="product-list">
                                 <Tab.Content animation>
                                     <Tab.Pane eventKey="first" >
-                                        <ProductList params={params}/>
+                                        {/* <ProductList params={params}/> */}
+                                        {this.changeRenderProduct()}
                                     </Tab.Pane>
 
                                     <Tab.Pane eventKey="second">
                                         <SmartphoneList />
-                                    </Tab.Pane>
+                                    </Tab.Pane> 
 
                                     <Tab.Pane eventKey="third">
                                         <LaptopList />

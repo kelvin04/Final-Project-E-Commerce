@@ -6,7 +6,7 @@ import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import notFound from '../images/product_not_found.png';
 
-class ProductList extends Component {
+class SearchProductList extends Component {
   state = { products: [], filterBy: "", sortBy: 0, ascDescSort: 0 }
 
   componentWillMount() {
@@ -15,15 +15,15 @@ class ProductList extends Component {
   
   getProductList = () => {
     const { params } = this.props;
-    if(params != "") {
-      axios.get(API_URL_1 + '/searchresults/' + params)
+    if(params === "") {
+      axios.get(API_URL_1 + '/allProducts')
         .then((res) => {
             this.setState({ products: res.data })
             console.log(res.data)
         })
     }
     else {
-      axios.get(API_URL_1 + '/allProducts')
+      axios.get(API_URL_1 + '/searchresults/' + params)
       .then((res) => {
         console.log(res);
         this.setState({ products: res.data, selectedItem: 0 })
@@ -253,4 +253,4 @@ class ProductList extends Component {
     }
   }
 
-export default ProductList;
+export default SearchProductList;

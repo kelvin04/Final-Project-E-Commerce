@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Button, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+// import NotificationBadge from 'react-notification-badge';
+// import {Effect} from 'react-notification-badge';
 import { onLogout, keepLogin, cookieChecked, productSearch } from '../actions';
 // import Cookies from 'universal-cookie';
 import image1 from '../images/logo.png';
@@ -16,6 +18,11 @@ import iconAdmin from '../images/admin_add.png';
 
 
 class Header extends Component {  
+
+    componentWillMount() {
+        window.scrollTo(0, 0)
+    }
+
     onLogOutClick = () => {
         this.props.onLogout();
     }
@@ -99,21 +106,21 @@ class Header extends Component {
                         {this.renderMiddleNavbar()}
                         <Nav pullRight>
                             <NavItem eventKey={1} id="font-navbar">
-                            <NavDropdown eventKey={3} title={ "Hello, " + this.props.auth.username} id="basic-nav-dropdown" id="font-navbar">
-                                <MenuItem>
-                                    <Link to="/adminproductpage"><img id="icon-scale" src={iconAdmin} />Admin Product</Link>
-                                </MenuItem>
-                                <MenuItem eventKey={3.2}>
-                                    <Link to="/admintransactionpage"><img id="icon-scale" src={iconHistory} />Transaction History</Link>
-                                </MenuItem>
-                                <MenuItem divider />
-                                <MenuItem eventKey={3.3} onSelect={this.onLogOutClick}>
-                                    <Link to="/">
-                                        <img id="icon-scale" src={iconLogOut} />Log Out
-                                    </Link>
-                                </MenuItem>
-                            </NavDropdown>
-                        </NavItem> 
+                                <NavDropdown eventKey={3} title={ "Hello, " + this.props.auth.username} id="basic-nav-dropdown" id="font-navbar">
+                                    <MenuItem>
+                                        <Link to="/adminproductpage"><img id="icon-scale" src={iconAdmin} />Admin Product</Link>
+                                    </MenuItem>
+                                    <MenuItem eventKey={3.2}>
+                                        <Link to="/admintransactionpage"><img id="icon-scale" src={iconHistory} />Transaction History</Link>
+                                    </MenuItem>
+                                    <MenuItem divider />
+                                    <MenuItem eventKey={3.3} onSelect={this.onLogOutClick}>
+                                        <Link to="/">
+                                            <img id="icon-scale" src={iconLogOut} />Log Out
+                                        </Link>
+                                    </MenuItem>
+                                </NavDropdown>
+                            </NavItem> 
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Grid, Row, Col, Thumbnail, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
-import image1 from '../images/iphone-x.png';
 
-const cookies = new Cookies;
 
 class LaptopList extends Component {
   state = { products: [], selectedItem: 0, filterBy: "", sortBy: 0, ascDescSort: 0 }
@@ -23,11 +20,6 @@ class LaptopList extends Component {
       this.setState({ products: res.data, selectedItem: 0 })
       console.log(this.state.products);
     })
-  }
-
-  selectedProduct = (id) => {
-    cookies.set('SelectedProduct', id, { path: '/' })
-    console.log(id)
   }
   
   onFilterBrand = (value) => {
@@ -95,7 +87,7 @@ class LaptopList extends Component {
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
               <h4 style={{ textAlign:"center" }}>
               <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }} >Details</Button>
+                <Button bsStyle="success" style={{ outline: 'none' }} >Details</Button>
               </Link>
               </h4>
             </Thumbnail>
@@ -111,7 +103,7 @@ class LaptopList extends Component {
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
               <h4 style={{ textAlign:"center" }}>
               <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }} >Details</Button>
+                <Button bsStyle="success" style={{ outline: 'none' }} >Details</Button>
               </Link>
               </h4>
             </Thumbnail>
@@ -127,7 +119,7 @@ class LaptopList extends Component {
             <h4 className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
             <h4 style={{ textAlign:"center" }}>
             <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-              <Button bsStyle="success" onClick={() => this.selectedProduct(item.idProduct)} style={{ outline: 'none' }} >Details</Button>
+              <Button bsStyle="success" style={{ outline: 'none' }} >Details</Button>
             </Link>
             </h4>
           </Thumbnail>

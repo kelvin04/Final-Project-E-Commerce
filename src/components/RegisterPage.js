@@ -10,11 +10,6 @@ import '../supports/css/components/loginpage.css';
 const cookies = new Cookies();
 
 class RegisterPage extends Component {
-    // componentWillReceiveProps(newProps) {
-    //     if(newProps.auth.username !== "") {
-    //         cookies.set('LoginCookies', newProps.auth.username, { path: '/' });
-    //     }
-    // }
 
     registerFunction = () => {
         if(this.refs.username.value == "" || this.refs.email.value == "" || this.refs.password.value == "") {
