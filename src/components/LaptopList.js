@@ -23,8 +23,21 @@ class LaptopList extends Component {
   }
   
   onFilterBrand = (value) => {
+    if(value === "All Laptops" ) {
+      axios.get(API_URL_1 + '/allLaptop')
+      .then((res) => {
+        this.setState({ products: res.data, selectedItem: 0 })
+      })
+    }
+    else {
+        axios.get(API_URL_1 + '/filterbrand', {
+            params : { namabrand : value }
+        })
+        .then((res) => {
+            this.setState({ products: res.data })
+        })
+    }
     this.setState({ filterBy: value })
-    console.log(this.state.filterBy)
   }
 
   onSortBy = (value1) => {
@@ -38,36 +51,37 @@ class LaptopList extends Component {
   }
 
   onBtnSortClick = () => {
-    if(this.state.sortBy == 1 && this.state.ascDescSort == 1) {
+    const { sortBy, ascDescSort, filterBy } = this.state;
+    if(sortBy == 1 && ascDescSort == 1) {
       axios.get(API_URL_1 + '/sortlaptopnameasc', {
-        params : { namabrand : this.state.filterBy }
+        params : { namabrand : filterBy }
       })
       .then((res) => {
         this.setState({ products: res.data })
         console.log(res)
       })
     }
-    else if(this.state.sortBy == 1 && this.state.ascDescSort == 2) {
+    else if(sortBy == 1 && ascDescSort == 2) {
       axios.get(API_URL_1 + '/sortlaptopnamedesc', {
-        params : { namabrand : this.state.filterBy }
+        params : { namabrand : filterBy }
       })
       .then((res) => {
         this.setState({ products: res.data })
         console.log(res)
       })
     }
-    else if(this.state.sortBy == 2 && this.state.ascDescSort == 1) {
+    else if(sortBy == 2 && ascDescSort == 1) {
       axios.get(API_URL_1 + '/sortlaptoppriceasc', {
-        params : { namabrand : this.state.filterBy }
+        params : { namabrand : filterBy }
       })
       .then((res) => {
         this.setState({ products: res.data })
         console.log(res)
       })
     }
-    else if(this.state.sortBy == 2 && this.state.ascDescSort == 2) {
+    else if(sortBy == 2 && ascDescSort == 2) {
       axios.get(API_URL_1 + '/sortlaptoppricedesc', {
-        params : { namabrand : this.state.filterBy }
+        params : { namabrand : filterBy }
       })
       .then((res) => {
         this.setState({ products: res.data })

@@ -16,7 +16,7 @@ class GameConsoleList extends Component {
   }
   
   getProductList = () => {
-    axios.get(API_URL_1 + '/allGaming')
+    axios.get(API_URL_1 + '/allGameConsoles')
     .then((res) => {
       console.log(res);
       this.setState({ products: res.data, selectedItem: 0 })
@@ -30,8 +30,21 @@ class GameConsoleList extends Component {
   // }
   
   onFilterBrand = (value) => {
+    if(value === "All Game Consoles" ) {
+      axios.get(API_URL_1 + '/allGameConsoles')
+      .then((res) => {
+        this.setState({ products: res.data, selectedItem: 0 })
+      })
+    }
+    else {
+        axios.get(API_URL_1 + '/filterbrand', {
+            params : { namabrand : value }
+        })
+        .then((res) => {
+            this.setState({ products: res.data })
+        })
+    }
     this.setState({ filterBy: value })
-    console.log(this.state.filterBy)
   }
 
   onSortBy = (value1) => {

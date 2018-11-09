@@ -9,145 +9,144 @@ import notFound from '../images/product_not_found.png';
 class AllProductList extends Component {
   state = { products: [], filterBy: "", sortBy: 0, ascDescSort: 0 }
 
-  componentWillMount() {
-    this.getProductList();
-  }
+    componentWillMount() {
+        this.getProductList();
+    }
   
-  getProductList = () => {
-      axios.get(API_URL_1 + '/allProducts')
-      .then((res) => {
-        console.log(res);
-        this.setState({ products: res.data, selectedItem: 0 })
-      })
-  }
+    getProductList = () => {
+        axios.get(API_URL_1 + '/allProducts')
+        .then((res) => {
+            console.log(res);
+            this.setState({ products: res.data })
+        })
+    }
   
-  onFilterBrand = (value) => {
-    console.log(value);
-    if(value == "All Products" ) {
-      return this.getProductList();
+    onFilterBrand = (value) => {
+        console.log(value);
+        if(value === "All Products" ) {
+            axios.get(API_URL_1 + '/allProducts')
+            .then((res) => {
+                console.log(res);
+                this.setState({ products: res.data })
+            })
+        }
+        else if(value === "New Products" ) {
+            axios.get(API_URL_1 + '/filternewproducts')
+            .then((res) => {
+                this.setState({ products: res.data })
+            })
+        }
+        else {
+            axios.get(API_URL_1 + '/filterbrand', {
+                params : { namabrand : value }
+            })
+            .then((res) => {
+                this.setState({ products: res.data })
+            })
+        }
+        this.setState({ filterBy: value })
     }
-    else if(value == "New Products" ) {
-      axios.get(API_URL_1 + '/filternewproducts', {
-        params : { namabrand : value }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-      })
+
+    onSortBy = (value1) => {
+        this.setState({ sortBy: value1 })
+        console.log(this.state.sortBy)
     }
-    else {
-      axios.get(API_URL_1 + '/filterbrand', {
-        params : { namabrand : value }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-      })
+
+    onAscDescSort = (value2) => {
+        this.setState({ ascDescSort: value2 })
+        console.log(this.state.ascDescSort)
     }
-    this.setState({ filterBy: value })
-  }
-
-  // onFilterBrand = (value) => {
-  //   this.setState({ filterBy: value })
-  //   console.log(this.state.filterBy)
-  // }
-
-  onSortBy = (value1) => {
-    this.setState({ sortBy: value1 })
-    console.log(this.state.sortBy)
-  }
-
-  onAscDescSort = (value2) => {
-    this.setState({ ascDescSort: value2 })
-    console.log(this.state.ascDescSort)
-  }
 
   onBtnSortClick = () => {
-    if(this.state.sortBy == 1 && this.state.ascDescSort == 1) {
-      axios.get(API_URL_1 + '/sortallnameasc', {
-        params : { namabrand : this.state.filterBy }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-        console.log(res)
-      })
+    const { sortBy, ascDescSort, filterBy } = this.state;
+    if(sortBy == 1 && ascDescSort == 1) {
+        axios.get(API_URL_1 + '/sortallnameasc', {
+            params : { namabrand : filterBy }
+        })
+        .then((res) => {
+            this.setState({ products: res.data })
+            console.log(res)
+        })
     }
-    else if(this.state.sortBy == 1 && this.state.ascDescSort == 2) {
-      axios.get(API_URL_1 + '/sortallnamedesc', {
-        params : { namabrand : this.state.filterBy }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-        console.log(res)
-      })
+    else if(sortBy == 1 && ascDescSort == 2) {
+        axios.get(API_URL_1 + '/sortallnamedesc', {
+            params : { namabrand : filterBy }
+        })
+        .then((res) => {
+            this.setState({ products: res.data })
+            console.log(res)
+        })
     }
-    else if(this.state.sortBy == 2 && this.state.ascDescSort == 1) {
-      axios.get(API_URL_1 + '/sortallpriceasc', {
-        params : { namabrand : this.state.filterBy }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-        console.log(res)
-      })
+    else if(sortBy == 2 && ascDescSort == 1) {
+        axios.get(API_URL_1 + '/sortallpriceasc', {
+            params : { namabrand : filterBy }
+        })
+        .then((res) => {
+            this.setState({ products: res.data })
+            console.log(res)
+        })
     }
-    else if(this.state.sortBy == 2 && this.state.ascDescSort == 2) {
-      axios.get(API_URL_1 + '/sortallpricedesc', {
-        params : { namabrand : this.state.filterBy }
-      })
-      .then((res) => {
-        this.setState({ products: res.data })
-        console.log(res)
-      })
+    else if(sortBy == 2 && ascDescSort == 2) {
+        axios.get(API_URL_1 + '/sortallpricedesc', {
+            params : { namabrand : filterBy }
+        })
+        .then((res) => {
+            this.setState({ products: res.data })
+            console.log(res)
+        })
     }
   }
 
   renderAllProduct = () => {
     const list = this.state.products.map((item, index) => {
-      if(item.NormalPrice == 0) {
-        return (
-          <Col xs={12} md={4} lg={3} key={index}>
-            <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
-              <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
-              <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
-              <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
-              <h4 style={{ textAlign:"center" }}>
-                <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                  <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
-                </Link>
-              </h4>
-            </Thumbnail>
-          </Col>
-        );
-      }
-      else if(item.NormalPrice == 1) {
-        return (
-          <Col xs={12} md={4} lg={3} key={index}>
-            <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
-              <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
-              <h5 style={{ color:"red", fontWeight:"bold"}}>HOT ITEM !!!</h5>
-              <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
-              <h4 style={{ textAlign:"center" }}>
-                <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                  <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
-                </Link>
-              </h4>
-            </Thumbnail>
-          </Col>
-        );
-      }
-
-      return(
-        <Col xs={12} md={4} lg={3} key={index}>
-          <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
-            <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
-            <h5 className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h5>
-            <h4 className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
-            <h4 style={{ textAlign:"center" }}>
-              <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                  <Button bsStyle="success" style={{ outline: 'none' }} >Details</Button>
-              </Link>
-            </h4>
-          </Thumbnail>
-        </Col>
-      );
+        if(item.NormalPrice == 0) {
+            return (
+            <Col xs={12} md={4} lg={3} key={index}>
+                <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
+                    <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
+                    <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
+                    <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
+                    <h4 style={{ textAlign:"center" }}>
+                        <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+                        <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
+                        </Link>
+                    </h4>
+                </Thumbnail>
+            </Col>
+            );
+        }
+        else if(item.NormalPrice == 1) {
+            return (
+            <Col xs={12} md={4} lg={3} key={index}>
+                <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
+                    <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
+                    <h5 style={{ color:"red", fontWeight:"bold"}}>HOT ITEM !!!</h5>
+                    <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
+                    <h4 style={{ textAlign:"center" }}>
+                        <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+                        <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
+                        </Link>
+                    </h4>
+                </Thumbnail>
+            </Col>
+            );
+        }
+        else {
+            return(
+                <Col xs={12} md={4} lg={3} key={index}>
+                    <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
+                        <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
+                        <h5 className="normal-price">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</h5>
+                        <h4 className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
+                        <h4 style={{ textAlign:"center" }}>
+                        <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+                            <Button bsStyle="success" style={{ outline: 'none' }} >Details</Button>
+                        </Link>
+                        </h4>
+                    </Thumbnail>
+                </Col>
+            );
+        }
     })
     return list;
   }
@@ -184,19 +183,19 @@ class AllProductList extends Component {
     ]; 
 
     if(this.state.products.length == 0) {
-			return (
-        <Grid>
-          <Row>
-            <Col xs={0} md={2}>
-            </Col>
-            <Col xs={12} md={10}>
-              <div style={{ marginTop:"10px" }}>
-                  <img src={notFound} style={{ width:"100%", maxWidth:"600px", height:"auto" }}/>
-                  <h1 style={{ fontSize:"3.5vw" }}>Sorry, Product Not Found</h1>
-              </div>
-            </Col>
-          </Row>
-        </Grid>
+        return (
+            <Grid>
+                <Row>
+                    <Col xs={0} md={2}>
+                    </Col>
+                    <Col xs={12} md={10}>
+                    <div style={{ marginTop:"10px" }}>
+                        <img src={notFound} style={{ width:"100%", maxWidth:"600px", height:"auto" }}/>
+                        <h1 style={{ fontSize:"3.5vw" }}>Sorry, Product Not Found</h1>
+                    </div>
+                    </Col>
+                </Row>
+            </Grid>
 			);
 		}
     return(

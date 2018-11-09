@@ -15,15 +15,26 @@ class SmartphoneList extends Component {
   getProductList = () => {
     axios.get(API_URL_1 + '/allSmartphone')
     .then((res) => {
-      console.log(res);
       this.setState({ products: res.data, selectedItem: 0 })
-      console.log(this.state.products);
     })
   }
   
   onFilterBrand = (value) => {
+    if(value === "All Smartphones" ) {
+      axios.get(API_URL_1 + '/allSmartphone')
+      .then((res) => {
+        this.setState({ products: res.data, selectedItem: 0 })
+      })
+    }
+    else {
+        axios.get(API_URL_1 + '/filterbrand', {
+            params : { namabrand : value }
+        })
+        .then((res) => {
+            this.setState({ products: res.data })
+        })
+    }
     this.setState({ filterBy: value })
-    console.log(this.state.filterBy)
   }
 
   onSortBy = (value1) => {
@@ -37,36 +48,37 @@ class SmartphoneList extends Component {
   }
 
   onBtnSortClick = () => {
-    if(this.state.sortBy == 1 && this.state.ascDescSort == 1) {
+    const { sortBy, ascDescSort, filterBy } = this.state;
+    if(sortBy == 1 && ascDescSort == 1) {
       axios.get(API_URL_1 + '/sortsmartphonenameasc', {
-        params : { namabrand : this.state.filterBy }
+        params : { namabrand : filterBy }
       })
       .then((res) => {
         this.setState({ products: res.data })
         console.log(res)
       })
     }
-    else if(this.state.sortBy == 1 && this.state.ascDescSort == 2) {
+    else if(sortBy == 1 && ascDescSort == 2) {
       axios.get(API_URL_1 + '/sortsmartphonenamedesc', {
-        params : { namabrand : this.state.filterBy }
+        params : { namabrand : filterBy }
       })
       .then((res) => {
         this.setState({ products: res.data })
         console.log(res)
       })
     }
-    else if(this.state.sortBy == 2 && this.state.ascDescSort == 1) {
+    else if(sortBy == 2 && ascDescSort == 1) {
       axios.get(API_URL_1 + '/sortsmartphonepriceasc', {
-        params : { namabrand : this.state.filterBy }
+        params : { namabrand : filterBy }
       })
       .then((res) => {
         this.setState({ products: res.data })
         console.log(res)
       })
     }
-    else if(this.state.sortBy == 2 && this.state.ascDescSort == 2) {
+    else if(sortBy == 2 && ascDescSort == 2) {
       axios.get(API_URL_1 + '/sortsmartphonepricedesc', {
-        params : { namabrand : this.state.filterBy }
+        params : { namabrand : filterBy }
       })
       .then((res) => {
         this.setState({ products: res.data })
@@ -177,7 +189,7 @@ class SmartphoneList extends Component {
 
                     <Col xs={5} md={5}>
                         <div style={{fontWeight:"bold"}}>
-                        Asc / Desc
+                          Asc / Desc
                         </div>
                         <Select options={SortBy} onChange={opt => this.onAscDescSort(opt.value)} isSearchable={false}/>
                       </Col>

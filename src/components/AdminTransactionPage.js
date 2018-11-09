@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { Table, Button, Grid, Row, Col, Modal } from 'react-bootstrap';
+import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import pagenotfound from '../images/pagenotfound.png';
 
+const Sort = [
+    { label: "All Courier", value: 0 },
+    { label: "JNA", value: 1 },
+    { label: "T&T", value: 2 },
+    { label: "Samurai Express", value: 3 }
+  ];
 
 class AdminTransactionPage extends Component {
     state = { amdinList: [], transDetail: [], show: false }
@@ -81,6 +88,23 @@ class AdminTransactionPage extends Component {
         return modalList;
     }
 
+    onCourierFilter = (value) => {
+        if(value === "All Courier") {
+            axios.get(API_URL_1 + '/admintransaction')
+            .then((res) => {
+                this.setState({ amdinList: res.data })
+            })
+        }
+        else {
+            axios.get(API_URL_1 + '/courierfilter', {
+                params: { Courier: value }
+            })
+            .then((res) => {
+                this.setState({ amdinList: res.data })
+            })
+        }  
+    }
+
     renderAdminTransList = () => {
         if(this.props.auth.username != "admin") {
             return (
@@ -143,7 +167,9 @@ class AdminTransactionPage extends Component {
                                     <th style={{ textAlign:"center", width: "10%" }}>Transaction ID</th>
                                     <th style={{ textAlign:"center" }}>Username</th>
                                     <th style={{ textAlign:"center", maxWidth: "10%" }}>Address</th>
-                                    <th style={{ textAlign:"center", width: "10%" }}>Courier</th>
+                                    <th style={{ textAlign:"center", width: "10%" }}>
+                                        <Select options={Sort} onChange={opt => this.onCourierFilter(opt.label)} placeholder="Courier" isSearchable={false}/>
+                                    </th>
                                     <th style={{ textAlign:"center" }}>Total Price</th>
                                 </tr>
                             </thead>
