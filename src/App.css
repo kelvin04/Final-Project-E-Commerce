@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Muli:600");
+
+.google-font {
+  font-family: 'Muli', sans-serif;
+  font-size: 110%;
+}
+
 .App {
   text-align: center;
 }
@@ -287,3 +294,4 @@ width: 100%;
   margin-top: 120px;
   
 }
+

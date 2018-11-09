@@ -115,22 +115,6 @@ class AllProductList extends Component {
             </Col>
             );
         }
-        else if(item.NormalPrice == 1) {
-            return (
-            <Col xs={12} md={4} lg={3} key={index}>
-                <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
-                    <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
-                    <h5 style={{ color:"red", fontWeight:"bold"}}>HOT ITEM !!!</h5>
-                    <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
-                    <h4 style={{ textAlign:"center" }}>
-                        <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                        <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
-                        </Link>
-                    </h4>
-                </Thumbnail>
-            </Col>
-            );
-        }
         else {
             return(
                 <Col xs={12} md={4} lg={3} key={index}>

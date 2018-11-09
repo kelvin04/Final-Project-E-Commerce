@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { Route, withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
@@ -17,6 +16,7 @@ import AdminTransactionPage from './components/AdminTransactionPage';
 import Footer from './components/Footer';
 import TransHistoryUser from './components/TransHistoryUser';
 import LaptopList from './components/LaptopList';
+import './App.css';
 
 const cookies = new Cookies();
 
@@ -43,7 +43,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="google-font">
           <Header />
           <Route exact path="/" component={HomePage} />
           <Route exact path="/cartpage" component={CartPage} />
