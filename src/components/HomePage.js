@@ -15,9 +15,7 @@ class HomePage extends Component {
                 <br/>
                 <ScrollUpButton ContainerClassName="ScrollUpButton__Container" ShowAtPosition={300} style={{ border: "5px solid red" }}/>
                 <div id="karakteristik">
-                    {/* <hr/> */}
                     <Karakteristik />
-                    {/* <hr/> */}
                 </div>
                 <br/>
                 <br/>

@@ -65,7 +65,7 @@ export const onRegister = (user) => {
     return (dispatch) => {
         axios.post(API_URL_1 + '/register', user)
         .then((res) => {
-            if(res.data == "Username already exists") {
+            if(res.data === "Username already exists") {
                 dispatch({
                     type: "USERNAME_EXISTS"
                 })
@@ -91,7 +91,7 @@ export const productSearch = (search) => {
             }
         }).then((res) => {
             console.log(res)
-            if(res.data.length == 0) {
+            if(res.data.length === 0) {
                 dispatch({
                     type: "PRODUCT_NOT_FOUND",
                     payload: { searchResult:[], err: "Product not found" }
@@ -103,9 +103,21 @@ export const productSearch = (search) => {
                     payload: { searchResult: res.data }
                 });
             }
-            
         }).catch((err) => {
             console.log(err);
+        })
+    }
+}
+
+
+export const notificationBadge = (user) => {
+    return (dispatch) => {
+        axios.get(API_URL_1 + '/notification/' + user)
+        .then((res) => {
+            dispatch({
+                type: "GET_CART_QUANTITY",
+                payload: { notification: res.data }
+            })
         })
     }
 }

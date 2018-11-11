@@ -4,7 +4,6 @@
 	box-sizing: border-box;
 	width: 100%;
 	text-align: left;
-	font: bold 16px sans-serif;
 	padding: 55px 50px;
 	margin-top: 80px;
 	padding-top: 40px;
@@ -28,7 +27,8 @@
 
 .footer-distributed h3{
 	color:  #ffffff;
-	font: normal 36px 'Cookie', cursive;
+	/* font: normal 36px 'Cookie', cursive; */
+	font-size: 200%;
 	margin: 0;
 }
 
@@ -149,9 +149,9 @@
 
 @media (max-width: 880px) {
 
-	.footer-distributed{
-		font: bold 14px sans-serif;
-	}
+	/* .footer-distributed{
+		font: bold 14px;
+	} */
 
 	.footer-distributed .footer-left,
 	.footer-distributed .footer-center,

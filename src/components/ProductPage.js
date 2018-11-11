@@ -12,7 +12,7 @@ import iconLaptop from '../images/laptop_icon.png';
 import iconGaming from '../images/gaming_icon.png';
 import GameConsoleList from './GameConsoleList';
 
-class AllProductPage extends Component {
+class ProductPage extends Component {
     state = { activeKey: "first", link: queryString.parse(this.props.location.search).search }
 
     componentWillMount() {
@@ -23,7 +23,7 @@ class AllProductPage extends Component {
     }
 
     changeActiveKey = () => {
-        if(this.state.link === "") {
+        if(this.state.link === "" || this.state.link === "all products") {
             this.setState({ activeKey: "first" })
         }
         else if(this.state.link === "smartphones") {
@@ -34,7 +34,6 @@ class AllProductPage extends Component {
         }
         else if(this.state.link === "game consoles") {
             this.setState({ activeKey: "fourth" })
-
         }
     }
 
@@ -54,7 +53,6 @@ class AllProductPage extends Component {
     }
 
     render(){
-        const params = queryString.parse(this.props.location.search).search;
         return(
             <div id="product-page-container">
                 <span id="display-inline">
@@ -63,24 +61,24 @@ class AllProductPage extends Component {
                             <Col sm={2} id="side-tab">
                                 <Nav bsStyle="pills" stacked>
                                     <NavItem eventKey="first" >
-                                        <img id="icon-scale" src={iconProduct} />All Product
+                                        <img id="icon-scale" src={iconProduct} alt="" />All Product
                                     </NavItem>
 
                                     <hr style={{ margin:"17px auto" }}/>
                                     <NavItem eventKey="second">
-                                        <img id="icon-scale" src={iconSmartphone} />Smartphone
+                                        <img id="icon-scale" src={iconSmartphone} alt="" />Smartphone
                                     </NavItem>
 
                                     <hr style={{ margin:"8px auto" }}/>
 
                                     <NavItem eventKey="third">
-                                        <img id="icon-scale" src={iconLaptop} />Laptop
+                                        <img id="icon-scale" src={iconLaptop} alt="" />Laptop
                                     </NavItem>
 
                                     <hr style={{ margin:"8px auto" }}/>
 
                                     <NavItem eventKey="fourth" style={{ marginBottom:"20px" }}>
-                                        <img id="icon-scale" src={iconGaming} />Game Console
+                                        <img id="icon-scale" src={iconGaming} alt="" />Game Console
                                     </NavItem>
                                 </Nav>
                             </Col>
@@ -88,7 +86,6 @@ class AllProductPage extends Component {
                             <Col sm={10} id="product-list">
                                 <Tab.Content animation>
                                     <Tab.Pane eventKey="first" >
-                                        {/* <ProductList params={params}/> */}
                                         {this.changeRenderProduct()}
                                     </Tab.Pane>
 
@@ -116,4 +113,4 @@ class AllProductPage extends Component {
     }
 }
 
-export default AllProductPage;
+export default ProductPage;

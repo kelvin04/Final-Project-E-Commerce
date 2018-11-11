@@ -7,7 +7,7 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import Header from './components/Header';
-import AllProductPage from './components/AllProductPage';
+import ProductPage from './components/ProductPage';
 import ProductDetails from './components/ProductDetails';
 import CartPage from './components/CartPage';
 import SearchPage from './components/SearchPage';
@@ -48,7 +48,7 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/cartpage" component={CartPage} />
           <Route exact path="/productdetails" component={ProductDetails} />
-          <Route path ="/allproductpage" component={AllProductPage} />
+          <Route path ="/allproductpage" component={ProductPage} />
           <Route path ="/laptoppage" component={LaptopList} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />

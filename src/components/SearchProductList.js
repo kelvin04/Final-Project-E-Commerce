@@ -15,12 +15,12 @@ class SearchProductList extends Component {
   
   getProductList = () => {
     const { params } = this.props;
-    if(params === "") {
+    if(params === "" || params === "all products") {
       axios.get(API_URL_1 + '/allProducts')
-        .then((res) => {
-            this.setState({ products: res.data })
-            console.log(res.data)
-        })
+      .then((res) => {
+          this.setState({ products: res.data })
+          console.log(res.data)
+      })
     }
     else {
       axios.get(API_URL_1 + '/searchresults/' + params)
@@ -115,7 +115,6 @@ class SearchProductList extends Component {
               <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
               <h4 style={{ textAlign:"center" }}>
-                {/* <Button href="/productdetails" bsStyle="default" onClick={() => this.selectedProduct(item.idProduct)} >Details</Button> */}
                 <Link to={`/productdetails?idProduct=${item.idProduct}`}>
                   <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
                 </Link>
@@ -179,7 +178,7 @@ class SearchProductList extends Component {
             </Col>
             <Col xs={12} md={10}>
               <div style={{ marginTop:"10px" }}>
-                  <img src={notFound} style={{ width:"100%", maxWidth:"600px", height:"auto" }}/>
+                  <img src={notFound} alt="" style={{ width:"100%", maxWidth:"600px", height:"auto" }}/>
                   <h1 style={{ fontSize:"3.5vw" }}>Sorry, Product Not Found</h1>
               </div>
             </Col>

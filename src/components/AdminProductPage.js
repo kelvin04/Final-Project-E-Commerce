@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import { Table, Button, Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import pagenotfound from '../images/pagenotfound.png';
 
-const cookies = new Cookies;
 var click = true;
 
 class AdminProductPage extends Component {
@@ -24,11 +22,6 @@ class AdminProductPage extends Component {
             this.setState({ productList: res.data, selectedEditId: 0, selectedItem: 0 })
         })
     }
-
-    selectedProduct = (id) => {
-        cookies.set('SelectedProduct', id, { path: '/' })
-        console.log(id)
-    };
 
     onBtnAddClick = () => {
         axios.post(API_URL_1 + '/adminAddProduct', {
@@ -205,9 +198,9 @@ class AdminProductPage extends Component {
                         <Link to={`/productdetails?idProduct=${item.idProduct}`}>
                             <td >
                                 <div className="row" id="vertical-text-center">
-                                    <img src={require('../images/' + item.Image1)} className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
-                                    <img src={require('../images/' + item.Image2)} className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
-                                    <img src={require('../images/' + item.Image3)} className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
+                                    <img src={require('../images/' + item.Image1)} alt="" className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
+                                    <img src={require('../images/' + item.Image2)} alt="" className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
+                                    <img src={require('../images/' + item.Image3)} alt="" className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
                                 </div>
                             </td>
                         </Link>
@@ -273,8 +266,8 @@ class AdminProductPage extends Component {
     renderAdminProduct = () => {
         if(this.props.auth.username != "admin") {
             return (
-                <div style={{ marginTop: '160px', textAlign: 'center' }}>
-                    <img src={pagenotfound} style={{ width:"100%", maxWidth:"430px", height:"auto" }} /><br/><br/>
+                <div style={{ margin: '160px 0', textAlign: 'center' }}>
+                    <img src={pagenotfound} alt="" style={{ width:"100%", maxWidth:"430px", height:"auto" }} /><br/><br/>
                     <h2>Page Not Found!</h2>
                 </div>
             );

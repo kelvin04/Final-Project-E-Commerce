@@ -13,11 +13,9 @@ class Footer extends Component {
 						 · 
 						<Link to={`/allproductpage?search=`}>Product List</Link>
 						·
-						<a href="#">Pricing</a>
-						·
-						<a href="#">About</a>
-						·
-						<a href="#">Contact</a>
+						<Link to="/">Pricing</Link>
+						.
+						<Link to="/">Contact</Link>
 					</p>
 					<p class="footer-company-name">ONE Tech &copy; 2018</p>
 				</div>

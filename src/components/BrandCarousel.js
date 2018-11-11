@@ -34,7 +34,7 @@ class BrandCarousel extends Component {
 		const list = this.state.products.map((item, index) => {
 			return (
 				<div key={index}>
-					<img src={require('../images/' + item.Image1)} id="image-brand-carousel"/>
+					<img src={require('../images/' + item.Image1)} alt="" id="image-brand-carousel"/>
 					<p style={{ fontWeight:"bold", marginTop:"20px" }}>{item.ProductName}</p>
 					<p style={{ color:"blue", fontWeight:"bold"}}>New Product</p>
 					<p className="sale-price">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</p>

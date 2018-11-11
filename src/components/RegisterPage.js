@@ -7,7 +7,6 @@ import Cookies from 'universal-cookie';
 import { withAlert } from 'react-alert'
 import '../supports/css/components/loginpage.css';
 
-const cookies = new Cookies();
 
 class RegisterPage extends Component {
 

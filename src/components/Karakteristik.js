@@ -27,7 +27,7 @@ class Karakteristik extends Component {
                                     <div className="char_icon"><img src={image2} alt="" /></div>
                                     <div className="char_content">
                                         <div className="char_title">Official Warranty</div>
-                                        <div className="char_subtitle">Terms and Conditions Apply</div>
+                                        <div className="char_subtitle">Terms and Conditions<br/>Apply</div>
                                     </div>
                                 </div>
                             </div>
@@ -36,8 +36,8 @@ class Karakteristik extends Component {
                                 <div className="char_item d-flex flex-row align-items-center justify-content-start" style={{backgroundColor: "white"}}>
                                     <div className="char_icon"><img src={image3} alt="" /></div>
                                     <div className="char_content">
-                                        <div className="char_title">Cashback IDR 200.000</div>
-                                        <div className="char_subtitle">Only For New Customer</div>
+                                        <div className="char_title">Best Price</div>
+                                        <div className="char_subtitle">Best Value for Money</div>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@ class Karakteristik extends Component {
                                 <div className="char_item d-flex flex-row align-items-center justify-content-start" style={{backgroundColor: "white"}}>
                                     <div className="char_icon"><img src={image4} alt="" /></div>
                                     <div className="char_content">
-                                        <div className="char_title">Discount up to 50%</div>
+                                        <div className="char_title">Discount up to 25%</div>
                                         <div className="char_subtitle">Specific Products Only</div>
                                     </div>
                                 </div>

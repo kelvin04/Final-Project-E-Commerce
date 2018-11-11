@@ -9,7 +9,6 @@ import Magnifier from 'react-magnifier';
 import '../supports/css/components/ProductDetails.css';
 import MainImage from '../images/Loading_icon.gif';
 
-
 class ProductDetails extends Component {	
 	state = { product: [], quantity: 1, images: MainImage }
 

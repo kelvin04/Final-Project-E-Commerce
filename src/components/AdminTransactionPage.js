@@ -13,6 +13,8 @@ const Sort = [
     { label: "Samurai Express", value: 3 }
   ];
 
+var click = true;
+
 class AdminTransactionPage extends Component {
     state = { amdinList: [], transDetail: [], show: false }
 
@@ -35,6 +37,8 @@ class AdminTransactionPage extends Component {
                         <Button bsStyle="primary" onClick={() => this.onTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.idTransaction}</Button>
                     </td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.username}</td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Date}</td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Time}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Address}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Courier}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
@@ -62,6 +66,52 @@ class AdminTransactionPage extends Component {
 
     onBtnResetClick = () => {
         this.getAdminTransList();
+        this.refs.UsernameSearch.value = "";
+    }
+
+    onCourierFilter = (value) => {
+        if(value === "All Courier") {
+            axios.get(API_URL_1 + '/admintransaction')
+            .then((res) => {
+                this.setState({ amdinList: res.data })
+            })
+        }
+        else {
+            axios.get(API_URL_1 + '/courierfilter', {
+                params: { 
+                    Courier: value,
+                    username: this.refs.UsernameSearch.value
+                }
+            })
+            .then((res) => {
+                this.setState({ amdinList: res.data });
+            })
+        }
+    }
+
+    onSortTotalPrice = () => {
+        if (click) {
+            axios.get(API_URL_1 + '/adminSortTotalPrice', {
+                params: { 
+                    username: this.refs.UsernameSearch.value
+                }
+            })
+            .then((res) => {
+                this.setState({ amdinList: res.data })
+            });
+            click = false;
+        }
+        else {
+            axios.get(API_URL_1 + '/adminSortTotalPriceDesc', {
+                params: { 
+                    username: this.refs.UsernameSearch.value
+                }
+            })
+            .then((res) => {
+                this.setState({ amdinList: res.data })
+            });
+            click = true;
+        }
     }
 
     onTransDetailClick = (id) => {
@@ -88,22 +138,7 @@ class AdminTransactionPage extends Component {
         return modalList;
     }
 
-    onCourierFilter = (value) => {
-        if(value === "All Courier") {
-            axios.get(API_URL_1 + '/admintransaction')
-            .then((res) => {
-                this.setState({ amdinList: res.data })
-            })
-        }
-        else {
-            axios.get(API_URL_1 + '/courierfilter', {
-                params: { Courier: value }
-            })
-            .then((res) => {
-                this.setState({ amdinList: res.data })
-            })
-        }  
-    }
+    
 
     renderAdminTransList = () => {
         if(this.props.auth.username != "admin") {
@@ -116,7 +151,7 @@ class AdminTransactionPage extends Component {
         }
         else {
             return (
-                <div style={{ margin: "85px 10px 0px 10px" }}>
+                <div style={{ margin: "85px 5px 0px 5px" }}>
                     <Grid>
                         <Row className="show-grid">
                             <Col xs={12} md={4}>
@@ -164,13 +199,17 @@ class AdminTransactionPage extends Component {
                         <Table striped condensed hover>
                             <thead>
                                 <tr>
-                                    <th style={{ textAlign:"center", width: "10%" }}>Transaction ID</th>
-                                    <th style={{ textAlign:"center" }}>Username</th>
-                                    <th style={{ textAlign:"center", maxWidth: "10%" }}>Address</th>
-                                    <th style={{ textAlign:"center", width: "10%" }}>
+                                    <th style={{ textAlign:"center", width: "4%" }}>Transaction ID</th>
+                                    <th style={{ textAlign:"center", width: "7%" }}>Username</th>
+                                    <th style={{ textAlign:"center", width: "7%" }}>Date</th>
+                                    <th style={{ textAlign:"center", width: "7%" }}>Time</th>
+                                    <th style={{ textAlign:"center", width: "13%" }}>Address</th>
+                                    <th style={{ textAlign:"center", width: "7%" }}>
                                         <Select options={Sort} onChange={opt => this.onCourierFilter(opt.label)} placeholder="Courier" isSearchable={false}/>
                                     </th>
-                                    <th style={{ textAlign:"center" }}>Total Price</th>
+                                    <th style={{ textAlign:"center", width: "8%" }}>
+                                        <Button bsStyle="primary" onClick={this.onSortTotalPrice}>Total Price</Button>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>

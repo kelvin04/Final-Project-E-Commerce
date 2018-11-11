@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Button, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+// import axios from 'axios';
 // import NotificationBadge from 'react-notification-badge';
 // import {Effect} from 'react-notification-badge';
 import { onLogout, keepLogin, cookieChecked, productSearch } from '../actions';
-// import Cookies from 'universal-cookie';
 import image1 from '../images/logo.png';
 import iconSmartphone from '../images/iphone_icon.png';
 import iconLaptop from '../images/laptop_icon.png';
@@ -16,8 +16,8 @@ import iconLogOut from '../images/LogOut_icon.png';
 import iconHistory from '../images/history.png';
 import iconAdmin from '../images/admin_add.png';
 
-
 class Header extends Component {  
+    state = { cart: [] }
 
     componentWillMount() {
         window.scrollTo(0, 0)
@@ -68,18 +68,18 @@ class Header extends Component {
                         </MenuItem>
                         <MenuItem eventKey={3.2}>
                             <Link to={`/allproductpage?search=laptops`} id="black-font">
-                                <img id="icon-scale" src={iconLaptop} />Laptop
+                                <img id="icon-scale" src={iconLaptop} alt="" />Laptop
                             </Link>
                         </MenuItem>
                         <MenuItem eventKey={3.3}>
                             <Link to={`/allproductpage?search=game%20consoles`} id="black-font">
-                                <img id="icon-scale" src={iconGaming} />Game Console
+                                <img id="icon-scale" src={iconGaming} alt="" />Game Console
                             </Link>
                         </MenuItem>
                         <MenuItem divider />
                         <MenuItem eventKey={3.3}>
-                            <Link to={`/allproductpage?search=`} id="black-font">
-                                <img id="icon-scale" src={iconProduct} />All Products
+                            <Link to={`/allproductpage?search=all%20products`} id="black-font">
+                                <img id="icon-scale" src={iconProduct} alt="" />All Products
                             </Link>
                         </MenuItem>
                     </NavDropdown>
@@ -98,61 +98,64 @@ class Header extends Component {
     }
 
     renderNavbar = () => {
-        if(this.props.auth.username == "admin") {
+        if(this.props.auth.username === "admin") {
             return (
                 <Navbar fixedTop={true} collapseOnSelect id="navbar-color">
                     {this.renderLeftNavbar()}
                     <Navbar.Collapse>
                         {this.renderMiddleNavbar()}
                         <Nav pullRight>
-                            <NavItem eventKey={1} id="font-navbar">
-                                <NavDropdown eventKey={3} title={ "Hello, " + this.props.auth.username} id="basic-nav-dropdown" id="font-navbar">
-                                    <MenuItem>
-                                        <Link to="/adminproductpage"><img id="icon-scale" src={iconAdmin} />Admin Product</Link>
-                                    </MenuItem>
-                                    <MenuItem eventKey={3.2}>
-                                        <Link to="/admintransactionpage"><img id="icon-scale" src={iconHistory} />Transaction History</Link>
-                                    </MenuItem>
-                                    <MenuItem divider />
-                                    <MenuItem eventKey={3.3} onSelect={this.onLogOutClick}>
-                                        <Link to="/">
-                                            <img id="icon-scale" src={iconLogOut} />Log Out
-                                        </Link>
-                                    </MenuItem>
-                                </NavDropdown>
-                            </NavItem> 
+                            <NavDropdown eventKey={3} title={ "Hello, " + this.props.auth.username} id="basic-nav-dropdown" id="font-navbar">
+                                <MenuItem>
+                                    <Link to="/adminproductpage">
+                                        <img id="icon-scale" src={iconAdmin} alt="" />Admin Product
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem eventKey={3.2}>
+                                    <Link to="/admintransactionpage">
+                                        <img id="icon-scale" src={iconHistory} alt="" />Transaction History
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem divider />
+                                <MenuItem eventKey={3.3} onSelect={this.onLogOutClick}>
+                                    <Link to="/">
+                                        <img id="icon-scale" src={iconLogOut} alt="" />Log Out
+                                    </Link>
+                                </MenuItem>
+                            </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
             );
         }
-        else if(this.props.auth.username != "") {
+        else if(this.props.auth.username !== "") {
             return (
                 <Navbar fixedTop={true} collapseOnSelect id="navbar-color">
                     {this.renderLeftNavbar()}
                     <Navbar.Collapse>
                         {this.renderMiddleNavbar()}
                         <Nav pullRight>
-                            <NavItem eventKey={1} id="font-navbar">
-                                <NavDropdown eventKey={3} title={ "Hello, " + this.props.auth.username} id="basic-nav-dropdown" id="font-navbar">
-                                    <MenuItem eventKey={3.1}>
-                                        <Link to={`/cartpage?username=${this.props.auth.username}`}>
-                                            <img id="icon-scale" src={iconCart} />Cart
-                                        </Link>
-                                    </MenuItem>
-                                    <MenuItem eventKey={3.2}>
-                                        <Link to={`/transactionhistorypage?username=${this.props.auth.username}`}>
-                                            <img id="icon-scale" src={iconHistory} />Transaction History
-                                        </Link>
-                                    </MenuItem>
-                                    <MenuItem divider />
-                                    <MenuItem eventKey={3.3} onSelect={this.onLogOutClick}>
-                                            <Link to="/">
-                                                <img id="icon-scale" src={iconLogOut} />Log Out
-                                            </Link>
-                                        </MenuItem>
-                                </NavDropdown>
-                            </NavItem>
+                            {/* <NavItem eventKey={1} href="#">
+                                <NotificationBadge count={this.state.cart[0].CartQuantity} effect={Effect.SCALE}/>Cart
+                            </NavItem> */}
+                            <NavDropdown eventKey={3} title={ "Hello, " + this.props.auth.username} id="basic-nav-dropdown" id="font-navbar">
+                                <MenuItem eventKey={3.1}>
+                                    <Link to={`/cartpage?username=${this.props.auth.username}`}>
+                                        <img id="icon-scale" src={iconCart} alt="" />Cart
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem eventKey={3.2}>
+                                    <Link to={`/transactionhistorypage?username=${this.props.auth.username}`}>
+                                        <img id="icon-scale" src={iconHistory} alt="" />Transaction History
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem divider />
+                                <MenuItem eventKey={3.3} onSelect={this.onLogOutClick}>
+                                    <Link to="/">
+                                        <img id="icon-scale" src={iconLogOut} alt="" />Log Out
+                                    </Link>
+                                </MenuItem>
+                            </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

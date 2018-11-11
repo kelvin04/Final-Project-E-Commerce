@@ -101,7 +101,7 @@ class GameConsoleList extends Component {
       if(item.NormalPrice == 0) {
         return (
           <Col xs={12} md={4} lg={3} key={index}>
-            <Thumbnail src={require('../images/' + item.Image1)} alt="242x200" style={{ textAlign:"center" }}>
+            <Thumbnail src={require('../images/' + item.Image1)}  alt="242x200" style={{ textAlign:"center" }}>
               <h4 style={{ fontWeight:"bold" }}>{item.ProductName}</h4>
               <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
               <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>

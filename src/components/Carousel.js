@@ -13,18 +13,18 @@ class CarouselBro extends Component {
                 <Carousel className="container banner" indicators={true} interval={null}>
                     <Carousel.Item className="gambar-carousel" >
                         <Link to={`/productdetails?idProduct=${1}`}>
-                            <img height ="10000px" src={image1} />
+                            <img height ="10000px" alt=""src={image1} />
                         </Link>
                     </Carousel.Item>
                     <Carousel.Item className="gambar-carousel">
                         <Link to={`/productdetails?idProduct=${32}`}>
-                            <img height ="10000px" src={image2} />
-                            <img src={logo2} id="z-index-1" />
+                            <img height ="10000px" alt="" src={image2} />
+                            <img src={logo2} alt="" id="z-index-1" />
                         </Link>
                     </Carousel.Item>
                     <Carousel.Item className="gambar-carousel">
                         <Link to={`/productdetails?idProduct=${35}`}>
-                            <img height ="10000px" src={image3} />
+                            <img height ="10000px" alt="" src={image3} />
                         </Link>
                     </Carousel.Item>
                 </Carousel>

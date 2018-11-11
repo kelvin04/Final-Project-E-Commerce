@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import { onLogin } from '../actions'
 import '../supports/css/components/loginpage.css';
 
-const cookies = new Cookies();
-
 class LoginPage extends Component {
-    // componentWillReceiveProps(newProps) {
-    //     if(newProps.auth.username !== "") {
-    //         cookies.set('LoginCookies', newProps.auth.username, { path: '/' });        
-    //     }
-    // }
 
     loginFunction = () => {
         var username = this.refs.username.value;
@@ -32,7 +24,7 @@ class LoginPage extends Component {
     }
 
     render() {
-        if(this.props.auth.username == "") {
+        if(this.props.auth.username === "") {
             return(
                 <div className="login-background">
                     <div className="container">

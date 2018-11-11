@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
 import { withAlert } from 'react-alert'
 import { Link } from 'react-router-dom'
@@ -11,8 +10,6 @@ import { API_URL_1 } from '../supports/api-url/apiurl';
 import '../supports/css/components/cartpage.css';
 import emptyCart from '../images/cart-empty.png';
 import thankYou from '../images/thankyou-minions.png';
-
-// const cookies = new Cookies;
 
 const Kurir = [
     { label: "JNA", value: 1 },
@@ -28,26 +25,16 @@ class CartPage extends Component {
     };
 
     getCartList = () => {
-        // const cookieNya = cookies.get('LoginCookies');
-        // axios.get(API_URL_1 + `/cart/${cookieNya}`)
         axios.get(API_URL_1 + `/cart/` + queryString.parse(this.props.location.search).username)
         .then((res) => {
-            console.log(res);
             this.setState({ cartList: res.data, selectedItem: 0, selectedEditId: 0 });
         })
     };
-
-    // selectedProduct = (id) => {
-    //     cookies.set('SelectedProduct', id, { path: '/' })
-    //     console.log(id)
-    // };
 
     onQtyChange = (event) => {
         console.log(event.target.value);
         this.setState({ quantityCart: event.target.value })
         console.log(this.state.quantityCart)
-        // var price = event.target.value;
-        // renderTotalPrice(price);
     };
 
     onBtnEditClick = (itemId) => {
@@ -132,8 +119,7 @@ class CartPage extends Component {
                     <tr key={index}>
                         <td style={{ textAlign:"center" }}>
                             <Link to={`/productdetails?idProduct=${item.idProduct}`}>
-                                {/* <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} /> */}
-                                <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
+                                <img src={require('../images/' + item.Image1)} alt="" style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
                             </Link>
                         </td>
                         <td style={{ verticalAlign:"middle" }}>{item.ProductName}</td>
@@ -150,7 +136,7 @@ class CartPage extends Component {
             return(
                 <tr key={index}>
                     <td style={{ textAlign:"center" }}>
-                        <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} />
+                        <img src={require('../images/' + item.Image1)} alt="" style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} />
                     </td>
                     <td style={{ verticalAlign:"middle" }}>{item.ProductName}</td>
                     <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
@@ -172,14 +158,14 @@ class CartPage extends Component {
         if(this.state.cartList === "checkoutSuccess"){
             return(
                 <div style={{ marginTop: '100px', marginBottom:"100px", textAlign: 'center' }}>
-                    <img src={thankYou} style={{ width:"100%", maxWidth:"700px", height:"auto" }} />
+                    <img src={thankYou} alt="" style={{ width:"100%", maxWidth:"700px", height:"auto" }} />
                 </div>
             );
         }
         else if(this.state.cartList.length == 0) {
             return(
                 <div style={{ marginTop: '120px', marginBottom: "100px", textAlign: 'center' }}>
-                    <img src={emptyCart} style={{ width:"100%", maxWidth:"430px", height:"auto" }} />
+                    <img src={emptyCart} alt="" style={{ width:"100%", maxWidth:"430px", height:"auto" }} />
                     <br/>
                     <div style={{ marginTop: "50px", outline: "none" }}>
                         <Link to={`/allproductpage?search=`}>

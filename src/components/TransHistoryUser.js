@@ -36,6 +36,8 @@ class TransHistoryUser extends Component {
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>
                         <Button bsStyle="primary" onClick={() => this.onUserTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.TransactionID}</Button>
                     </td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Date}</td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Time}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Address}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Courier}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
@@ -50,7 +52,7 @@ class TransHistoryUser extends Component {
             return (
                 <tr>
                     <td id="vertical-text-center">
-                        <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
+                        <img src={require('../images/' + item.Image1)} alt="" style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
                     </td>
                     <td id="vertical-text-center">{item.ProductName}</td>
                     <td id="vertical-text-center">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
@@ -105,10 +107,12 @@ class TransHistoryUser extends Component {
                 <Table striped condensed hover>
                     <thead>
                         <tr>
-                            <th style={{ textAlign:"center" }}>Transaction ID</th>
-                            <th style={{ textAlign:"center" }}>Address</th>
-                            <th style={{ textAlign:"center" }}>Courier</th>
-                            <th style={{ textAlign:"center" }}>Total Price</th>
+                            <th style={{ textAlign:"center", width: "2%" }}>Transaction ID</th>
+                            <th style={{ textAlign:"center", width: "4%" }}>Date</th>
+                            <th style={{ textAlign:"center", width: "4%" }}>Time</th>
+                            <th style={{ textAlign:"center", width: "10%" }}>Address</th>
+                            <th style={{ textAlign:"center", width: "5%" }}>Courier</th>
+                            <th style={{ textAlign:"center", width: "7%" }}>Total Price</th>
                         </tr>
                     </thead>
                     <tbody>
