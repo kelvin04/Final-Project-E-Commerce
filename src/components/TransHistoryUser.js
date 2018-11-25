@@ -143,24 +143,26 @@ class TransHistoryUser extends Component {
     onBtnSubmitPayment = () => {
         const { file, IDTransaction, selectedMethod, selectedFromAcc, selectedAccDestination } = this.state;
         const formData = new FormData();
-        formData.append('paymentProof', file);
+        formData.append('paymentSlip', file);
         
         var fileExtension;
         if(file === '') {
-            return alert("Proof of Payment has not been uploaded!");
+            return alert("Payment Slip has not been uploaded!");
         }
         else {
             fileExtension = ((file.name).toLowerCase()).split('.').pop();
         }
 
         if(file.size <= 1000000 && (fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "png") &&
-           selectedMethod !== null && selectedFromAcc !== null && this.fromAccountNum.value !== '' && selectedAccDestination !== null && this.amountPaid.value !== '') {
+           selectedMethod !== null && selectedFromAcc !== null && this.fromAccountNum.value !== '' && 
+           this.fromAccountName.value !== '' && selectedAccDestination !== null && this.amountPaid.value !== '') {
             this.setState({ loadingUpload: true })
             axios.post(API_URL_1 + '/uploadPaymentData', {
                 idTransaction: IDTransaction,
                 Method: selectedMethod,
                 FromBankAccount : selectedFromAcc,
                 FromNumAccount: this.fromAccountNum.value,
+                FromNameAccount: this.fromAccountName.value,
                 AccountDestination: selectedAccDestination,
                 AmountPaid: this.amountPaid.value
             })
@@ -185,7 +187,7 @@ class TransHistoryUser extends Component {
             })
         }
         else if(selectedMethod === null || selectedFromAcc === null || this.fromAccountNum.value === '' || 
-                selectedAccDestination === null || this.amountPaid.value === '') {
+                this.fromAccountName.value === '' || selectedAccDestination === null || this.amountPaid.value === '') {
             return alert("Select & input field cannot be left blank!");
         }
         else if(file.size > 1000000 && (fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "png")) {
@@ -293,6 +295,16 @@ class TransHistoryUser extends Component {
                         </Row>
                         <Row>
                             <Col xs={4} md={3}>
+                                Account Under Name
+                            </Col>
+                            <Col xs={8} md={9}>
+                                <div style={{ maxWidth: '520px', marginBottom: '20px' }}>
+                                    <FormControl type="text" placeholder="Input bank account under name (of)" inputRef={input => this.fromAccountName = input}/>      
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={4} md={3}>
                                 Account Destination
                             </Col>
                             <Col xs={8} md={9}>
@@ -303,7 +315,7 @@ class TransHistoryUser extends Component {
                         </Row>
                         <Row>
                             <Col xs={4} md={3}>
-                                Amount already paid
+                                Amount Has Been Transferred
                             </Col>
                             <Col xs={8} md={9}>
                                 <div style={{ maxWidth: '520px', marginBottom: '20px' }}>
@@ -313,7 +325,7 @@ class TransHistoryUser extends Component {
                         </Row>
                         <Row>
                             <Col xs={4} md={3}>
-                                Upload proof of payment
+                                Upload Payment Slip
                             </Col>
                             <Col xs={8} md={9}>
                                 <div style={{ maxWidth: '520px', marginBottom: '20px' }}>
