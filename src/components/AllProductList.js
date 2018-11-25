@@ -107,9 +107,9 @@ class AllProductList extends Component {
                     <h5 style={{ color:"blue", fontWeight:"bold"}}>NEW Product!</h5>
                     <h4 style={{ color:"#ff5722", fontWeight:"bold" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</h4>
                     <h4 style={{ textAlign:"center" }}>
-                        <Link to={`/productdetails?idProduct=${item.idProduct}`}>
+                    <Link to={`/productdetails?idProduct=${item.idProduct}`}>
                         <Button bsStyle="success" style={{ outline: 'none' }}>Details</Button>
-                        </Link>
+                    </Link>
                     </h4>
                 </Thumbnail>
             </Col>

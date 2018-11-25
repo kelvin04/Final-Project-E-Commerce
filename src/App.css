@@ -295,3 +295,12 @@ width: 100%;
   
 }
 
+.preview-image {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.preview-image img {
+  max-height: 300px;
+  width: auto;
+}

@@ -18,10 +18,11 @@ const Kurir = [
 ];
 
 class CartPage extends Component {
-    state = { cartList: [], selectedItem: 0, selectedEditId: 0, quantityCart: 0, selectedOption: null }
+    state = { cartList: [], payment: [], selectedItem: 0, selectedEditId: 0, quantityCart: 0, selectedOption: null }
 
     componentWillMount() {
         this.getCartList();
+        // this.getChekcoutPayment();
     };
 
     getCartList = () => {
@@ -79,8 +80,9 @@ class CartPage extends Component {
         }
     }
 
-    selectAddress = (value) => {
+    selectCourier = (value) => {
         this.setState({ selectedOption: value })
+        console.log(this.state.selectedOption)
     }
 
     renderProductTotal = () => {
@@ -104,7 +106,8 @@ class CartPage extends Component {
                 username: this.props.auth.username,
                 Address: this.address.value,
                 Courier: this.state.selectedOption,
-                TotalPrice: this.renderProductTotal()
+                TotalPrice: this.renderProductTotal(),
+                Status : "Waiting for Payment"
             })
             .then((res) => {
                 this.setState({ cartList: "checkoutSuccess" });
@@ -153,12 +156,34 @@ class CartPage extends Component {
         })
         return list;
     }
+    
+    getChekcoutPayment = () => {
+        axios.get(API_URL_1 + '/payment/' + queryString.parse(this.props.location.search).username)
+        .then((res) => {
+            this.setState({ payment: res.data })
+        })
+    }
+
+    renderPayment = () => {
+        const list = this.state.payment.map((item, index) => {
+            return (
+                <div key={index}>
+                    <h3 style={{ color: 'red' }}>Rp. {(item.TotalPrice).toLocaleString('id')},-</h3>
+                </div>
+            );
+        })
+        return list
+    }
 
     renderUserCartList = () => {
         if(this.state.cartList === "checkoutSuccess"){
             return(
                 <div style={{ marginTop: '100px', marginBottom:"100px", textAlign: 'center' }}>
-                    <img src={thankYou} alt="" style={{ width:"100%", maxWidth:"700px", height:"auto" }} />
+                    <h1>Checkout Success !</h1>
+                    <h3>Amount to be paid:</h3>
+                    {this.renderPayment()}
+                    <input type="file" onChange={this.fileChangedHandler} />
+                    <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} >Payment Confirmation</Button>
                 </div>
             );
         }
@@ -208,10 +233,10 @@ class CartPage extends Component {
                             <Col xs={0} md={4}>
                                 <p style={{ fontWeight: "bold" }}>Shipping Options</p>
                                 <p>Destination Address :</p>
-                                <FormControl componentClass="textarea" placeholder="textarea" inputRef={input => this.address = input}/>
+                                <FormControl componentClass="textarea" placeholder="textarea" inputRef={input => this.address = input} defaultValue={this.props.auth.address}/>
                                 <div style={{ marginTop: "10px", marginBottom: "20px"}}>
                                     <p>Choose Courier :</p>
-                                    <Select options={Kurir} onChange={opt => this.selectAddress(opt.label)} isSearchable={false}/>
+                                    <Select options={Kurir} onChange={opt => this.selectCourier(opt.label)} isSearchable={false}/>
                                 </div>
                             </Col>
                             <Col xs={6} md={2}>
@@ -237,6 +262,7 @@ class CartPage extends Component {
     }
 
     render() {
+        console.log(this.state.payment)
         return (
             <div>
                 {this.renderUserCartList()}

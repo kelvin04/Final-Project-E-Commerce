@@ -13,8 +13,9 @@ import iconGaming from '../images/gaming_icon.png';
 import iconProduct from '../images/product_icon.png';
 import iconCart from '../images/cart_icon.png';
 import iconLogOut from '../images/LogOut_icon.png';
-import iconHistory from '../images/history.png';
+import iconProfile from '../images/account_icon.png';
 import iconAdmin from '../images/admin_add.png';
+import iconHistory from '../images/history.png';
 
 class Header extends Component {  
     state = { cart: [] }
@@ -146,7 +147,7 @@ class Header extends Component {
                                 </MenuItem>
                                 <MenuItem eventKey={3.2}>
                                     <Link to={`/transactionhistorypage?username=${this.props.auth.username}`}>
-                                        <img id="icon-scale" src={iconHistory} alt="" />Transaction History
+                                        <img id="icon-scale" src={iconProfile} alt="" />Profile
                                     </Link>
                                 </MenuItem>
                                 <MenuItem divider />

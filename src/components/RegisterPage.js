@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { onRegister } from '../actions';
-import Cookies from 'universal-cookie';
 import { withAlert } from 'react-alert'
 import '../supports/css/components/loginpage.css';
 

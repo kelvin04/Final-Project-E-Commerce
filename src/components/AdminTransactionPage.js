@@ -29,9 +29,11 @@ class AdminTransactionPage extends Component {
         })
     }
 
+    
+
     renderTransactionList = () => {
         const list = this.state.amdinList.map((item, index) => {
-            return (    
+            return (  
                 <tr key={index}>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>
                         <Button bsStyle="primary" onClick={() => this.onTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.idTransaction}</Button>
@@ -42,6 +44,7 @@ class AdminTransactionPage extends Component {
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Address}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Courier}</td>
                     <td id="vertical-text-center" style={{ padding: "15px 0" }}>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Status}</td>
                 </tr>
             );
         })
@@ -210,6 +213,7 @@ class AdminTransactionPage extends Component {
                                     <th style={{ textAlign:"center", width: "8%" }}>
                                         <Button bsStyle="primary" onClick={this.onSortTotalPrice}>Total Price</Button>
                                     </th>
+                                    <th style={{ textAlign:"center", width: "7%" }}>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -225,14 +229,14 @@ class AdminTransactionPage extends Component {
     renderAdminHistoryPage = () => {
         if(this.state.amdinList.length == 0 || this.state.amdinList.length == 1 || this.state.amdinList.length == 2) {
             return (
-                <div style={{ margin: "90px 60px 230px 60px" }}>
+                <div style={{ margin: "90px 30px 230px 30px" }}>
                     {this.renderAdminTransList()}
                 </div>
             );
         }
         else {
             return (
-                <div style={{ margin: "90px 60px 70px 60px" }}>
+                <div style={{ margin: "90px 30px 70px 30px" }}>
                     {this.renderAdminTransList()}
                 </div>
             );
