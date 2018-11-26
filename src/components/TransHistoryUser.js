@@ -15,11 +15,11 @@ const Method = [
 ];
 
 const Bank = [
-    { label: "BCA", value: 1 },
-    { label: "Mandiri", value: 2 },
-    { label: "BNI", value: 3 },
-    { label: "CIMB Niaga", value: 4 },
-    { label: "OCBC NISP", value: 5 }
+    { label: "BCA - PT.ONETech", value: 1 },
+    { label: "Mandiri - PT.ONETech", value: 2 },
+    { label: "BNI - PT.ONETech", value: 3 },
+    { label: "CIMB Niaga - PT.ONETech", value: 4 },
+    { label: "OCBC NISP - PT.ONETech", value: 5 }
 ];
 
 
@@ -203,32 +203,32 @@ class TransHistoryUser extends Component {
         const list = this.state.historyList.map((item, index) => {
             if(item.Status === 'Waiting for Payment') {
                 return (    
-                    <tr key={index}>
-                        <td id="vertical-text-center" style={{ padding: "15px 0" }}>
+                    <tr key={index} id="transaction-history-list">
+                        <td>
                             <Button bsStyle="primary" onClick={() => this.onUserTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.TransactionID}</Button>
                         </td>
-                        <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Date}</td>
-                        <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Time}</td>
-                        <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Address}</td>
-                        <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Courier}</td>
-                        <td id="vertical-text-center" style={{ padding: "15px 0" }}>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
-                        <td id="vertical-text-center" style={{ padding: "15px 0" }}>
+                        <td>{item.Date}</td>
+                        <td>{item.Time}</td>
+                        <td>{item.Address}</td>
+                        <td>{item.Courier}</td>
+                        <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                        <td>
                             <Button bsStyle="success" onClick={() => this.onUserPaymentStatus(item.idTransaction)} style={{ outline: 'none' }}>Payment Confirmation</Button>
                         </td>
                     </tr>
                 );
             }
             return (    
-                <tr key={index}>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>
+                <tr key={index} id="transaction-history-list">
+                    <td>
                         <Button bsStyle="primary" onClick={() => this.onUserTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.TransactionID}</Button>
                     </td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Date}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Time}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Address}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Courier}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Status}</td>
+                    <td>{item.Date}</td>
+                    <td>{item.Time}</td>
+                    <td>{item.Address}</td>
+                    <td>{item.Courier}</td>
+                    <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                    <td>{item.Status}</td>
                 </tr>
             );
         })
@@ -238,13 +238,13 @@ class TransHistoryUser extends Component {
     renderModalTransDetail = () => {
         const modalList = this.state.transDetail.map((item, index) => {
             return (
-                <tr key={index}>
-                    <td id="vertical-text-center">
+                <tr key={index} id="vertical-text-center">
+                    <td>
                         <img src={require('../images/' + item.Image1)} alt="" style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
                     </td>
-                    <td id="vertical-text-center">{item.ProductName}</td>
-                    <td id="vertical-text-center">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
-                    <td id="vertical-text-center">{item.quantity}</td>
+                    <td>{item.ProductName}</td>
+                    <td>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
+                    <td>{item.quantity}</td>
                 </tr>
             );
         })
@@ -449,14 +449,14 @@ class TransHistoryUser extends Component {
                 <div style={{ marginTop: "20px" }}>
                     <Table striped condensed hover>
                         <thead>
-                            <tr>
-                                <th style={{ textAlign:"center", width: "2%" }}>Transaction ID</th>
-                                <th style={{ textAlign:"center", width: "4%" }}>Date</th>
-                                <th style={{ textAlign:"center", width: "4%" }}>Time</th>
-                                <th style={{ textAlign:"center", width: "12%" }}>Address</th>
-                                <th style={{ textAlign:"center", width: "5%" }}>Courier</th>
-                                <th style={{ textAlign:"center", width: "7%" }}>Total Price</th>
-                                <th style={{ textAlign:"center", width: "4%" }}>Status</th>
+                            <tr id="vertical-head-center">
+                                <th style={{ width: "2%" }}>Transaction ID</th>
+                                <th style={{ width: "4%" }}>Date</th>
+                                <th style={{ width: "4%" }}>Time</th>
+                                <th style={{ width: "12%" }}>Address</th>
+                                <th style={{ width: "5%" }}>Courier</th>
+                                <th style={{ width: "7%" }}>Total Price</th>
+                                <th style={{ width: "4%" }}>Status</th>
                             </tr>
                         </thead>
                         <tbody>

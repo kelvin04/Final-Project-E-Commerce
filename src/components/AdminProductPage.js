@@ -193,31 +193,31 @@ class AdminProductPage extends Component {
         const list = this.state.productList.map((item, index) => {
             if(this.state.selectedEditId !== item.idProduct) {
                 return(
-                    <tr key={index}>
-                        <td id="vertical-text-center">{item.idProduct}</td>
+                    <tr key={index} id="vertical-text-center">
+                        <td>{item.idProduct}</td>
                         <Link to={`/productdetails?idProduct=${item.idProduct}`}>
                             <td >
-                                <div className="row" id="vertical-text-center">
+                                <div className="row" id="image-align-center">
                                     <img src={require('../images/' + item.Image1)} alt="" className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
                                     <img src={require('../images/' + item.Image2)} alt="" className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
                                     <img src={require('../images/' + item.Image3)} alt="" className="col-sm-4" id="image-product-list" onClick={() => this.selectedProduct(item.idProduct)} />
                                 </div>
                             </td>
                         </Link>
-                        <td id="vertical-text-center">{item.Brand}</td>
-                        <td id="vertical-text-center">{item.ProductName}</td>
-                        <td>{item.Description}</td>
-                        <td>
+                        <td>{item.Brand}</td>
+                        <td>{item.ProductName}</td>
+                        <td style={{ textAlign: "left" }}>{item.Description}</td>
+                        <td id="admin-features-product">
                             <ul style={{ paddingLeft: "15px" }}>
-                                <li style={{ color: "black" }}>{item.Features1}</li>
-                                <li style={{ color: "black" }}>{item.Features2}</li>
-                                <li style={{ color: "black" }}>{item.Features3}</li>
-                                <li style={{ color: "black" }}>{item.Features4}</li>
+                                <li>{item.Features1}</li>
+                                <li>{item.Features2}</li>
+                                <li>{item.Features3}</li>
+                                <li>{item.Features4}</li>
                             </ul>
                         </td>
-                        <td id="vertical-text-center">Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</td>
-                        <td id="vertical-text-center">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
-                        <td id="vertical-text-center">
+                        <td>Rp. {(parseInt(item.NormalPrice)).toLocaleString('id')},-</td>
+                        <td>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
+                        <td>
                             <input type="button" className="btn btn-success" value="Edit" onClick={() => this.onBtnEditClick(item.idProduct)} style={{ outline: "none" }} /><br/><br/>
                             <input type="button" className="btn btn-danger" value="Delete" onClick={() => this.onBtnDeleteClick(item.idProduct)} style={{ outline: "none" }} />
                         </td>
@@ -253,7 +253,7 @@ class AdminProductPage extends Component {
                     <td>
                         <input type="text" ref="EditSalePrice" defaultValue={item.SalePrice} style={{ maxWidth: "105px" }}/>
                     </td>
-                    <td id="vertical-text-center">
+                    <td>
                         <input type="button" className="btn btn-success" value="Update" onClick={() => this.onBtnUpdateClick(item.idProduct)} style={{ outline: "none" }} /><br/><br/>
                         <input type="button" className="btn btn-danger" value="Cancel" onClick={() => this.onBtnCancelClick()} style={{ outline: "none" }} />
                     </td>
@@ -293,24 +293,24 @@ class AdminProductPage extends Component {
                     <br/>
                     <Table striped bordered condensed>
                         <thead>
-                            <tr>
-                                <th style={{ width:"3%" }} id="vertical-text-center">
+                            <tr id="vertical-head-center">
+                                <th style={{ width:"3%" }}>
                                     <Button bsStyle="primary" onClick={this.sortIdProduct}>ID</Button>
                                 </th>
-                                <th style={{ width:"18%"}} id="vertical-text-center">Product Image</th>
-                                <th style={{ width:"3%"}} id="vertical-text-center">Brand</th>
+                                <th style={{ width:"18%"}}>Product Image</th>
+                                <th style={{ width:"3%"}}>Brand</th>
                                 <th style={{ textAlign:"center", width:"9%"}}>
                                     <Button bsStyle="primary" onClick={this.sortProductName}>Product Name</Button>
                                 </th>
-                                <th style={{ width:"13%"}} id="vertical-text-center">Description</th>
-                                <th style={{ width:"12%"}} id="vertical-text-center">Features</th>
+                                <th style={{ width:"13%"}}>Description</th>
+                                <th style={{ width:"12%"}}>Features</th>
                                 <th style={{ textAlign:"center", width:"8%"}}>
                                     <Button bsStyle="primary" onClick={this.sortNormalPrice}>Normal Price</Button>
                                 </th>
                                 <th style={{ textAlign:"center", width:"8%"}}>
                                     <Button bsStyle="primary" onClick={this.sortPromoPrice}>Promo Price</Button>
                                 </th>
-                                <th style={{ width:"5%"}} id="vertical-text-center">Edit</th>
+                                <th style={{ width:"5%"}}>Edit</th>
                             </tr>
                         </thead>
                         <tbody>

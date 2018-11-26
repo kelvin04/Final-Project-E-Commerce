@@ -11,12 +11,12 @@ const Sort = [
     { label: "JNA", value: 1 },
     { label: "T&T", value: 2 },
     { label: "Samurai Express", value: 3 }
-  ];
+];
 
 var click = true;
 
 class AdminTransactionPage extends Component {
-    state = { amdinList: [], transDetail: [], show: false }
+    state = { amdinList: [], transDetail: [], payment: [], showDetail: false, showPayment: false }
 
     componentWillMount() {
         this.getAdminTransList();
@@ -29,26 +29,20 @@ class AdminTransactionPage extends Component {
         })
     }
 
-    
-
-    renderTransactionList = () => {
-        const list = this.state.amdinList.map((item, index) => {
-            return (  
-                <tr key={index}>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>
-                        <Button bsStyle="primary" onClick={() => this.onTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.idTransaction}</Button>
-                    </td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.username}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Date}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Time}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Address}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Courier}</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
-                    <td id="vertical-text-center" style={{ padding: "15px 0" }}>{item.Status}</td>
-                </tr>
-            );
+    onTransDetailClick = (id) => {
+        this.setState({ showDetail: true });
+        axios.get(API_URL_1 + '/admintransdetail/' + id)
+        .then((res) => {
+            this.setState({ transDetail: res.data })
         })
-        return list;
+    }
+
+    onPaymentConfirmationClick = (id) => {
+        this.setState({ showPayment: true });
+        axios.get(API_URL_1 + '/adminpayment' +id)
+        .then((res) => {
+            this.setState({ payment: res.data })
+        })
     }
 
     onBtnSearchClick = () => {
@@ -117,31 +111,116 @@ class AdminTransactionPage extends Component {
         }
     }
 
-    onTransDetailClick = (id) => {
-        this.setState({ show: true })
-        axios.get(API_URL_1 + '/admintransdetail/' + id)
-        .then((res) => {
-            this.setState({ transDetail: res.data })
-        })
+    closeModalButton = () => {
+        this.setState({ showPayment: false, payment: [] })
     }
 
     renderModalTransDetail = () => {
         const modalList = this.state.transDetail.map((item, index) => {
             return (
-                <tr key={index}>
-                    <td id="vertical-text-center">
+                <tr key={index} id="vertical-text-center">
+                    <td>
                         <img src={require('../images/' + item.Image1)} style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
                     </td>
-                    <td id="vertical-text-center">{item.ProductName}</td>
-                    <td id="vertical-text-center">Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
-                    <td id="vertical-text-center">{item.quantity}</td>
+                    <td>{item.ProductName}</td>
+                    <td>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
+                    <td>{item.quantity}</td>
                 </tr>
             );
         })
         return modalList;
     }
 
-    
+    renderModalPaymentConfirmation = () => {
+        const paymentList = this.state.payment.map((item, index) => {
+            return (
+                <div>
+                    <Table condensed hover striped>
+                        <tbody key={index} id="admin-payment-modal">
+                            <tr>
+                                <td>Total Price</td>
+                                <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                            </tr>
+                            <tr>
+                                <td>Payment Method</td>
+                                <td>{item.Method}</td>
+                            </tr>
+                            <tr>
+                                <td>User Bank Account</td>
+                                <td>{item.FromBankAccount}</td>
+                            </tr>
+                            <tr>
+                                <td>User Account Name</td>
+                                <td>{item.FromNameAccount}</td>
+                            </tr>
+                            <tr>
+                                <td>User Account Number</td>
+                                <td>{item.FromNumAccount}</td>
+                            </tr>
+                            <tr>
+                                <td>Bank Destination</td>
+                                <td>{item.AccountDestination}</td>
+                            </tr>
+                            <tr>
+                                <td>Amount Has Been Transferred</td>
+                                <td>Rp. {(parseInt(item.AmountPaid)).toLocaleString('id')},-</td>
+                            </tr>
+                            <tr>
+                                <td>Payment Slip</td>
+                                <td>
+                                    <img src={require('../../../public/Payment Slip Uploads/' + item.PaymentSlip)} style={{ maxHeight:"450px", maxWidth: "500px", margin:"10px 0" }} />
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </Table>
+
+                    <div style={{ textAlign: "center" }}> 
+                        <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} onClick={() => this.onBtnConfimPayment()}>Confirm Payment</Button>
+                    </div>
+                </div>
+            );
+        })
+        return paymentList;
+    }
+
+    renderTransactionList = () => {
+        const list = this.state.amdinList.map((item, index) => {
+            if(item.Status === 'Waiting for Admin Confirmation') {
+                return (  
+                    <tr key={index} id="transaction-history-list">
+                        <td style={{ padding: "15px 0" }}>
+                            <Button bsStyle="primary" onClick={() => this.onTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.idTransaction}</Button>
+                        </td>
+                        <td>{item.username}</td>
+                        <td>{item.Date}</td>
+                        <td>{item.Time}</td>
+                        <td>{item.Address}</td>
+                        <td>{item.Courier}</td>
+                        <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                        <td>
+                            <Button bsStyle="success" onClick={() => this.onPaymentConfirmationClick(item.idTransaction)} style={{ outline: 'none' }}>Confirmation</Button>
+                        </td>
+                    </tr>
+                );
+            }
+            return (  
+                <tr key={index} id="transaction-history-list">
+                    <td>
+                        <Button bsStyle="primary" onClick={() => this.onTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.idTransaction}</Button>
+                    </td>
+                    <td>{item.username}</td>
+                    <td>{item.Date}</td>
+                    <td>{item.Time}</td>
+                    <td>{item.Address}</td>
+                    <td>{item.Courier}</td>
+                    <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                    <td>{item.Status}</td>
+                </tr>
+            );
+        })
+        return list;
+    }
 
     renderAdminTransList = () => {
         if(this.props.auth.username != "admin") {
@@ -168,7 +247,7 @@ class AdminTransactionPage extends Component {
                                 </div>
 
                                 {/* ======================================== Modal PopUp =================================================*/}
-                                <Modal show={this.state.show} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title">
+                                <Modal show={this.state.showDetail} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title">
                                     <Modal.Header>
                                         <Modal.Title id="contained-modal-title">
                                             <p style={{ textAlign: "center" }}>Transaction History</p>
@@ -189,7 +268,22 @@ class AdminTransactionPage extends Component {
                                         </Table>  
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button bsStyle="danger" onClick={() => this.setState({ show: false })} style={{ outline: "none" }}>Close</Button>
+                                        <Button bsStyle="danger" onClick={() => this.setState({ showDetail: false, transDetail: [] })} style={{ outline: "none" }}>Close</Button>
+                                    </Modal.Footer>
+                                </Modal>
+
+                                {/* =================================== Modal PopUp Payment Confirmation========================================= */}
+                                <Modal show={this.state.showPayment} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title" bsSize="large">
+                                    <Modal.Header closeButton onClick={() => this.closeModalButton()}>
+                                        <Modal.Title id="contained-modal-title">
+                                            <h3 style={{ textAlign: "center" }}>Admin Payment Confirmation</h3>
+                                        </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        {this.renderModalPaymentConfirmation()}
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
                                     </Modal.Footer>
                                 </Modal>
                                 {/* ====================================================================================================== */}
@@ -201,19 +295,19 @@ class AdminTransactionPage extends Component {
                     <div style={{ marginTop: "20px" }}>
                         <Table striped condensed hover>
                             <thead>
-                                <tr>
-                                    <th style={{ textAlign:"center", width: "4%" }}>Transaction ID</th>
-                                    <th style={{ textAlign:"center", width: "7%" }}>Username</th>
-                                    <th style={{ textAlign:"center", width: "7%" }}>Date</th>
-                                    <th style={{ textAlign:"center", width: "7%" }}>Time</th>
-                                    <th style={{ textAlign:"center", width: "13%" }}>Address</th>
-                                    <th style={{ textAlign:"center", width: "7%" }}>
+                                <tr id="vertical-head-center">
+                                    <th style={{ width: "4%" }}>Transaction ID</th>
+                                    <th style={{ width: "7%" }}>Username</th>
+                                    <th style={{ width: "7%" }}>Date</th>
+                                    <th style={{ width: "7%" }}>Time</th>
+                                    <th style={{ width: "13%" }}>Address</th>
+                                    <th style={{ width: "7%" }}>
                                         <Select options={Sort} onChange={opt => this.onCourierFilter(opt.label)} placeholder="Courier" isSearchable={false}/>
                                     </th>
-                                    <th style={{ textAlign:"center", width: "8%" }}>
+                                    <th style={{ width: "8%" }}>
                                         <Button bsStyle="primary" onClick={this.onSortTotalPrice}>Total Price</Button>
                                     </th>
-                                    <th style={{ textAlign:"center", width: "7%" }}>Status</th>
+                                    <th style={{ width: "7%" }}>Status</th>
                                 </tr>
                             </thead>
                             <tbody>

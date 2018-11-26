@@ -243,9 +243,30 @@ li:hover {
   margin-left: 12px;
 }
 
-#vertical-text-center {
+#vertical-head-center th {
   vertical-align: middle;
   text-align: center;
+}
+
+#vertical-text-center td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+#image-align-center img {
+  vertical-align: middle;
+  text-align: center;
+}
+
+#admin-features-product ul li {
+  text-align: left;
+  color: rgb(66, 66, 66);
+}
+
+#transaction-history-list td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 15px 0;
 }
 
 #image-product-list {
@@ -274,4 +295,8 @@ a:focus, a:hover {
 .input-group-btn:first-child>.btn, .input-group-btn:first-child>.btn-group {
   margin-right: -1px;
   height: 34px;
+}
+
+#admin-payment-modal tr td {
+  padding: 15px 0 15px 10px;
 }
