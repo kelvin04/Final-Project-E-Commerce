@@ -11,7 +11,7 @@ export const onLogin = (user) => {
         }).then(user => {
             dispatch ({
                 type: "USER_LOGIN_SUCCESS",
-                payload: { username: user.data[0].username, email: user.data[0].email, address: user.data[0].address, errorLogin: "" }
+                payload: { username: user.data[0].username, fullname: user.data[0].fullname, email: user.data[0].email, address: user.data[0].address, errorLogin: "" }
             });
             dispatch({
                 type: "COOKIES_CHECKED"
@@ -34,7 +34,7 @@ export const keepLogin = (username) => {
         }).then(user => {
             dispatch({
                 type: "USER_LOGIN_SUCCESS",
-                payload: { username: user.data[0].username, address: user.data[0].address, errorLogin: "" }
+                payload: { username: user.data[0].username, fullname: user.data[0].fullname, address: user.data[0].address, errorLogin: "" }
             });
             dispatch({
                 type: "COOKIES_CHECKED"

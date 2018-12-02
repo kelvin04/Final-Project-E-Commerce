@@ -8,20 +8,28 @@ import '../supports/css/components/loginpage.css';
 
 
 class RegisterPage extends Component {
-
     registerFunction = () => {
-        if(this.refs.username.value == "" || this.refs.email.value == "" || this.refs.password.value == "") {
+        const { username, fullname, email, password, passwordConfirmation } = this.refs;
+        if(username.value === "" || email.value === "" || password.value === "") {
             this.props.alert.error(
                 <div style={{ textTransform: 'capitalize'}}>
-                    Username, Email, or Password cannot be empty!
+                    All fields cannot be left empty!
                 </div>
             )
         }
-        else if(this.refs.username.value != "" && this.refs.email.value != "" && this.refs.password.value != "") {
+        else if(password.value !== passwordConfirmation.value) {
+            this.props.alert.error(
+                <div style={{ textTransform: 'capitalize'}}>
+                    Password does not match!
+                </div>
+            )
+        }
+        else if(username.value !== "" && email.value !== "" && password.value !== "") {
             this.props.onRegister ({
-                username: this.refs.username.value,
-                email: this.refs.email.value,
-                password: this.refs.password.value
+                username: username.value,
+                fullname: fullname.value,
+                email: email.value,
+                password: password.value
             });
         }
     }
@@ -54,11 +62,19 @@ class RegisterPage extends Component {
                                 </div>
 
                                 <div className="form-group">
+                                    <input type="text" ref="fullname" className="form-control" id="inputUsername" placeholder="Full Name" />
+                                </div>
+
+                                <div className="form-group">
                                     <input type="email" ref="email" className="form-control" id="inputEmail" placeholder="Email Address" />
                                 </div>
 
                                 <div className="form-group">
                                     <input type="password" ref="password" className="form-control" id="inputPassword" placeholder="Password"  onKeyPress={this.onRegisterPress.bind(this)} />
+                                </div>
+
+                                <div className="form-group">
+                                    <input type="password" ref="passwordConfirmation" className="form-control" id="inputPassword" placeholder="Confirm Password"  onKeyPress={this.onRegisterPress.bind(this)} />
                                 </div>
                                 <h2 style={{ color: "red" }}>{this.props.auth.errorRegister}</h2>
                                 <input type="button"className="btn btn-primary" value="Register" onClick={this.onRegisterClick} style={{ outline: 'none' }}/>

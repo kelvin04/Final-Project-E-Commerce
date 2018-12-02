@@ -22,6 +22,7 @@ class CartPage extends Component {
 
     componentWillMount() {
         this.getCartList();
+        // this.setState({cartList: "checkoutSuccess"})
         // this.getChekcoutPayment();
     };
 
@@ -119,17 +120,17 @@ class CartPage extends Component {
         const list = this.state.cartList.map((item, index) => {
             if(this.state.selectedEditId !== item.idCart) {
                 return(
-                    <tr key={index}>
-                        <td style={{ textAlign:"center" }}>
+                    <tr key={index} id="vertical-text-center">
+                        <td>
                             <Link to={`/productdetails?idProduct=${item.idProduct}`}>
                                 <img src={require('../images/' + item.Image1)} alt="" style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} />
                             </Link>
                         </td>
-                        <td style={{ verticalAlign:"middle" }}>{item.ProductName}</td>
-                        <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
-                        <td style={{ textAlign:"center", verticalAlign:"middle" }}>{item.quantity}</td>
-                        <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.quantity*item.SalePrice)).toLocaleString('id')},-</td>
-                        <td style={{ textAlign:"center", verticalAlign:"middle" }}>
+                        <td>{item.ProductName}</td>
+                        <td>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
+                        <td>{item.quantity}</td>
+                        <td>Rp. {(parseInt(item.quantity*item.SalePrice)).toLocaleString('id')},-</td>
+                        <td>
                             <input type="button" className="btn btn-success" value="Edit" onClick={() => this.onBtnEditClick(item.idCart)} style={{ outline: "none" }} /><br/><br/>
                             <input type="button" className="btn btn-danger" value="Delete" onClick={() => this.onBtnDeleteClick(item.idCart)} style={{ outline: "none" }} />
                         </td>
@@ -137,17 +138,17 @@ class CartPage extends Component {
                 );
             }
             return(
-                <tr key={index}>
-                    <td style={{ textAlign:"center" }}>
+                <tr key={index} id="vertical-text-center">
+                    <td>
                         <img src={require('../images/' + item.Image1)} alt="" style={{ maxHeight:"110px", maxWidth:"100%", margin:"10px 0" }} onClick={() => this.selectedProduct(item.idProduct)} />
                     </td>
-                    <td style={{ verticalAlign:"middle" }}>{item.ProductName}</td>
-                    <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
-                    <td style={{ textAlign:"center", verticalAlign:"middle" }}>
+                    <td>{item.ProductName}</td>
+                    <td>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
+                    <td>
                         <input ref="editQuantity" type="number" style={{ maxWidth:"30%", minWidth:"35px" ,textAlign:"right" }} min="1" max="99" onChange={(value) => this.onQtyChange(value)} />
                     </td>
-                    <td style={{ textAlign:"center", verticalAlign:"middle" }}>Rp. {(parseInt(item.quantity*item.SalePrice)).toLocaleString('id')},-</td>
-                    <td colSpan="2" style={{ textAlign:"center", verticalAlign:"middle" }}>
+                    <td>Rp. {(parseInt(item.quantity*item.SalePrice)).toLocaleString('id')},-</td>
+                    <td>
                         <input type="button" className="btn btn-success" value="Update" onClick={(refs) => this.onBtnUpdateClick(item.idCart, refs)} style={{ outline: "none" }} /><br/><br/>
                         <input type="button" className="btn btn-danger" value="Cancel" onClick={() => this.onBtnCancelClick()} style={{ outline: "none" }} />
                     </td>
@@ -179,11 +180,16 @@ class CartPage extends Component {
         if(this.state.cartList === "checkoutSuccess"){
             return(
                 <div style={{ marginTop: '100px', marginBottom:"100px", textAlign: 'center' }}>
-                    <h1>Checkout Success !</h1>
+                    {/* <h1>Checkout Success !</h1>
                     <h3>Amount to be paid:</h3>
-                    {this.renderPayment()}
+                    <div>
+
+                    </div>
                     <input type="file" onChange={this.fileChangedHandler} />
-                    <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} >Payment Confirmation</Button>
+                    <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} >Payment Confirmation</Button> */}
+                    <div className="checkout-success-box">
+
+                    </div>
                 </div>
             );
         }
@@ -205,12 +211,12 @@ class CartPage extends Component {
             <h2 style={{ color: "#ff5722", fontWeight: "bold" }}>My Shopping Cart</h2><br/>
                 <Table condensed hover>
                     <thead>
-                        <tr>
-                            <th style={{ textAlign:"center", width:"13%"}} colspan="2">Product</th>
-                            <th style={{ textAlign:"center", width:"10%"}}>Unit Price</th>
-                            <th style={{ textAlign:"center", width:"6%"}}>Quantity</th>
-                            <th style={{ textAlign:"center", width:"10%"}}>Total Price</th>
-                            <th colSpan="2" style={{ textAlign:"center", width:"7%"}}>Edit</th>
+                        <tr id="vertical-head-center">
+                            <th style={{ width:"13%"}} colspan="2">Product</th>
+                            <th style={{ width:"10%"}}>Unit Price</th>
+                            <th style={{ width:"6%"}}>Quantity</th>
+                            <th style={{ width:"10%"}}>Total Price</th>
+                            <th colSpan="2" style={{ width:"7%"}}>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -232,8 +238,12 @@ class CartPage extends Component {
                             </Col>
                             <Col xs={0} md={4}>
                                 <p style={{ fontWeight: "bold" }}>Shipping Options</p>
-                                <p>Destination Address :</p>
-                                <FormControl componentClass="textarea" placeholder="textarea" inputRef={input => this.address = input} defaultValue={this.props.auth.address}/>
+                                <p>To :</p>
+                                <FormControl type="text" inputRef={input => this.name = input} defaultValue={this.props.auth.fullname}/>
+                                <div style={{ marginTop: "15px" }}>
+                                    <p>Destination Address :</p>
+                                    <FormControl componentClass="textarea" placeholder="Input Your Address" inputRef={input => this.address = input} defaultValue={this.props.auth.address}/>
+                                </div>
                                 <div style={{ marginTop: "10px", marginBottom: "20px"}}>
                                     <p>Choose Courier :</p>
                                     <Select options={Kurir} onChange={opt => this.selectCourier(opt.label)} isSearchable={false}/>

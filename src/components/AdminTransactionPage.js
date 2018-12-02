@@ -5,6 +5,7 @@ import { Table, Button, Grid, Row, Col, Modal } from 'react-bootstrap';
 import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import pagenotfound from '../images/pagenotfound.png';
+import logo from '../images/logo.png';
 
 const Sort = [
     { label: "All Courier", value: 0 },
@@ -15,8 +16,9 @@ const Sort = [
 
 var click = true;
 
+
 class AdminTransactionPage extends Component {
-    state = { amdinList: [], transDetail: [], payment: [], showDetail: false, showPayment: false }
+    state = { amdinList: [], transDetail: [], payment: [], invoice: [], invoiceNumber: [], showDetail: false, showPayment: false, showInvoice: false }
 
     componentWillMount() {
         this.getAdminTransList();
@@ -39,9 +41,74 @@ class AdminTransactionPage extends Component {
 
     onPaymentConfirmationClick = (id) => {
         this.setState({ showPayment: true });
-        axios.get(API_URL_1 + '/adminpayment' +id)
+        axios.get(API_URL_1 + '/adminpayment/' + id)
         .then((res) => {
             this.setState({ payment: res.data })
+        })
+    }
+
+    onInvoiceClick = (id) => {
+        this.setState({ showInvoice: true })
+        axios.get(API_URL_1 + '/getInvoiceNumber/' + id)
+        .then((res) => {
+            this.setState({ invoiceNumber: res.data })
+        })
+        axios.get(API_URL_1 + '/admintransdetail/' + id)
+        .then((res) => {
+            this.setState({ invoice: res.data })
+        })
+    }
+
+    romanize = (num) => {
+        if (isNaN(num))
+            return NaN;
+        var digits = String(+num).split(""),
+            key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+                   "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+                   "","I","II","III","IV","V","VI","VII","VIII","IX"],
+            roman = "",
+            i = 3;
+        while (i--)
+            roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+        return Array(+digits.join("") + 1).join("M") + roman;
+    }
+
+    onBtnConfimPayment = (id) => {
+        const date = new Date();
+        const getFullYear = (date.getFullYear()).toString();
+        const getYear = getFullYear.slice(-2);
+        const getMonth = (date.getMonth()).toString();
+        const getDate = (date.getDate()).toString();
+        const getFullDate = getFullYear + getMonth + getDate;
+        const getHours = (date.getHours()).toString();
+        const getMinutes = (date.getMinutes()).toString();
+        const getSeconds = (date.getSeconds()).toString();
+        const getMilliseconds = (date.getMilliseconds()).toString();
+        const msLength = () => {
+            if(getMilliseconds.length === 1) {
+                return ("00" + (date.getMilliseconds()).toString())
+            }
+            else if(getMilliseconds.length === 2) {
+                return ("0" + (date.getMilliseconds()).toString())
+            }
+            else {
+                return (date.getMilliseconds()).toString()
+            }
+        }
+        const invoiceNumber = "INV/" + getFullDate + "/" + this.romanize(getYear) + '/' + this.romanize(getMonth) + '/' + getHours + getMinutes + getSeconds + msLength();
+
+        axios.post(API_URL_1 + '/addNewInvoice/' + id, {
+            idTransaction: id,
+            InvNumber: invoiceNumber
+        })
+        .then((res) => {
+            console.log(res)
+        })
+        axios.put(API_URL_1 + '/adminConfirmationPayment/' + id, {
+            Status: "Shipping"
+        })
+        .then((res) => {
+            this.setState({ amdinList: res.data, showPayment: false })
         })
     }
 
@@ -112,7 +179,7 @@ class AdminTransactionPage extends Component {
     }
 
     closeModalButton = () => {
-        this.setState({ showPayment: false, payment: [] })
+        this.setState({ showPayment: false, showInvoice: false , payment: [], invoice: [] })
     }
 
     renderModalTransDetail = () => {
@@ -134,9 +201,9 @@ class AdminTransactionPage extends Component {
     renderModalPaymentConfirmation = () => {
         const paymentList = this.state.payment.map((item, index) => {
             return (
-                <div>
+                <div key={index}>
                     <Table condensed hover striped>
-                        <tbody key={index} id="admin-payment-modal">
+                        <tbody id="admin-payment-modal">
                             <tr>
                                 <td>Total Price</td>
                                 <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
@@ -176,12 +243,74 @@ class AdminTransactionPage extends Component {
                     </Table>
 
                     <div style={{ textAlign: "center" }}> 
-                        <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} onClick={() => this.onBtnConfimPayment()}>Confirm Payment</Button>
+                        <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} onClick={() => this.onBtnConfimPayment(item.idTransaction)}>Confirm Payment</Button>
                     </div>
                 </div>
             );
         })
         return paymentList;
+    }
+
+    renderHeaderModalInvoice = () => {
+        const invoiceHeader = this.state.invoiceNumber.map((item, index) => {
+            return(
+                <table id="modal-header-invoice" key={index}>
+                    <tr>
+                        <td>Number</td>
+                        <td>{item.InvNumber}</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>{item.Date}</td>
+                    </tr>
+                </table>
+            );
+        })
+        return invoiceHeader;
+    }
+
+    renderBodyModalInvoice = () => {
+        const invoiceBody = this.state.invoice.map((item, index) => {
+            return(
+                <tr id="modal-body-invoice" key={index}>
+                    <td>{item.ProductName}</td>
+                    <td>{item.quantity}</td>
+                    <td>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
+                    <td>Rp. {(parseInt(item.quantity*item.SalePrice)).toLocaleString('id')},-</td>
+                </tr>
+            );
+        })
+        return invoiceBody;
+    }
+
+    renderFooterInvoice = () => {
+        const subtotal = this.state.invoiceNumber.map((item, index) => {
+            return(
+                <tfoot key={index} id="modal-footer-invoice">
+                    <tr>
+                        <td>SubTotal</td>
+                        <td></td>
+                        <td></td>
+                        <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                    </tr>
+                    <tr>
+                        <td>Courier - {item.Courier}</td>
+                        <td></td>
+                        <td></td>
+                        <td>Free</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td></td>
+                        <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                    </tr>
+                    <h3>Shipping Destination</h3>
+                    <p>{item.Address}</p>
+                </tfoot>
+            );
+        })
+        return subtotal
     }
 
     renderTransactionList = () => {
@@ -200,6 +329,24 @@ class AdminTransactionPage extends Component {
                         <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
                         <td>
                             <Button bsStyle="success" onClick={() => this.onPaymentConfirmationClick(item.idTransaction)} style={{ outline: 'none' }}>Confirmation</Button>
+                        </td>
+                    </tr>
+                );
+            }
+            else if(item.Status === 'Shipping') {
+                return (  
+                    <tr key={index} id="transaction-history-list">
+                        <td style={{ padding: "15px 0" }}>
+                            <Button bsStyle="primary" onClick={() => this.onTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.idTransaction}</Button>
+                        </td>
+                        <td>{item.username}</td>
+                        <td>{item.Date}</td>
+                        <td>{item.Time}</td>
+                        <td>{item.Address}</td>
+                        <td>{item.Courier}</td>
+                        <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                        <td>
+                            <Button bsStyle="info" onClick={() => this.onInvoiceClick(item.idTransaction)} style={{ outline: 'none' }}>Invoice</Button>
                         </td>
                     </tr>
                 );
@@ -256,10 +403,10 @@ class AdminTransactionPage extends Component {
                                     <Modal.Body>
                                         <Table condensed hover>
                                             <thead>
-                                                <tr>
-                                                    <th style={{ textAlign:"center" }} colSpan="2">Product</th>
-                                                    <th style={{ textAlign:"center" }}>Price/Unit</th>
-                                                    <th style={{ textAlign:"center" }}>Quantity</th>
+                                                <tr id="vertical-head-center">
+                                                    <th colSpan="2">Product</th>
+                                                    <th>Price/Unit</th>
+                                                    <th>Quantity</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -272,7 +419,7 @@ class AdminTransactionPage extends Component {
                                     </Modal.Footer>
                                 </Modal>
 
-                                {/* =================================== Modal PopUp Payment Confirmation========================================= */}
+                                {/* =================================== Modal PopUp Payment Confirmation ========================================= */}
                                 <Modal show={this.state.showPayment} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title" bsSize="large">
                                     <Modal.Header closeButton onClick={() => this.closeModalButton()}>
                                         <Modal.Title id="contained-modal-title">
@@ -286,7 +433,39 @@ class AdminTransactionPage extends Component {
                                         <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
                                     </Modal.Footer>
                                 </Modal>
+
+                                {/* ==================================== Modal PopUp Invoice ================================================================ */}
+                                <Modal show={this.state.showInvoice} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title" dialogClassName="custom-invoice-modal">
+                                    <Modal.Header closeButton onClick={() => this.closeModalButton()}>
+                                        <Modal.Title id="contained-modal-title">
+                                            <img src={logo} style={{ maxWidth: "35px", marginLeft: "10px", marginRight: "15px" }}/>ONETech
+                                            <h3 style={{ marginLeft: "10px" }}>Invoice</h3>
+                                        </Modal.Title>
+                                        {this.renderHeaderModalInvoice()}
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Table striped condensed>
+                                            <thead>
+                                                <tr id="vertical-head-center">
+                                                    <th>Product Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Product Price</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.renderBodyModalInvoice()}
+                                            </tbody>
+                                            {this.renderFooterInvoice()}
+                                        </Table>
+                                        </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
+                                    </Modal.Footer>
+                                </Modal>
+                                
                                 {/* ====================================================================================================== */}
+
 
                             </Col>
                         </Row>

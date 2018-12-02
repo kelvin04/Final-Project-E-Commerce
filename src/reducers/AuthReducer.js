@@ -1,4 +1,4 @@
-const INITIAL_STATE = { username: "", email: "", address: "", errorLogin: "" ,errorRegister: "" };
+const INITIAL_STATE = { username: "", fullname: "" ,email: "", address: "", errorLogin: "" ,errorRegister: "" };
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {

@@ -6,6 +6,8 @@ import { Table, Button, Grid, Row, Col, Modal, Thumbnail, FormControl } from 're
 import Select from 'react-select';
 import { API_URL_1 } from '../supports/api-url/apiurl';
 import loading from '../images/Loading_icon.gif';
+import blankProfile from '../images/blank-profile.png';
+import logo from '../images/logo.png';
 
 const Method = [
     { label: "Internet Banking", value: 1 },
@@ -14,7 +16,15 @@ const Method = [
     { label: "Setoran / Transfer Tunai", value: 4 },
 ];
 
-const Bank = [
+const userBankAcc = [
+    { label: "BCA", value: 1 },
+    { label: "Mandiri", value: 2 },
+    { label: "BNI", value: 3 },
+    { label: "CIMB", value: 4 },
+    { label: "OCBC NISP", value: 5 }
+];
+
+const bankDestination = [
     { label: "BCA - PT.ONETech", value: 1 },
     { label: "Mandiri - PT.ONETech", value: 2 },
     { label: "BNI - PT.ONETech", value: 3 },
@@ -22,10 +32,9 @@ const Bank = [
     { label: "OCBC NISP - PT.ONETech", value: 5 }
 ];
 
-
 class TransHistoryUser extends Component {
-    state = { historyList: [], transDetail: [], payment: [], profile: [], 
-              edit: false, showDetail: false, showPayment: false, 
+    state = { historyList: [], transDetail: [], payment: [], profile: [], invoice: [], invoiceNumber: [],
+              edit: false, showDetail: false, showPayment: false, showInvoice: false,
               selectedMethod: null, selectedFromAcc: null, selectedBank: null, selectedAccDestination: null, 
               IDTransaction: '', file: '', previewImage : '', loadingUpload: false }
 
@@ -69,6 +78,7 @@ class TransHistoryUser extends Component {
     
     onBtnEditClick = () => {
         this.setState({ edit: true })
+        console.log('edit')
     }
 
     onBtnSaveClick = (id) => {
@@ -87,6 +97,18 @@ class TransHistoryUser extends Component {
 
 
     //=============================================== Payment ========================================================= 
+
+    onInvoiceClick = (id) => {
+        this.setState({ showInvoice: true })
+        axios.get(API_URL_1 + '/getInvoiceNumber/' + id)
+        .then((res) => {
+            this.setState({ invoiceNumber: res.data })
+        })
+        axios.get(API_URL_1 + '/userhistorydetail/' + id)
+        .then((res) => {
+            this.setState({ invoice: res.data })
+        })
+    }
 
     selectPaymentMethod = (value) => {
         this.setState({ selectedMethod: value })
@@ -127,7 +149,7 @@ class TransHistoryUser extends Component {
     }
 
     closeModalButton = () => {
-        this.setState({ showPayment: false, file: '' ,previewImage: '', selectedMethod: null, selectedBank: null, selectedAccDestination: null })
+        this.setState({ showPayment: false, showInvoice: false, file: '', previewImage: '', selectedMethod: null, selectedBank: null, selectedAccDestination: null })
     }
     
     submitPaymentButton = () => {
@@ -173,7 +195,7 @@ class TransHistoryUser extends Component {
             .then((res) => {
                 console.log(res)
             })
-            axios.put(API_URL_1 + '/updatePaymentStatus/' + this.state.IDTransaction, {
+            axios.put(API_URL_1 + '/updatePaymentStatus/' + IDTransaction, {
                 username: queryString.parse(this.props.location.search).username,
                 Status : "Waiting for Admin Confirmation"
             })
@@ -196,7 +218,6 @@ class TransHistoryUser extends Component {
         else if(fileExtension !== "jpg" || fileExtension !== "jpeg" || fileExtension !== "png"){
             return alert("Image extensions must be .jpg, .jpeg or .png!");
         }
-        console.log(this.fromAccountNum.value)
     }    
 
     renderUserHistory = () => {
@@ -214,6 +235,23 @@ class TransHistoryUser extends Component {
                         <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
                         <td>
                             <Button bsStyle="success" onClick={() => this.onUserPaymentStatus(item.idTransaction)} style={{ outline: 'none' }}>Payment Confirmation</Button>
+                        </td>
+                    </tr>
+                );
+            }
+            else if(item.Status === 'Shipping') {
+                return (    
+                    <tr key={index} id="transaction-history-list">
+                        <td>
+                            <Button bsStyle="primary" onClick={() => this.onUserTransDetailClick(item.idTransaction)} style={{ outline: "none" }}>{item.TransactionID}</Button>
+                        </td>
+                        <td>{item.Date}</td>
+                        <td>{item.Time}</td>
+                        <td>{item.Address}</td>
+                        <td>{item.Courier}</td>
+                        <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                        <td>
+                        <Button bsStyle="info" onClick={() => this.onInvoiceClick(item.idTransaction)} style={{ outline: 'none' }}>Invoice</Button>
                         </td>
                     </tr>
                 );
@@ -282,7 +320,7 @@ class TransHistoryUser extends Component {
                                 <div style={{ marginBottom: '20px' }}>
                                     <Row>
                                         <Col xs={4} md={3}>
-                                            <Select options={Bank} onChange={opt => this.selectFromAccount(opt.label)} isSearchable={false}/>
+                                            <Select options={userBankAcc} onChange={opt => this.selectFromAccount(opt.label)} isSearchable={false}/>
                                         </Col>
                                         <Col xs={4} md={9}>
                                             <div style={{ maxWidth: '300px' }}>
@@ -309,7 +347,7 @@ class TransHistoryUser extends Component {
                             </Col>
                             <Col xs={8} md={9}>
                                 <div style={{ maxWidth: '520px', marginBottom: '20px' }}>
-                                    <Select options={Bank} onChange={opt => this.selectAccountDestination(opt.label)} isSearchable={false}/>
+                                    <Select options={bankDestination} onChange={opt => this.selectAccountDestination(opt.label)} isSearchable={false}/>
                                 </div>
                             </Col>
                         </Row>
@@ -349,9 +387,62 @@ class TransHistoryUser extends Component {
 
     renderProfileUser = () => {
         const list = this.state.profile.map((item,index) => {
-            if(this.state.edit === false) {
+            if(item.photo === null && item.address === null && this.state.edit === false) {
                 return (
-                    <Grid>
+                    <Grid key={index}>
+                        <Row>
+                            <Col xs={3} md={3}>
+                                <Thumbnail src={blankProfile} circle style={{ maxWidth:"200px" }}/>
+                            </Col>
+                            <Col xs={9} md={9}>
+                                <p>Username  : {item.username}</p>
+                                <p>Full Name : {item.fullname}</p>
+                                <p>Address   : A</p>
+                                <input type="button" className="btn btn-success" value="Edit" onClick={() => this.onBtnEditClick()} style={{ outline: "none" }} />
+                            </Col>
+                        </Row>
+                    </Grid>
+                );
+            }
+            else if(item.photo === null && item.address !== null && this.state.edit === false) {
+                return (
+                    <Grid key={index}>
+                        <Row>
+                            <Col xs={3} md={3}>
+                                <Thumbnail src={blankProfile} circle style={{ maxWidth:"200px" }}/>
+                            </Col>
+                            <Col xs={9} md={9}>
+                                <p>Username : {item.username}</p>
+                                <p>Full Name : {item.fullname}</p>
+                                <p>Address : {item.address}</p>
+                                <input type="button" className="btn btn-success" value="Edit" onClick={() => this.onBtnEditClick()} style={{ outline: "none" }} />
+                            </Col>
+                        </Row>
+                    </Grid>
+                );
+            }
+            else if((item.photo === null || item.address === null) && this.state.edit === true) {
+                return (
+                    <Grid key={index}>
+                        <Row>
+                            <Col xs={3} md={3}>
+
+                            </Col>
+                            <Col xs={9} md={9}>
+                                <p>Username : {item.username}</p>
+                                <p>Full Name : {item.fullname}</p>
+                                Address : <textarea type="text" ref="address" defaultValue={item.address}/>
+                                <br/><br/>
+                                <input type="button" className="btn btn-success" value="Save" onClick={() => this.onBtnSaveClick(item.id)} style={{ outline: "none", marginRight: "15px" }} />
+                                <input type="button" className="btn btn-danger" value="Cancel" onClick={() => this.onBtnCancelClick()} style={{ outline: "none" }} />
+                            </Col>
+                        </Row>
+                    </Grid>
+                );
+            }
+            else if((item.photo !== null && item.address !== null) && this.state.edit === false) {
+                return (
+                    <Grid key={index}>
                         <Row>
                             <Col xs={3} md={3}>
                                 <Thumbnail src={require('../images/' + item.photo)} circle style={{ maxWidth:"200px" }}/>
@@ -367,7 +458,7 @@ class TransHistoryUser extends Component {
             }
             else {
                 return (
-                    <Grid>
+                    <Grid key={index}>
                         <Row>
                             <Col xs={3} md={3}>
                                 <Thumbnail src={require('../images/' + item.photo)} circle style={{ maxWidth:"200px" }}/>
@@ -385,6 +476,68 @@ class TransHistoryUser extends Component {
             }
         })
         return list;
+    }
+
+    renderHeaderModalInvoice = () => {
+        const invoiceHeader = this.state.invoiceNumber.map((item, index) => {
+            return(
+                <table id="modal-header-invoice" key={index}>
+                    <tr>
+                        <td>Number</td>
+                        <td>{item.InvNumber}</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>{item.Date}</td>
+                    </tr>
+                </table>
+            );
+        })
+        return invoiceHeader;
+    }
+
+    renderBodyModalInvoice = () => {
+        const invoiceBody = this.state.invoice.map((item, index) => {
+            return(
+                <tr id="modal-body-invoice" key={index}>
+                    <td>{item.ProductName}</td>
+                    <td>{item.quantity}</td>
+                    <td>Rp. {(parseInt(item.SalePrice)).toLocaleString('id')},-</td>
+                    <td>Rp. {(parseInt(item.quantity*item.SalePrice)).toLocaleString('id')},-</td>
+                </tr>
+            );
+        })
+        return invoiceBody;
+    }
+
+    renderFooterInvoice = () => {
+        const subtotal = this.state.invoiceNumber.map((item, index) => {
+            return(
+                <tfoot key={index} id="modal-footer-invoice">
+                    <tr>
+                        <td>SubTotal</td>
+                        <td></td>
+                        <td></td>
+                        <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                    </tr>
+                    <tr>
+                        <td>Courier - {item.Courier}</td>
+                        <td></td>
+                        <td></td>
+                        <td>Free</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Total</td>
+                        <td></td>
+                        <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
+                    </tr>
+                    <h3>Shipping Destination</h3>
+                    <p>{item.Address}</p>
+                </tfoot>
+            );
+        })
+        return subtotal
     }
 
     renderHistoryList = () => {
@@ -437,6 +590,36 @@ class TransHistoryUser extends Component {
                                     <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
                                 </Modal.Footer>
                             </Modal>
+
+                            {/* ==================================== Modal PopUp Invoice ================================================================ */}
+                            <Modal show={this.state.showInvoice} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title" dialogClassName="custom-invoice-modal">
+                                    <Modal.Header closeButton onClick={() => this.closeModalButton()}>
+                                        <Modal.Title id="contained-modal-title">
+                                            <img src={logo} style={{ maxWidth: "35px", marginLeft: "10px", marginRight: "15px" }}/>ONETech
+                                            <h3 style={{ marginLeft: "10px" }}>Invoice</h3>
+                                        </Modal.Title>
+                                        {this.renderHeaderModalInvoice()}
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Table striped condensed>
+                                            <thead>
+                                                <tr id="vertical-head-center">
+                                                    <th>Product Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Product Price</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.renderBodyModalInvoice()}
+                                            </tbody>
+                                            {this.renderFooterInvoice()}
+                                        </Table>
+                                        </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
+                                    </Modal.Footer>
+                                </Modal>
 
                             {/* ================================================================================================== */}
 

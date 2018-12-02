@@ -300,3 +300,46 @@ a:focus, a:hover {
 #admin-payment-modal tr td {
   padding: 15px 0 15px 10px;
 }
+
+.custom-invoice-modal {
+  width: 80%;
+}
+
+#modal-header-invoice tr td {
+  padding: 10px 50px 10px 10px
+}
+
+#modal-body-invoice h3 {
+  margin-top: 10px;
+}
+
+#modal-body-invoice td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 10px 5px;
+}
+
+#modal-footer-invoice tr td {
+  vertical-align: middle;
+  text-align: center;
+  padding: 12px 0px;
+  padding-left: 10px;
+  font-weight: bold !important;
+}
+
+#modal-footer-invoice tr > td {
+  text-align: left;
+}
+
+#modal-footer-invoice tr:nth-child(odd) td {
+  background-color: rgb(238, 238, 238);
+}
+
+#modal-footer-invoice tr:nth-child(3) td {
+  color: #5f89fc;
+}
+
+#modal-footer-invoice tr:nth-child(3) > td:first-child {
+  background-color: rgb(255, 255, 255);
+}
+
