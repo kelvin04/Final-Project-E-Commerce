@@ -306,6 +306,7 @@ class AdminTransactionPage extends Component {
                         <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
                     </tr>
                     <h3>Shipping Destination</h3>
+                    <p>{item.Name}</p>
                     <p>{item.Address}</p>
                 </tfoot>
             );

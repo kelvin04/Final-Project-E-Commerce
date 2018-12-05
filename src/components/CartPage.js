@@ -18,7 +18,7 @@ const Kurir = [
 ];
 
 class CartPage extends Component {
-    state = { cartList: [], payment: [], selectedItem: 0, selectedEditId: 0, quantityCart: 0, selectedOption: null }
+    state = { cartList: [], payment: [], selectedItem: 0, selectedEditId: 0, quantityCart: 0, selectedOption: null, checkoutAmmount: "" }
 
     componentWillMount() {
         this.getCartList();
@@ -32,6 +32,7 @@ class CartPage extends Component {
             this.setState({ cartList: res.data, selectedItem: 0, selectedEditId: 0 });
         })
     };
+
 
     onQtyChange = (event) => {
         console.log(event.target.value);
@@ -98,20 +99,21 @@ class CartPage extends Component {
         if(this.address.value === "" || this.state.selectedOption === null) {
             this.props.alert.error(
                 <div style={{ textTransform: 'capitalize'}}>
-                    Please fill the address and select one of the courier.
+                    Please fill all fields!
                 </div>
             )
         }
         else if (this.address.value !== "" || this.state.selectedOption !== null) {
             axios.post(API_URL_1 + `/checkout`,{
                 username: this.props.auth.username,
+                Name: this.name.value,
                 Address: this.address.value,
                 Courier: this.state.selectedOption,
                 TotalPrice: this.renderProductTotal(),
                 Status : "Waiting for Payment"
             })
             .then((res) => {
-                this.setState({ cartList: "checkoutSuccess" });
+                this.setState({ cartList: "checkoutSuccess", checkoutAmmount: this.renderProductTotal() });
             })
         }
     }
@@ -180,15 +182,16 @@ class CartPage extends Component {
         if(this.state.cartList === "checkoutSuccess"){
             return(
                 <div style={{ marginTop: '100px', marginBottom:"100px", textAlign: 'center' }}>
-                    {/* <h1>Checkout Success !</h1>
-                    <h3>Amount to be paid:</h3>
-                    <div>
-
-                    </div>
-                    <input type="file" onChange={this.fileChangedHandler} />
-                    <Button bsStyle="success" bsSize="large" style={{ outline: "none" }} >Payment Confirmation</Button> */}
+                    <h1>Checkout Success !</h1>   
                     <div className="checkout-success-box">
-
+                        <h3>Amount need to be paid:</h3>
+                        <h3 style={{ color: "red" }}>Rp. {(parseInt(this.state.checkoutAmmount).toLocaleString('id'))},-</h3>
+                        <div className="dialog-box">
+                            <h4>Please transfer according to the amount stated</h4>
+                        </div>
+                        <Link to={`/transactionhistorypage?username=${this.props.auth.username}`}>
+                            <Button bsStyle="success" bsSize="large" style={{ outline: "none" }}>Payment Confirmation</Button>
+                        </Link>
                     </div>
                 </div>
             );

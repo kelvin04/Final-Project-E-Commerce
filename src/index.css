@@ -327,6 +327,11 @@ a:focus, a:hover {
   font-weight: bold !important;
 }
 
+#modal-footer-invoice p{
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
 #modal-footer-invoice tr > td {
   text-align: left;
 }

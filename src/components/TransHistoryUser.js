@@ -36,7 +36,7 @@ class TransHistoryUser extends Component {
     state = { historyList: [], transDetail: [], payment: [], profile: [], invoice: [], invoiceNumber: [],
               edit: false, showDetail: false, showPayment: false, showInvoice: false,
               selectedMethod: null, selectedFromAcc: null, selectedBank: null, selectedAccDestination: null, 
-              IDTransaction: '', file: '', previewImage : '', loadingUpload: false }
+              IDTransaction: '', file: '', previewImage : '', loadingUpload: false, previewProfile: '' }
 
     componentWillMount() {
         this.getUserHistoryList();
@@ -82,17 +82,25 @@ class TransHistoryUser extends Component {
     }
 
     onBtnSaveClick = (id) => {
+        const formData = new FormData();
+        formData.append('userPhoto', this.state.file);
+        if(this.state.file) {
+            axios.put(API_URL_1 + '/uploadUserPhoto/' + id, formData)
+            .then((res) => {
+                console.log(res)
+            })
+        }
         axios.put(API_URL_1 + '/updateprofile/' + id, {
             username: this.props.auth.username,
             address: this.refs.address.value
         })
         .then((res) => {
-            this.setState({ profile: res.data, edit: false })
+            this.setState({ profile: res.data, edit: false, previewImage: '', previewProfile: '' })
         })
     }
 
     onBtnCancelClick = () => {
-        this.setState({ edit: false })
+        this.setState({ edit: false, previewImage: '', previewProfile: '' })
     }
 
 
@@ -127,7 +135,7 @@ class TransHistoryUser extends Component {
         let reader = new FileReader();
         let file = e.target.files[0];
         reader.onloadend = () => {
-            this.setState({ file: file, previewImage: reader.result })
+            this.setState({ file: file, previewImage: reader.result, previewProfile: reader.result })
         }
         if(file) {
             reader.readAsDataURL(file)
@@ -397,7 +405,7 @@ class TransHistoryUser extends Component {
                             <Col xs={9} md={9}>
                                 <p>Username  : {item.username}</p>
                                 <p>Full Name : {item.fullname}</p>
-                                <p>Address   : A</p>
+                                <p>Address   : </p>
                                 <input type="button" className="btn btn-success" value="Edit" onClick={() => this.onBtnEditClick()} style={{ outline: "none" }} />
                             </Col>
                         </Row>
@@ -426,7 +434,10 @@ class TransHistoryUser extends Component {
                     <Grid key={index}>
                         <Row>
                             <Col xs={3} md={3}>
-
+                                <div className="preview-profile">
+                                    <input type="file" onChange={(e) => this.changeImgPreview(e)} />
+                                    <img src={this.state.previewProfile} />
+                                </div>
                             </Col>
                             <Col xs={9} md={9}>
                                 <p>Username : {item.username}</p>
@@ -445,12 +456,35 @@ class TransHistoryUser extends Component {
                     <Grid key={index}>
                         <Row>
                             <Col xs={3} md={3}>
-                                <Thumbnail src={require('../images/' + item.photo)} circle style={{ maxWidth:"200px" }}/>
+                                <Thumbnail src={require('../../../public/Photo Profile/' + item.photo)} circle style={{ maxWidth:"200px" }}/>
                             </Col>
                             <Col xs={9} md={9}>
                                 <p>Username : {item.username}</p>
+                                <p>Full Name : {item.fullname}</p>
                                 <p>Address : {item.address}</p>
                                 <input type="button" className="btn btn-success" value="Edit" onClick={() => this.onBtnEditClick()} style={{ outline: "none" }} />
+                            </Col>
+                        </Row>
+                    </Grid>
+                );
+            }
+            else if((item.photo !== null && item.address !== null) && this.state.edit === true) {
+                return (
+                    <Grid key={index}>
+                        <Row>
+                            <Col xs={3} md={3}>
+                                <div className="preview-profile">
+                                    <input type="file" onChange={(e) => this.changeImgPreview(e)} />
+                                    <img src={this.state.previewProfile} />
+                                </div>
+                            </Col>
+                            <Col xs={9} md={9}>
+                                <p>Username : {item.username}</p>
+                                <p>Full Name : {item.fullname}</p>
+                                Address : <textarea type="text" ref="address" defaultValue={item.address}/>
+                                <br/><br/>
+                                <input type="button" className="btn btn-success" value="Save" onClick={() => this.onBtnSaveClick(item.id)} style={{ outline: "none", marginRight: "15px" }} />
+                                <input type="button" className="btn btn-danger" value="Cancel" onClick={() => this.onBtnCancelClick()} style={{ outline: "none" }} />
                             </Col>
                         </Row>
                     </Grid>
@@ -461,10 +495,11 @@ class TransHistoryUser extends Component {
                     <Grid key={index}>
                         <Row>
                             <Col xs={3} md={3}>
-                                <Thumbnail src={require('../images/' + item.photo)} circle style={{ maxWidth:"200px" }}/>
+                                <Thumbnail src={require('../../../public/Photo Profile/' + item.photo)} circle style={{ maxWidth:"200px" }}/>
                             </Col>
                             <Col xs={9} md={9}>
                                 <p>Username : {item.username}</p>
+                                <p>Full Name : {item.fullname}</p>
                                 Address : <textarea type="text" ref="address" defaultValue={item.address}/>
                                 <br/><br/>
                                 <input type="button" className="btn btn-success" value="Save" onClick={() => this.onBtnSaveClick(item.id)} style={{ outline: "none", marginRight: "15px" }} />
@@ -533,99 +568,91 @@ class TransHistoryUser extends Component {
                         <td>Rp. {(parseInt(item.TotalPrice)).toLocaleString('id')},-</td>
                     </tr>
                     <h3>Shipping Destination</h3>
+                    <p>{item.Name}</p>
                     <p>{item.Address}</p>
                 </tfoot>
             );
         })
-        return subtotal
+        return subtotal;
     }
 
     renderHistoryList = () => {
         return (
             <div>
-                <Grid>
-                    <Row className="show-grid">
-                        <Col xs={12} md={4}>
-                            <h3 style={{ color: "#ff5722", fontWeight: "bold", marginTop: "0", marginBottom: "30px" }}>{this.props.auth.username}'s Profile & Transaction History</h3>
-                        </Col>
-                        <Col xs={12} md={8}>
+                <h3 className="header-profile-page">{this.props.auth.username}'s Profile & Transaction History</h3>
 
-                            {/* ======================================= Modal PopUp TransDetail ================================================ */}
-                            <Modal show={this.state.showDetail} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title">
-                                <Modal.Header>
-                                    <Modal.Title id="contained-modal-title">
-                                        <p style={{ textAlign: "center" }}>Transaction History</p>
-                                    </Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <Table condensed hover>
-                                        <thead>
-                                            <tr>
-                                                <th style={{ textAlign:"center" }} colSpan="2">Product</th>
-                                                <th style={{ textAlign:"center" }}>Price/Unit</th>
-                                                <th style={{ textAlign:"center" }}>Quantity</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {this.renderModalTransDetail()}
-                                        </tbody>
-                                    </Table>  
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button bsStyle="danger" onClick={() => this.setState({ showDetail: false })} style={{ outline: "none" }}>Close</Button>
-                                </Modal.Footer>
-                            </Modal>
+                {/* ======================================= Modal PopUp TransDetail ================================================ */}
+                <Modal show={this.state.showDetail} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title">
+                    <Modal.Header>
+                        <Modal.Title id="contained-modal-title">
+                            <p style={{ textAlign: "center" }}>Transaction History</p>
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Table condensed hover>
+                            <thead>
+                                <tr>
+                                    <th style={{ textAlign:"center" }} colSpan="2">Product</th>
+                                    <th style={{ textAlign:"center" }}>Price/Unit</th>
+                                    <th style={{ textAlign:"center" }}>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.renderModalTransDetail()}
+                            </tbody>
+                        </Table>  
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button bsStyle="danger" onClick={() => this.setState({ showDetail: false })} style={{ outline: "none" }}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
 
-                            {/* =================================== Modal PopUp Payment Confirmation========================================= */}
-                            <Modal show={this.state.showPayment} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title" bsSize="large">
-                                <Modal.Header closeButton onClick={() => this.closeModalButton()}>
-                                    <Modal.Title id="contained-modal-title">
-                                        <h3 style={{ textAlign: "center" }}>Payment Confirmation</h3>
-                                    </Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    {this.renderModalPayment()}
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
-                                </Modal.Footer>
-                            </Modal>
+                {/* =================================== Modal PopUp Payment Confirmation========================================= */}
+                <Modal show={this.state.showPayment} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title" bsSize="large">
+                    <Modal.Header closeButton onClick={() => this.closeModalButton()}>
+                        <Modal.Title id="contained-modal-title">
+                            <h3 style={{ textAlign: "center" }}>Payment Confirmation</h3>
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {this.renderModalPayment()}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
 
-                            {/* ==================================== Modal PopUp Invoice ================================================================ */}
-                            <Modal show={this.state.showInvoice} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title" dialogClassName="custom-invoice-modal">
-                                    <Modal.Header closeButton onClick={() => this.closeModalButton()}>
-                                        <Modal.Title id="contained-modal-title">
-                                            <img src={logo} style={{ maxWidth: "35px", marginLeft: "10px", marginRight: "15px" }}/>ONETech
-                                            <h3 style={{ marginLeft: "10px" }}>Invoice</h3>
-                                        </Modal.Title>
-                                        {this.renderHeaderModalInvoice()}
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <Table striped condensed>
-                                            <thead>
-                                                <tr id="vertical-head-center">
-                                                    <th>Product Name</th>
-                                                    <th>Quantity</th>
-                                                    <th>Product Price</th>
-                                                    <th>Subtotal</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {this.renderBodyModalInvoice()}
-                                            </tbody>
-                                            {this.renderFooterInvoice()}
-                                        </Table>
-                                        </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
-                                    </Modal.Footer>
-                                </Modal>
+                {/* ==================================== Modal PopUp Invoice ================================================================ */}
+                <Modal show={this.state.showInvoice} onHide={this.handleHide} container={this} aria-labelledby="contained-modal-title" dialogClassName="custom-invoice-modal">
+                        <Modal.Header closeButton onClick={() => this.closeModalButton()}>
+                            <Modal.Title id="contained-modal-title">
+                                <img src={logo} style={{ maxWidth: "35px", marginLeft: "10px", marginRight: "15px" }}/>ONETech
+                                <h3 style={{ marginLeft: "10px" }}>Invoice</h3>
+                            </Modal.Title>
+                            {this.renderHeaderModalInvoice()}
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Table striped condensed>
+                                <thead>
+                                    <tr id="vertical-head-center">
+                                        <th>Product Name</th>
+                                        <th>Quantity</th>
+                                        <th>Product Price</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.renderBodyModalInvoice()}
+                                </tbody>
+                                {this.renderFooterInvoice()}
+                            </Table>
+                            </Modal.Body>
+                        <Modal.Footer>
+                            <Button bsStyle="danger" onClick={() => this.closeModalButton()} style={{ outline: "none" }}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
 
-                            {/* ================================================================================================== */}
-
-                        </Col>
-                    </Row>
-                </Grid>
+                {/* ================================================================================================== */}
 
                 {this.renderProfileUser()}
                 
